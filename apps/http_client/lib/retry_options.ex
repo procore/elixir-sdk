@@ -1,0 +1,2 @@
+defmodule RetryOptions do
+end

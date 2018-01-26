@@ -1,0 +1,27 @@
+version: 2
+jobs:
+  build:
+    working_directory: /procore
+    docker:
+      - image: jasongittler/elixir:1.6.0
+        env:
+          - MIX_ENV=test
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - procore-v1-mix-{{ checksum "mix.lock" }}
+      - run:
+          name: Install Dependencies
+          command: |
+            mix local.hex --force && \
+            mix local.rebar --force && \
+            mix deps.get && \
+            mix deps.compile
+      - save_cache:
+          key: procore-v1-mix-{{ checksum "mix.lock" }}
+          paths:
+            - /procore/deps
+      - run:
+          name: Run Tests
+          command: mix test

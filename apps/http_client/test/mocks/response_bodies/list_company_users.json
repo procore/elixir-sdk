@@ -1,0 +1,38 @@
+[
+  {
+    "address": "355 East 2100 South",
+    "avatar": null,
+    "business_phone": "(385) 528-2984",
+    "business_phone_extension": null,
+    "city": "Salt Lake City",
+    "country_code": "US",
+    "created_at": "2017-05-14T21:24:35Z",
+    "email_address": "eric.gonzales_gcconstruc.com@procore.com",
+    "email_signature": "Sent From Procore.",
+    "employee_id": null,
+    "erp_integrated_accountant": false,
+    "fax_number": "(385) 528-2985",
+    "first_name": "Eric",
+    "id": 1929102,
+    "initials": null,
+    "is_active": true,
+    "is_employee": false,
+    "job_title": "Project Engineer",
+    "last_login_at": null,
+    "last_name": "Gonzales",
+    "mobile_phone": "(385) 442-8791",
+    "name": "Eric Gonzales",
+    "notes": "",
+    "origin_data": null,
+    "origin_id": null,
+    "permission_template": {
+      "id": 58549,
+      "name": "Foreman/Superintendent - Internal"
+    },
+    "state_code": "UT",
+    "updated_at": "2017-05-14T21:40:35Z",
+    "vendor": {"id": 5856858, "name": "GC Construction"},
+    "welcome_email_sent_at": null,
+    "zip": "84115"
+  }
+]
