@@ -3,7 +3,9 @@ defmodule Procore.Resources.Submittals do
   Available requests for the submittal resource.
   """
 
+  alias Procore.ErrorResult
   alias Procore.Request
+  alias Procore.ResponseResult
 
   @doc """
   Lists all submittals in a project.

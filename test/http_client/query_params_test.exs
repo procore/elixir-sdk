@@ -1,6 +1,6 @@
-defmodule HttpClient.QueryParamsTest do
+defmodule Procore.HttpClient.QueryParamsTest do
   use ExUnit.Case
-  alias HttpClient.QueryParams
+  alias Procore.HttpClient.QueryParams
 
   test "converts query params from map to tuples" do
     params = %{"key1" => 1, "key2" => 2}

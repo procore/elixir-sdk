@@ -1,5 +1,6 @@
 defmodule Procore.Resources.PunchItemsTest do
   use ExUnit.Case
+  alias Procore.ResponseResult
   alias Procore.Resources.PunchItems
 
   test "list/1" do

@@ -1,5 +1,6 @@
 defmodule Procore.Resources.RfisTest do
   use ExUnit.Case
+  alias Procore.ResponseResult
   alias Procore.Resources.Rfis
 
   test "list/1" do

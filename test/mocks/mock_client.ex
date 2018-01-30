@@ -1,5 +1,6 @@
 defmodule HttpClient.MockClient do
-  # need to add non-json response tests
+  alias Procore.ErrorResult
+  alias Procore.ResponseResult
 
   @procore_host Application.fetch_env!(:procore, :host)
   @response_bodies_dir "#{File.cwd!()}/test/mocks/response_bodies"

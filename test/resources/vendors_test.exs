@@ -1,5 +1,6 @@
 defmodule Procore.Resources.VendorsTest do
   use ExUnit.Case
+  alias Procore.ResponseResult
   alias Procore.Resources.Vendors
 
   test "list/1" do

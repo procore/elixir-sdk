@@ -1,5 +1,6 @@
 defmodule Procore.Resources.ProjectsTest do
   use ExUnit.Case
+  alias Procore.ResponseResult
   alias Procore.Resources.Projects
 
   test "list/1" do

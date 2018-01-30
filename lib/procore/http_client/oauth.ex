@@ -1,4 +1,4 @@
-defmodule HttpClient.OAuth do
+defmodule Procore.HttpClient.OAuth do
   @doc """
   Hits OAuth endpoint and returns a token.
 

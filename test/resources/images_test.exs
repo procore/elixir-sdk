@@ -1,5 +1,8 @@
+alias Procore.ResponseResult
+
 defmodule Procore.Resources.ImagesTest do
   use ExUnit.Case
+  alias Procore.ResponseResult
   alias Procore.Resources.Images
 
   test "list/1" do

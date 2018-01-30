@@ -3,7 +3,10 @@ defmodule Procore do
   Makes requests using the HttpClient.
   """
 
+  alias Procore.ErrorResult
+  alias Procore.HttpClient.QueryParams
   alias Procore.Request
+  alias Procore.ResponseResult
 
   @http_client Application.fetch_env!(:procore, :http_client)
   @oauth Application.fetch_env!(:procore, :oauth)
@@ -39,7 +42,7 @@ defmodule Procore do
       when byte_size(endpoint) > 0 do
     @http_client.get(
       "#{@host}#{endpoint}",
-      HttpClient.QueryParams.build(query_params),
+      QueryParams.build(query_params),
       headers()
     )
   end

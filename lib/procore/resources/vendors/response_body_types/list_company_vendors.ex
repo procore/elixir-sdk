@@ -1,4 +1,6 @@
 defmodule Procore.Resources.Vendors.ResponseBodyTypes.ListCompanyVendors do
+  alias Procore.DefinedTypes
+
   @type t ::
           list(%{
             (prequalified :: String.t()) => boolean,

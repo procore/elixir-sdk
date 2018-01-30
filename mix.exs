@@ -1,7 +1,7 @@
 defmodule Procore.MixProject do
   use Mix.Project
 
-  @description"""
+  @description """
     Simple Elixir wrapper for the Procore API
   """
 
@@ -14,7 +14,7 @@ defmodule Procore.MixProject do
       elixirc_paths: elixirc_paths(Mix.env()),
       package: package(),
       start_permanent: Mix.env() == :prod,
-      version: "0.0.1",
+      version: "0.0.1"
     ]
   end
 
@@ -37,7 +37,7 @@ defmodule Procore.MixProject do
       {:ex_doc, ">= 0.0.0", only: :dev},
       {:httpoison, "~> 0.13"},
       {:poison, "~> 3.1"},
-      {:retry, "~> 0.8"},
+      {:retry, "~> 0.8"}
     ]
   end
 
@@ -45,7 +45,7 @@ defmodule Procore.MixProject do
     [
       maintainers: ["Michael Stock", "Jason Gittler"],
       licenses: ["MIT"],
-      links: %{ "Github" => "https://github.com/procore/elixir-sdk" },
+      links: %{"Github" => "https://github.com/procore/elixir-sdk"}
     ]
   end
 end

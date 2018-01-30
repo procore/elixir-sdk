@@ -3,7 +3,9 @@ defmodule Procore.Resources.Meetings do
   Available requests for the meeting resource.
   """
 
+  alias Procore.ErrorResult
   alias Procore.Request
+  alias Procore.ResponseResult
 
   @doc """
   Gets a meeting with assoication records attendees, attachments, and meeting categories.

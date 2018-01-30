@@ -3,7 +3,9 @@ defmodule Procore.Resources.Projects do
   Available requests for the project resource.
   """
 
+  alias Procore.ErrorResult
   alias Procore.Request
+  alias Procore.ResponseResult
 
   @doc """
   Gets a project.

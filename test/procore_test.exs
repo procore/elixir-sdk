@@ -3,6 +3,7 @@ defmodule ProcoreTest do
   doctest Procore
 
   alias Procore.Request
+  alias Procore.ResponseResult
 
   test "making a GET request" do
     assert %ResponseResult{reply: :ok, status_code: 200, parsed_body: %{}} =

@@ -3,7 +3,9 @@ defmodule Procore.Resources.Users do
   Available requests for the user resource.
   """
   alias Procore.Resources.Users.ResponseBodyTypes
+  alias Procore.ErrorResult
   alias Procore.Request
+  alias Procore.ResponseResult
 
   @doc """
   Adds an existing user from a company to a project's directory in that company.

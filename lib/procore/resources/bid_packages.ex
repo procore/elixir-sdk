@@ -2,7 +2,9 @@ defmodule Procore.Resources.BidPackages do
   @moduledoc """
   Available actions for the bid package resource.
   """
+  alias Procore.ErrorResult
   alias Procore.Request
+  alias Procore.ResponseResult
 
   @doc """
   List all bid projects in a project.

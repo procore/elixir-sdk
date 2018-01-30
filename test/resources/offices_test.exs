@@ -1,6 +1,10 @@
+alias Procore.ResponseResult
+
 defmodule Procore.Resources.OfficesTest do
   use ExUnit.Case
+  alias Procore.ResponseResult
   alias Procore.Resources.Offices
+
   doctest Procore.Resources.Offices
 
   test "list/1" do

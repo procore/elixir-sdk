@@ -1,5 +1,8 @@
+alias Procore.ResponseResult
+
 defmodule Procore.Resources.CalendarEventsTest do
   use ExUnit.Case
+  alias Procore.ResponseResult
   alias Procore.Resources.CalendarEvents
 
   test "list/1" do

@@ -4,7 +4,9 @@ defmodule Procore.Resources.ProjectConfigurations do
   """
 
   alias Procore.Resources.ProjectConfigurations.ResponseBodyTypes
+  alias Procore.ErrorResult
   alias Procore.Request
+  alias Procore.ResponseResult
 
   @doc """
   Gets a project configuration.

@@ -3,7 +3,9 @@ defmodule Procore.Resources.Locations do
   Available requests for the location resource.
   """
 
+  alias Procore.ErrorResult
   alias Procore.Request
+  alias Procore.ResponseResult
 
   @doc """
   Lists all locations in a project.

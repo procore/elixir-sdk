@@ -1,5 +1,7 @@
-defmodule ResponseResultTest do
+defmodule Procore.ResponseResultTest do
   use ExUnit.Case
+
+  alias Procore.ResponseResult
 
   test "parse_json_body/1" do
     json_string = "{\"key\": \"value\"}"

@@ -1,4 +1,6 @@
 defmodule Procore.Resources.ProjectConfigurations.ResponseBodyTypes.GetProjectConfiguration do
+  alias Procore.DefinedTypes
+
   @type t :: %{
           (all_punch_items_private_by_default :: String.t()) => boolean,
           (send_requisition_reminders :: String.t()) => boolean,

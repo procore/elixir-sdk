@@ -3,7 +3,9 @@ defmodule Procore.Resources.ScheduleResources do
   Available requests for the schedule resource resource.
   """
 
+  alias Procore.ErrorResult
   alias Procore.Request
+  alias Procore.ResponseResult
 
   @doc """
   Lists all schedule resources in a project.

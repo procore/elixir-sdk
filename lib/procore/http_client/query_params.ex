@@ -1,4 +1,4 @@
-defmodule HttpClient.QueryParams do
+defmodule Procore.HttpClient.QueryParams do
   def build(%{} = params) do
     Keyword.new([{:params, build_tuples(params)}])
   end

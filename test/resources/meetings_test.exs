@@ -1,5 +1,8 @@
+alias Procore.ResponseResult
+
 defmodule Procore.Resources.MeetingsTest do
   use ExUnit.Case
+  alias Procore.ResponseResult
   alias Procore.Resources.Meetings
 
   test "get/1" do

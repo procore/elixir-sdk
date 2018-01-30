@@ -1,6 +1,8 @@
 defmodule Procore.Resources.ProjectConfigurationsTest do
   use ExUnit.Case
+  alias Procore.ResponseResult
   alias Procore.Resources.ProjectConfigurations
+
   doctest Procore.Resources.ProjectConfigurations
 
   test "get/1" do

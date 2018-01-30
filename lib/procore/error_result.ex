@@ -1,4 +1,4 @@
-defmodule ErrorResult do
+defmodule Procore.ErrorResult do
   defstruct [:reply, :reason]
 
   @type t :: %__MODULE__{reply: atom, reason: any}

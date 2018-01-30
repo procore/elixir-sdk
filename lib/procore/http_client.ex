@@ -1,5 +1,8 @@
-defmodule HttpClient do
+defmodule Procore.HttpClient do
   use Retry
+
+  alias Procore.ResponseResult
+  alias Procore.ErrorResult
 
   @moduledoc false
   @default_options [recv_timeout: :infinity]

@@ -1,5 +1,6 @@
 defmodule Procore.BidPackagesTest do
   use ExUnit.Case
+  alias Procore.ResponseResult
   alias Procore.Resources.BidPackages
 
   test "list/1" do

@@ -1,4 +1,4 @@
-defmodule DefinedTypes do
+defmodule Procore.DefinedTypes do
   @type non_error_status_code :: 100..399
   @type string_or_nil :: String.t() | nil
   @type pos_integer_or_nil :: pos_integer | nil

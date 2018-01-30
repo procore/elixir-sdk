@@ -6,8 +6,8 @@ defmodule Procore.Application do
     import Supervisor.Spec, warn: false
 
     children = [
-      supervisor(HttpClient.Supervisor, []),
-      {Procore, []},
+      supervisor(Procore.HttpClient.Supervisor, []),
+      {Procore, []}
     ]
 
     opts = [strategy: :one_for_one, name: Procore.Supervisor]

@@ -3,7 +3,9 @@ defmodule Procore.Resources.PunchItems do
   Available requests for the punch item resource.
   """
 
+  alias Procore.ErrorResult
   alias Procore.Request
+  alias Procore.ResponseResult
 
   @doc """
   Lists all punch items in a project.

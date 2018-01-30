@@ -1,5 +1,6 @@
 defmodule Procore.Resources.ScheduleResourcesTest do
   use ExUnit.Case
+  alias Procore.ResponseResult
   alias Procore.Resources.ScheduleResources
 
   test "list/1" do

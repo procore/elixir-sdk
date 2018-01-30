@@ -2,8 +2,11 @@ defmodule Procore.Resources.Vendors do
   @moduledoc """
   Available requests for the vendor resource.
   """
-  alias Procore.Resources.Vendors.ResponseBodyTypes
+
+  alias Procore.ErrorResult
   alias Procore.Request
+  alias Procore.Resources.Vendors.ResponseBodyTypes
+  alias Procore.ResponseResult
 
   @doc """
   List all vendors in a company directory.

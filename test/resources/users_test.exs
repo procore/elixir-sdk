@@ -1,5 +1,6 @@
 defmodule Procore.Resources.UsersTest do
   use ExUnit.Case
+  alias Procore.ResponseResult
   alias Procore.Resources.Users
 
   test "add_user_to_project/1" do

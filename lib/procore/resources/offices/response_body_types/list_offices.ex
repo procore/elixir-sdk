@@ -1,4 +1,6 @@
 defmodule Procore.Resources.Offices.ResponseBodyTypes.ListOffices do
+  alias Procore.DefinedTypes
+
   @type t ::
           nonempty_list(%{
             (address :: String.t()) => DefinedTypes.string_or_nil(),

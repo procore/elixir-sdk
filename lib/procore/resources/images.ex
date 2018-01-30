@@ -3,7 +3,9 @@ defmodule Procore.Resources.Images do
   Available requests for the image resource.
   """
 
+  alias Procore.ErrorResult
   alias Procore.Request
+  alias Procore.ResponseResult
 
   @doc """
   Lists all images in a image category (album).

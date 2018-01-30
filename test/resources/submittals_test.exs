@@ -1,5 +1,6 @@
 defmodule Procore.Resources.SubmittalsTest do
   use ExUnit.Case
+  alias Procore.ResponseResult
   alias Procore.Resources.Submittals
 
   test "list/1" do

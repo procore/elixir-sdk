@@ -3,7 +3,9 @@ defmodule Procore.Resources.CalendarEvents do
   Available requests for the calendar event resource.
   """
 
+  alias Procore.ErrorResult
   alias Procore.Request
+  alias Procore.ResponseResult
 
   @doc """
   Lists all calendar events for a project.

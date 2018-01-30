@@ -4,7 +4,9 @@ defmodule Procore.Resources.Offices do
   """
 
   alias Procore.Resources.Offices.ResponseBodyTypes
+  alias Procore.ErrorResult
   alias Procore.Request
+  alias Procore.ResponseResult
 
   @doc """
   Lists all offices in a company.

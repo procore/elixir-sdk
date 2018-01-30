@@ -1,6 +1,6 @@
-defmodule HttpClientTest do
+defmodule Procore.HttpClientTest do
   use ExUnit.Case
-  doctest HttpClient
+  doctest Procore.HttpClient
 
   test "true == true" do
     assert true == true

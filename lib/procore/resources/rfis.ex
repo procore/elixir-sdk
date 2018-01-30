@@ -3,7 +3,9 @@ defmodule Procore.Resources.Rfis do
   Available requests for the RFI resource.
   """
 
+  alias Procore.ErrorResult
   alias Procore.Request
+  alias Procore.ResponseResult
 
   @doc """
   Lists all RFIs in a project.

@@ -1,4 +1,4 @@
-defmodule HttpClient.Supervisor do
+defmodule Procore.HttpClient.Supervisor do
   use Supervisor
 
   def start_link() do
