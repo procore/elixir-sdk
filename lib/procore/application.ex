@@ -3,7 +3,12 @@ defmodule Procore.Application do
 
   @spec start(any, any) :: {:ok, pid()} | {:error, {:already_started, pid()}}
   def start(_type, _args) do
-    children = [{Procore, []}]
+    import Supervisor.Spec, warn: false
+
+    children = [
+      supervisor(HttpClient.Supervisor, []),
+      {Procore, []},
+    ]
 
     opts = [strategy: :one_for_one, name: Procore.Supervisor]
     Supervisor.start_link(children, opts)
