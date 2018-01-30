@@ -34,6 +34,7 @@ defmodule Procore.MixProject do
   defp deps do
     [
       {:cachex, "~> 2.1"},
+      {:ex_doc, ">= 0.0.0", only: :dev},
       {:httpoison, "~> 0.13"},
       {:poison, "~> 3.1"},
       {:retry, "~> 0.8"},
