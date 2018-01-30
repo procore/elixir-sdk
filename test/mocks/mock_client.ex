@@ -1,7 +1,7 @@
 defmodule HttpClient.MockClient do
   # need to add non-json response tests
 
-  @procore_host Application.fetch_env!(:http_client, :host)
+  @procore_host Application.fetch_env!(:procore, :host)
   @response_bodies_dir "#{File.cwd!()}/test/mocks/response_bodies"
 
   def load_response_body(file_name) do
