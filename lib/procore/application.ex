@@ -3,10 +3,9 @@ defmodule Procore.Application do
 
   @spec start(any, any) :: {:ok, pid()} | {:error, {:already_started, pid()}}
   def start(_type, _args) do
-    import Supervisor.Spec, warn: false
-
     children = [
-      supervisor(Procore.HttpClient.Supervisor, []),
+      {Cachex, :a},
+      {Procore.HttpClient, []},
       {Procore, []}
     ]
 
