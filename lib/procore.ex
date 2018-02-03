@@ -8,8 +8,8 @@ defmodule Procore do
   alias Procore.Request
   alias Procore.ResponseResult
 
-  @http_client Application.fetch_env!(:procore, :http_client)
-  @oauth Application.fetch_env!(:procore, :oauth)
+  @http_client Application.get_env(:procore, :http_client)
+  @oauth Application.get_env(:procore, :oauth)
   @host Application.get_env(:procore, :host)
 
   @spec child_spec(list) :: map()
