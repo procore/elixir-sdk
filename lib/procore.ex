@@ -42,8 +42,8 @@ defmodule Procore do
       when byte_size(endpoint) > 0 do
     @http_client.get(
       "#{@host}#{endpoint}",
-      QueryParams.build(query_params),
-      headers()
+      headers(),
+      QueryParams.build(query_params)
     )
   end
 
