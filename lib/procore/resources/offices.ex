@@ -10,25 +10,6 @@ defmodule Procore.Resources.Offices do
 
   @doc """
   Lists all offices in a company.
-
-  ## Examples
-  iex> Procore.Resources.Offices.list(%{"company_id" => 1})
-  %ResponseResult{
-    status_code: 200,
-    parsed_body: [%{
-      "address" => "201 N Central Ave",
-      "city" => "Phoenix",
-      "country_code" => "US",
-      "division" => nil,
-      "fax" => "6023333300",
-      "id" => 12557,
-      "name" => "Arizona Office",
-      "phone" => "6023333333",
-      "state_code" => "AZ",
-      "zip" => "85004"
-    }],
-    reply: :ok
-  }
   """
   @spec list(%{(company_id :: String.t()) => integer}) ::
           %ResponseResult{

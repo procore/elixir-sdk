@@ -8,9 +8,9 @@ defmodule Procore do
   alias Procore.Request
   alias Procore.ResponseResult
 
-  @http_client Application.get_env(:procore, :http_client)
-  @oauth Application.get_env(:procore, :oauth)
-  @host Application.get_env(:procore, :host)
+  @http_client Application.get_env(:procore, :http_client, HttpClient.MockClient)
+  @oauth Application.get_env(:procore, :oauth, HttpClient.MockOAuth)
+  @host Application.get_env(:procore, :host, "https://api.procore.com")
 
   @spec child_spec(list) :: map()
   def child_spec(opts) do
