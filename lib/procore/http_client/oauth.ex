@@ -11,9 +11,9 @@ defmodule Procore.HttpClient.OAuth do
   """
   @spec get_oauth_token() :: binary()
   def get_oauth_token() do
-    url = Application.fetch_env!(:http_client, :oauth_url)
-    id = Application.fetch_env!(:http_client, :client_id)
-    secret = Application.fetch_env!(:http_client, :client_secret)
+    url = Application.get_env(:procore, :oauth_url)
+    id = Application.get_env(:procore, :client_id)
+    secret = Application.get_env(:procore, :client_secret)
 
     get_oauth_token(url, id, secret)
   end

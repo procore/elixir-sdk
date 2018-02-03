@@ -1,9 +1,7 @@
 use Mix.Config
 
 config :procore,
-  http_client: HttpClient,
-  oauth: HttpClient.OAuth,
-  host: "https://api.procore.com",
-  oauth_url: "https://api.procore.com/oauth/token"
+  http_client: Procore.HttpClient,
+  oauth: Procore.HttpClient.OAuth
 
 import_config "#{Mix.env()}.exs"

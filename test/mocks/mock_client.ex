@@ -2,7 +2,7 @@ defmodule HttpClient.MockClient do
   alias Procore.ErrorResult
   alias Procore.ResponseResult
 
-  @procore_host Application.fetch_env!(:procore, :host)
+  @procore_host Application.get_env(:procore, :host)
   @response_bodies_dir "#{File.cwd!()}/test/mocks/response_bodies"
 
   def load_response_body(file_name) do

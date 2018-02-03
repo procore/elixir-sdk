@@ -10,7 +10,7 @@ defmodule Procore do
 
   @http_client Application.fetch_env!(:procore, :http_client)
   @oauth Application.fetch_env!(:procore, :oauth)
-  @host Application.fetch_env!(:procore, :host)
+  @host Application.get_env(:procore, :host)
 
   @spec child_spec(list) :: map()
   def child_spec(opts) do
