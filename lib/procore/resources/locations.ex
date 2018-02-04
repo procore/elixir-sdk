@@ -1,6 +1,6 @@
 defmodule Procore.Resources.Locations do
   @moduledoc """
-  Available requests for the location resource.
+  Available actions for the location resource.
   """
 
   alias Procore.ErrorResult
@@ -16,6 +16,19 @@ defmodule Procore.Resources.Locations do
     |> Request.insert_request_type(:get)
     |> Request.insert_endpoint("/vapid/locations")
     |> Request.insert_query_params(%{"project_id" => project_id})
-    |> Procore.make_request()
+    |> Procore.send_request()
+  end
+
+  @doc """
+  Creates a location.
+  """
+  @spec create(%{(project_id :: String.t()) => pos_integer, (location :: String.t()) => map}) ::
+          %ResponseResult{} | %ErrorResult{}
+  def create(%{"project_id" => _project_id, "location" => _location} = params) do
+    %Request{}
+    |> Request.insert_request_type(:post)
+    |> Request.insert_endpoint("/vapid/locations")
+    |> Request.insert_body(params)
+    |> Procore.send_request()
   end
 end

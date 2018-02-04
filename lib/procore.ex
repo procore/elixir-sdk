@@ -33,12 +33,12 @@ defmodule Procore do
     {:ok, {%{}, opts}}
   end
 
-  @spec make_request(Request.t()) :: %ResponseResult{} | %ErrorResult{} | ArgumentError
+  @spec send_request(Request.t()) :: %ResponseResult{} | %ErrorResult{} | ArgumentError
 
   @doc """
   Makes a GET request.
   """
-  def make_request(%Request{request_type: :get, endpoint: endpoint, query_params: query_params})
+  def send_request(%Request{request_type: :get, endpoint: endpoint, query_params: query_params})
       when byte_size(endpoint) > 0 do
     @http_client.get(
       "#{@host}#{endpoint}",
@@ -50,7 +50,7 @@ defmodule Procore do
   @doc """
   Makes a POST request.
   """
-  def make_request(%Request{request_type: :post, endpoint: endpoint, body: body})
+  def send_request(%Request{request_type: :post, endpoint: endpoint, body: body})
       when byte_size(endpoint) > 0 do
     @http_client.post("#{@host}#{endpoint}", body, headers())
   end
@@ -58,14 +58,14 @@ defmodule Procore do
   @doc """
   Raises an error if no request type is set.
   """
-  def make_request(%Request{request_type: :unset}) do
+  def send_request(%Request{request_type: :unset}) do
     raise ArgumentError, "you must set a request_type for the Procore.Request struct"
   end
 
   @doc """
   Raises an error if no endpoint is set.
   """
-  def make_request(%Request{endpoint: ""}) do
+  def send_request(%Request{endpoint: ""}) do
     raise ArgumentError, "you must set an endpoint for the Procore.Request struct"
   end
 

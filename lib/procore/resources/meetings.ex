@@ -1,6 +1,6 @@
 defmodule Procore.Resources.Meetings do
   @moduledoc """
-  Available requests for the meeting resource.
+  Available actions for the meeting resource.
   """
 
   alias Procore.ErrorResult
@@ -19,7 +19,7 @@ defmodule Procore.Resources.Meetings do
     |> Request.insert_request_type(:get)
     |> Request.insert_endpoint("/vapid/meetings/#{meeting_id}")
     |> Request.insert_query_params(params)
-    |> Procore.make_request()
+    |> Procore.send_request()
   end
 
   @doc """
@@ -31,6 +31,6 @@ defmodule Procore.Resources.Meetings do
     |> Request.insert_request_type(:get)
     |> Request.insert_endpoint("/vapid/meetings")
     |> Request.insert_query_params(params)
-    |> Procore.make_request()
+    |> Procore.send_request()
   end
 end

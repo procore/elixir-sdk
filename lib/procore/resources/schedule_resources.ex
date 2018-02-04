@@ -1,6 +1,6 @@
 defmodule Procore.Resources.ScheduleResources do
   @moduledoc """
-  Available requests for the schedule resource resource.
+  Available actions for the schedule resource resource.
   """
 
   alias Procore.ErrorResult
@@ -16,6 +16,6 @@ defmodule Procore.Resources.ScheduleResources do
     |> Request.insert_request_type(:get)
     |> Request.insert_endpoint("/vapid/resources")
     |> Request.insert_query_params(%{"project_id" => project_id})
-    |> Procore.make_request()
+    |> Procore.send_request()
   end
 end

@@ -1,6 +1,6 @@
 defmodule Procore.Resources.ProjectConfigurations do
   @moduledoc """
-  Available requests for the project_configuration resource.
+  Available actions for the project_configuration resource.
   """
 
   alias Procore.Resources.ProjectConfigurations.ResponseBodyTypes
@@ -25,6 +25,6 @@ defmodule Procore.Resources.ProjectConfigurations do
     |> Request.insert_request_type(:get)
     |> Request.insert_endpoint("/vapid/project_configuration")
     |> Request.insert_query_params(params)
-    |> Procore.make_request()
+    |> Procore.send_request()
   end
 end

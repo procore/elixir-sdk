@@ -1,6 +1,6 @@
 defmodule Procore.Resources.Users do
   @moduledoc """
-  Available requests for the user resource.
+  Available actions for the user resource.
   """
   alias Procore.Resources.Users.ResponseBodyTypes
   alias Procore.ErrorResult
@@ -11,9 +11,9 @@ defmodule Procore.Resources.Users do
   Adds an existing user from a company to a project's directory in that company.
   """
   @spec add_user_to_project(%{
-          (project_id :: String.t()) => integer,
-          (user_id :: String.t()) => integer,
-          (permission_template_id :: String.t()) => integer
+          (project_id :: String.t()) => pos_integer,
+          (user_id :: String.t()) => pos_integer,
+          (permission_template_id :: String.t()) => pos_integer
         }) :: %ResponseResult{} | %ErrorResult{}
   def add_user_to_project(%{
         "project_id" => project_id,
@@ -24,7 +24,7 @@ defmodule Procore.Resources.Users do
     |> Request.insert_request_type(:post)
     |> Request.insert_endpoint("/vapid/projects/#{project_id}/users/#{user_id}/actions/add")
     |> Request.insert_body(build_add_user_to_project_body(permission_template_id))
-    |> Procore.make_request()
+    |> Procore.send_request()
   end
 
   defp build_add_user_to_project_body(permission_template_id) do
@@ -45,6 +45,24 @@ defmodule Procore.Resources.Users do
     %Request{}
     |> Request.insert_request_type(:get)
     |> Request.insert_endpoint("/vapid/company/#{company_id}/users")
-    |> Procore.make_request()
+    |> Procore.send_request()
+  end
+
+  @doc """
+  Creates users in a company.
+  """
+  @spec bulk_create(%{
+          (company_id :: String.t()) => pos_integer,
+          (users :: String.t()) => list
+        }) :: %ResponseResult{} | %ErrorResult{}
+  def bulk_create(%{
+        "company_id" => company_id,
+        "users" => users
+      }) do
+    %Request{}
+    |> Request.insert_request_type(:post)
+    |> Request.insert_endpoint("/vapid/companies/#{company_id}/users/sync")
+    |> Request.insert_body(%{"updates" => users})
+    |> Procore.send_request()
   end
 end

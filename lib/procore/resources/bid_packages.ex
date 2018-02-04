@@ -14,6 +14,19 @@ defmodule Procore.Resources.BidPackages do
     %Request{}
     |> Request.insert_request_type(:get)
     |> Request.insert_endpoint("/vapid/projects/#{project_id}/bid_packages")
-    |> Procore.make_request()
+    |> Procore.send_request()
+  end
+
+  @doc """
+  Creates a bid package.
+  """
+  @spec create(%{(project_id :: String.t()) => integer, (bid_package :: String.t()) => map}) ::
+          %ResponseResult{} | %ErrorResult{}
+  def create(%{"project_id" => project_id, "bid_package" => bid_package}) do
+    %Request{}
+    |> Request.insert_request_type(:post)
+    |> Request.insert_endpoint("/vapid/projects/#{project_id}/bid_packages")
+    |> Request.insert_body(%{"bid_package" => bid_package})
+    |> Procore.send_request()
   end
 end

@@ -1,6 +1,6 @@
 defmodule Procore.Resources.PunchItems do
   @moduledoc """
-  Available requests for the punch item resource.
+  Available actions for the punch item resource.
   """
 
   alias Procore.ErrorResult
@@ -16,6 +16,6 @@ defmodule Procore.Resources.PunchItems do
     |> Request.insert_request_type(:get)
     |> Request.insert_endpoint("/vapid/punch_items")
     |> Request.insert_query_params(%{"project_id" => project_id})
-    |> Procore.make_request()
+    |> Procore.send_request()
   end
 end

@@ -1,6 +1,6 @@
 defmodule Procore.Resources.Submittals do
   @moduledoc """
-  Available requests for the submittal resource.
+  Available actions for the submittal resource.
   """
 
   alias Procore.ErrorResult
@@ -15,6 +15,6 @@ defmodule Procore.Resources.Submittals do
     %Request{}
     |> Request.insert_request_type(:get)
     |> Request.insert_endpoint("/vapid/projects/#{project_id}/submittals")
-    |> Procore.make_request()
+    |> Procore.send_request()
   end
 end

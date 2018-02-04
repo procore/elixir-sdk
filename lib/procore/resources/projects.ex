@@ -1,6 +1,6 @@
 defmodule Procore.Resources.Projects do
   @moduledoc """
-  Available requests for the project resource.
+  Available actions for the project resource.
   """
 
   alias Procore.ErrorResult
@@ -16,7 +16,7 @@ defmodule Procore.Resources.Projects do
     |> Request.insert_request_type(:get)
     |> Request.insert_endpoint("/vapid/projects/#{project_id}")
     |> Request.insert_query_params(%{"company_id" => company_id})
-    |> Procore.make_request()
+    |> Procore.send_request()
   end
 
   @doc """
@@ -28,6 +28,6 @@ defmodule Procore.Resources.Projects do
     |> Request.insert_request_type(:post)
     |> Request.insert_endpoint("/vapid/projects")
     |> Request.insert_body(%{"company_id" => company_id, "project" => project})
-    |> Procore.make_request()
+    |> Procore.send_request()
   end
 end

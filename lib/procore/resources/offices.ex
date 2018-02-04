@@ -1,6 +1,6 @@
 defmodule Procore.Resources.Offices do
   @moduledoc """
-  Available requests for the office resource.
+  Available actions for the office resource.
   """
 
   alias Procore.Resources.Offices.ResponseBodyTypes
@@ -11,7 +11,7 @@ defmodule Procore.Resources.Offices do
   @doc """
   Lists all offices in a company.
   """
-  @spec list(%{(company_id :: String.t()) => integer}) ::
+  @spec list(%{(company_id :: String.t()) => pos_integer}) ::
           %ResponseResult{
             status_code: DefinedTypes.non_error_status_code(),
             parsed_body: ResponseBodyTypes.ListOffices.t(),
@@ -23,6 +23,6 @@ defmodule Procore.Resources.Offices do
     |> Request.insert_request_type(:get)
     |> Request.insert_endpoint("/vapid/offices")
     |> Request.insert_query_params(%{"company_id" => company_id})
-    |> Procore.make_request()
+    |> Procore.send_request()
   end
 end

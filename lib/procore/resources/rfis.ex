@@ -1,6 +1,6 @@
 defmodule Procore.Resources.Rfis do
   @moduledoc """
-  Available requests for the RFI resource.
+  Available actions for the RFI resource.
   """
 
   alias Procore.ErrorResult
@@ -15,6 +15,6 @@ defmodule Procore.Resources.Rfis do
     %Request{}
     |> Request.insert_request_type(:get)
     |> Request.insert_endpoint("/vapid/projects/#{project_id}/rfis")
-    |> Procore.make_request()
+    |> Procore.send_request()
   end
 end
