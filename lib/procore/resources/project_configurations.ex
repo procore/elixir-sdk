@@ -27,4 +27,22 @@ defmodule Procore.Resources.ProjectConfigurations do
     |> Request.insert_query_params(params)
     |> Procore.send_request()
   end
+
+  @doc """
+  Updates a project configuration.
+  """
+  @spec update(%{(project_id :: String.t()) => integer}) ::
+          %ResponseResult{
+            status_code: DefinedTypes.non_error_status_code(),
+            parsed_body: ResponseBodyTypes.GetProjectConfiguration.t(),
+            reply: atom
+          }
+          | %ErrorResult{}
+  def update(%{"project_id" => project_id, "project_configuration" => project_configuration}) do
+    %Request{}
+    |> Request.insert_request_type(:patch)
+    |> Request.insert_endpoint("/vapid/projects/#{project_id}/configuration")
+    |> Request.insert_body(%{configuration: project_configuration})
+    |> Procore.send_request()
+  end
 end
