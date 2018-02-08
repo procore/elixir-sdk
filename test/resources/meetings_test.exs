@@ -1,5 +1,3 @@
-alias Procore.ResponseResult
-
 defmodule Procore.Resources.MeetingsTest do
   use ExUnit.Case
   alias Procore.ResponseResult
@@ -15,5 +13,11 @@ defmodule Procore.Resources.MeetingsTest do
     params = %{"project_id" => 1}
 
     assert %ResponseResult{reply: :ok, status_code: 200, parsed_body: []} = Meetings.list(params)
+  end
+
+  test "create/1" do
+    params = %{"project_id" => 1, "meeting" => %{}}
+
+    assert %ResponseResult{reply: :ok, status_code: 201, parsed_body: %{}} = Meetings.create(params)
   end
 end

@@ -1,5 +1,3 @@
-alias Procore.ResponseResult
-
 defmodule Procore.Resources.ImagesTest do
   use ExUnit.Case
   alias Procore.ResponseResult

@@ -1,5 +1,3 @@
-alias Procore.ResponseResult
-
 defmodule Procore.Resources.CalendarEventsTest do
   use ExUnit.Case
   alias Procore.ResponseResult
