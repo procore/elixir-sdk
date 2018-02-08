@@ -56,6 +56,14 @@ defmodule Procore do
   end
 
   @doc """
+  Makes a PATCH request.
+  """
+  def send_request(%Request{request_type: :patch, endpoint: endpoint, body: body})
+      when byte_size(endpoint) > 0 do
+    @http_client.patch("#{@host}#{endpoint}", body, headers())
+  end
+
+  @doc """
   Raises an error if no request type is set.
   """
   def send_request(%Request{request_type: :unset}) do
