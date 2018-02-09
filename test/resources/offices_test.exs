@@ -1,5 +1,3 @@
-alias Procore.ResponseResult
-
 defmodule Procore.Resources.OfficesTest do
   use ExUnit.Case
   alias Procore.ResponseResult

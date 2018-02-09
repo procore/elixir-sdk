@@ -176,6 +176,30 @@ defmodule HttpClient.MockClient do
     }
   end
 
+  def post("#{@procore_host}/vapid/meetings", _, _) do
+    %ResponseResult{
+      status_code: 201,
+      parsed_body: %{},
+      reply: :ok
+    }
+  end
+
+  def post("#{@procore_host}/vapid/meeting_categories", _, _) do
+    %ResponseResult{
+      status_code: 201,
+      parsed_body: %{},
+      reply: :ok
+    }
+  end
+
+  def post("#{@procore_host}/vapid/meeting_topics", _, _) do
+    %ResponseResult{
+      status_code: 201,
+      parsed_body: %{},
+      reply: :ok
+    }
+  end
+
   def post(url, _, _) when binary_part(url, 0, 23) == @procore_host do
     %ResponseResult{
       status_code: 201,

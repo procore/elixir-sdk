@@ -33,4 +33,16 @@ defmodule Procore.Resources.Meetings do
     |> Request.insert_query_params(params)
     |> Procore.send_request()
   end
+
+  @doc """
+  Creates a meeting.
+  """
+  @spec create(%{(project_id :: String.t()) => pos_integer, meeting :: String.t() => map}) :: %ResponseResult{} | %ErrorResult{}
+  def create(%{"project_id" => _project_id, "meeting" => _meeting} = params) do
+    %Request{}
+    |> Request.insert_request_type(:post)
+    |> Request.insert_endpoint("/vapid/meetings")
+    |> Request.insert_body(params)
+    |> Procore.send_request()
+  end
 end
