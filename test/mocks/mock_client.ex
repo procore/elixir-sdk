@@ -7,11 +7,7 @@ defmodule HttpClient.MockClient do
   @spec get(String.t(), any, any) :: %ResponseResult{} | %ErrorResult{}
 
   def get("#{@procore_host}/vapid/offices", _, _) do
-    %ResponseResult{
-      status_code: 200,
-      parsed_body: [],
-      reply: :ok
-    }
+    %ResponseResult{status_code: 200, parsed_body: [], reply: :ok}
   end
 
   def get("#{@procore_host}/vapid/project_configuration", _, _) do
@@ -200,9 +196,69 @@ defmodule HttpClient.MockClient do
     }
   end
 
+  def post("#{@procore_host}/vapid/punch_items", _, _) do
+    %ResponseResult{
+      status_code: 201,
+      parsed_body: %{},
+      reply: :ok
+    }
+  end
+
+  def post("#{@procore_host}/vapid/projects/1/rfis", _, _) do
+    %ResponseResult{
+      status_code: 201,
+      parsed_body: %{},
+      reply: :ok
+    }
+  end
+
+  def post("#{@procore_host}/vapid/resources", _, _) do
+    %ResponseResult{
+      status_code: 201,
+      parsed_body: %{},
+      reply: :ok
+    }
+  end
+
+  def post("#{@procore_host}/vapid/tasks", _, _) do
+    %ResponseResult{
+      status_code: 201,
+      parsed_body: %{},
+      reply: :ok
+    }
+  end
+
+  def post("#{@procore_host}/vapid/projects/1/submittals", _, _) do
+    %ResponseResult{
+      status_code: 201,
+      parsed_body: %{},
+      reply: :ok
+    }
+  end
+
   def post(url, _, _) when binary_part(url, 0, 23) == @procore_host do
     %ResponseResult{
       status_code: 201,
+      parsed_body: %{},
+      reply: :ok
+    }
+  end
+
+  @spec post_multipart(String.t(), any, any) :: %ResponseResult{} | %ErrorResult{}
+
+  def post_multipart("#{@procore_host}/vapid/images", _, _) do
+    %ResponseResult{
+      status_code: 201,
+      parsed_body: %{},
+      reply: :ok
+    }
+  end
+
+  @spec patch(String.t(), any, any) :: %ResponseResult{} | %ErrorResult{}
+
+  def patch(url, _, _) when binary_part(url, 0, 23) == @procore_host do
+    %ResponseResult{
+      status_code: 200,
       parsed_body: %{},
       reply: :ok
     }

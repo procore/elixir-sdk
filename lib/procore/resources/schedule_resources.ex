@@ -18,4 +18,16 @@ defmodule Procore.Resources.ScheduleResources do
     |> Request.insert_query_params(%{"project_id" => project_id})
     |> Procore.send_request()
   end
+
+  @doc """
+  Create a schedule resource.
+  """
+  @spec create(%{(project_id :: String.t()) => pos_integer}) :: %ResponseResult{} | %ErrorResult{}
+  def create(%{"project_id" => _project_id, "resource" => _resource} = params) do
+    %Request{}
+    |> Request.insert_request_type(:post)
+    |> Request.insert_endpoint("/vapid/resources")
+    |> Request.insert_body(params)
+    |> Procore.send_request()
+  end
 end

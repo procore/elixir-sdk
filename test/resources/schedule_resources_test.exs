@@ -9,4 +9,11 @@ defmodule Procore.Resources.ScheduleResourcesTest do
     assert %ResponseResult{reply: :ok, status_code: 200, parsed_body: []} =
              ScheduleResources.list(params)
   end
+
+  test "create/1" do
+    params = %{"project_id" => 1, "resource" => %{}}
+
+    assert %ResponseResult{reply: :ok, status_code: 201, parsed_body: %{}} =
+             ScheduleResources.create(params)
+  end
 end

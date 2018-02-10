@@ -17,7 +17,17 @@ defmodule ProcoreTest do
     assert %ResponseResult{reply: :ok, status_code: 201, parsed_body: %{}} =
              Procore.send_request(%Request{
                request_type: :post,
-               endpoint: "/vapid/endpoint"
+               endpoint: "/vapid/endpoint",
+               body: %{}
+             })
+  end
+
+  test "making a Multipart POST request" do
+    assert %ResponseResult{reply: :ok, status_code: 201, parsed_body: %{}} =
+             Procore.send_request(%Request{
+               request_type: :post,
+               endpoint: "/vapid/endpoint",
+               body: {}
              })
   end
 

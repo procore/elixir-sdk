@@ -17,4 +17,17 @@ defmodule Procore.Resources.Submittals do
     |> Request.insert_endpoint("/vapid/projects/#{project_id}/submittals")
     |> Procore.send_request()
   end
+
+  @doc """
+  Creates a submittal.
+  """
+  @spec create(%{(project_id :: String.t()) => pos_integer, (submittal :: String.t()) => map}) ::
+          %ResponseResult{} | %ErrorResult{}
+  def create(%{"project_id" => project_id, "submittal" => submittal}) do
+    %Request{}
+    |> Request.insert_request_type(:post)
+    |> Request.insert_endpoint("/vapid/projects/#{project_id}/submittals")
+    |> Request.insert_body(submittal)
+    |> Procore.send_request()
+  end
 end

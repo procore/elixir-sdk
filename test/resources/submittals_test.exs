@@ -9,4 +9,11 @@ defmodule Procore.Resources.SubmittalsTest do
     assert %ResponseResult{reply: :ok, status_code: 200, parsed_body: []} =
              Submittals.list(params)
   end
+
+  test "create/1" do
+    params = %{"project_id" => 1, "submittal" => %{}}
+
+    assert %ResponseResult{reply: :ok, status_code: 201, parsed_body: %{}} =
+             Submittals.create(params)
+  end
 end

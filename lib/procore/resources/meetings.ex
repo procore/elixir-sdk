@@ -37,7 +37,8 @@ defmodule Procore.Resources.Meetings do
   @doc """
   Creates a meeting.
   """
-  @spec create(%{(project_id :: String.t()) => pos_integer, meeting :: String.t() => map}) :: %ResponseResult{} | %ErrorResult{}
+  @spec create(%{(project_id :: String.t()) => pos_integer, (meeting :: String.t()) => map}) ::
+          %ResponseResult{} | %ErrorResult{}
   def create(%{"project_id" => _project_id, "meeting" => _meeting} = params) do
     %Request{}
     |> Request.insert_request_type(:post)

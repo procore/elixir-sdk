@@ -18,6 +18,7 @@ defmodule Procore.Resources.MeetingsTest do
   test "create/1" do
     params = %{"project_id" => 1, "meeting" => %{}}
 
-    assert %ResponseResult{reply: :ok, status_code: 201, parsed_body: %{}} = Meetings.create(params)
+    assert %ResponseResult{reply: :ok, status_code: 201, parsed_body: %{}} =
+             Meetings.create(params)
   end
 end
