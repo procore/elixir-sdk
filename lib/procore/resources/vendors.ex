@@ -9,9 +9,9 @@ defmodule Procore.Resources.Vendors do
   alias Procore.ResponseResult
 
   @doc """
-  List all vendors in a company directory.
+  Lists all vendors in a company directory.
   """
-  @spec list(%{(company_id :: String.t()) => integer}) ::
+  @spec list(%{(company_id :: String.t()) => pos_integer}) ::
           %ResponseResult{
             status_code: DefinedTypes.non_error_status_code(),
             parsed_body: ResponseBodyTypes.ListCompanyVendors.t(),
@@ -23,6 +23,17 @@ defmodule Procore.Resources.Vendors do
     |> Request.insert_request_type(:get)
     |> Request.insert_endpoint("/vapid/vendors")
     |> Request.insert_query_params(%{"company_id" => company_id})
+    |> Procore.send_request()
+  end
+
+  @doc """
+  Lists all vendors in a project directory.
+  """
+  @spec list(%{(project_id :: String.t()) => pos_integer}) :: %ResponseResult{} | %ErrorResult{}
+  def list(%{"project_id" => project_id}) do
+    %Request{}
+    |> Request.insert_request_type(:get)
+    |> Request.insert_endpoint("/vapid/projects/#{project_id}/vendors")
     |> Procore.send_request()
   end
 
@@ -44,18 +55,18 @@ defmodule Procore.Resources.Vendors do
   end
 
   @doc """
-  Creates vendors in a company.
+  Creates or updates a batch of vendors in a company directory.
   """
-  @spec bulk_create(%{
+  @spec sync(%{
           (company_id :: String.t()) => pos_integer,
           (vendors :: String.t()) => list
         }) :: %ResponseResult{} | %ErrorResult{}
-  def bulk_create(%{
+  def sync(%{
         "company_id" => company_id,
         "vendors" => vendors
       }) do
     %Request{}
-    |> Request.insert_request_type(:post)
+    |> Request.insert_request_type(:patch)
     |> Request.insert_endpoint("/vapid/vendors/sync")
     |> Request.insert_body(%{"company_id" => company_id, "updates" => vendors})
     |> Procore.send_request()

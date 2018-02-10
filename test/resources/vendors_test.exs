@@ -3,8 +3,14 @@ defmodule Procore.Resources.VendorsTest do
   alias Procore.ResponseResult
   alias Procore.Resources.Vendors
 
-  test "list/1" do
+  test "list/1 for a company directory" do
     params = %{"company_id" => 1}
+
+    assert %ResponseResult{reply: :ok, status_code: 200, parsed_body: []} = Vendors.list(params)
+  end
+
+  test "list/1 for a project directory" do
+    params = %{"project_id" => 1}
 
     assert %ResponseResult{reply: :ok, status_code: 200, parsed_body: []} = Vendors.list(params)
   end
@@ -16,10 +22,9 @@ defmodule Procore.Resources.VendorsTest do
              Vendors.add_vendor_to_project(params)
   end
 
-  test "bulk_create/1" do
-    params = %{"company_id" => 1, "vendors" => %{}}
+  test "sync/1" do
+    params = %{"company_id" => 1, "vendors" => []}
 
-    assert %ResponseResult{reply: :ok, status_code: 201, parsed_body: %{}} =
-             Vendors.bulk_create(params)
+    assert %ResponseResult{reply: :ok, status_code: 200, parsed_body: %{}} = Vendors.sync(params)
   end
 end

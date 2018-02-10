@@ -32,9 +32,9 @@ defmodule Procore.Resources.Users do
   end
 
   @doc """
-  List all users in a company directory.
+  Lists all users in a company directory.
   """
-  @spec list(%{(company_id :: String.t()) => integer}) ::
+  @spec list(%{(company_id :: String.t()) => pos_integer}) ::
           %ResponseResult{
             status_code: DefinedTypes.non_error_status_code(),
             parsed_body: ResponseBodyTypes.ListCompanyUsers.t(),
@@ -49,13 +49,24 @@ defmodule Procore.Resources.Users do
   end
 
   @doc """
-  Creates users in a company.
+  Lists all users in a project directory.
   """
-  @spec bulk_create(%{
+  @spec list(%{(project_id :: String.t()) => pos_integer}) :: %ResponseResult{} | %ErrorResult{}
+  def list(%{"project_id" => project_id}) do
+    %Request{}
+    |> Request.insert_request_type(:get)
+    |> Request.insert_endpoint("/vapid/projects/#{project_id}/users")
+    |> Procore.send_request()
+  end
+
+  @doc """
+  Creates or updates a batch of users in a company directory.
+  """
+  @spec sync(%{
           (company_id :: String.t()) => pos_integer,
           (users :: String.t()) => list
         }) :: %ResponseResult{} | %ErrorResult{}
-  def bulk_create(%{
+  def sync(%{
         "company_id" => company_id,
         "users" => users
       }) do

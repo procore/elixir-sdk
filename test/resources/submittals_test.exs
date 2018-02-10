@@ -10,6 +10,13 @@ defmodule Procore.Resources.SubmittalsTest do
              Submittals.list(params)
   end
 
+  test "list_potential_responsible_contractors/1" do
+    params = %{"project_id" => 1}
+
+    assert %ResponseResult{reply: :ok, status_code: 200, parsed_body: []} =
+             Submittals.list_potential_responsible_contractors(params)
+  end
+
   test "create/1" do
     params = %{"project_id" => 1, "submittal" => %{}}
 

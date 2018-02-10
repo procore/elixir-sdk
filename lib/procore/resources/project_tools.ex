@@ -1,6 +1,6 @@
 defmodule Procore.Resources.ProjectTools do
   @moduledoc """
-  Available actions for the project resource.
+  Available actions for the tools resource for a project.
   """
 
   alias Procore.ErrorResult
@@ -8,9 +8,9 @@ defmodule Procore.Resources.ProjectTools do
   alias Procore.ResponseResult
 
   @doc """
-  Returns all Tools available to the provided Project.
+  Returns all tools available to the provided Project.
   """
-  @spec list(map) :: %ResponseResult{} | %ErrorResult{}
+  @spec list(%{(project_id :: String.t()) => pos_integer}) :: %ResponseResult{} | %ErrorResult{}
   def list(%{"project_id" => project_id}) do
     %Request{}
     |> Request.insert_request_type(:get)
@@ -19,9 +19,10 @@ defmodule Procore.Resources.ProjectTools do
   end
 
   @doc """
-  Updates all Tools available to the provided Project.
+  Updates all tools available to the provided Project.
   """
-  @spec list(map) :: %ResponseResult{} | %ErrorResult{}
+  @spec update(%{(project_id :: String.t()) => pos_integer, (project_tools :: String.t()) => list}) ::
+          %ResponseResult{} | %ErrorResult{}
   def update(%{"project_id" => project_id, "project_tools" => project_tools}) do
     %Request{}
     |> Request.insert_request_type(:patch)

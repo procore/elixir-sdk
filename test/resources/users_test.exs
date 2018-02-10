@@ -10,16 +10,21 @@ defmodule Procore.Resources.UsersTest do
              Users.add_user_to_project(params)
   end
 
-  test "list/1" do
+  test "list/1 for company directory" do
     params = %{"company_id" => 1}
 
     assert %ResponseResult{reply: :ok, status_code: 200, parsed_body: []} = Users.list(params)
   end
 
-  test "bulk_create/1" do
+  test "list/1 for project directory" do
+    params = %{"project_id" => 1}
+
+    assert %ResponseResult{reply: :ok, status_code: 200, parsed_body: []} = Users.list(params)
+  end
+
+  test "sync/1" do
     params = %{"company_id" => 1, "users" => []}
 
-    assert %ResponseResult{reply: :ok, status_code: 201, parsed_body: %{}} =
-             Users.bulk_create(params)
+    assert %ResponseResult{reply: :ok, status_code: 200, parsed_body: []} = Users.sync(params)
   end
 end

@@ -13,7 +13,7 @@ defmodule Procore.Resources.ProjectConfigurations do
 
   See `Procore.Resources.ProjectConfigurations.ResponseBodyTypes.GetProjectConfiguration.t/0` for response body.
   """
-  @spec find(%{(project_id :: String.t()) => integer}) ::
+  @spec find(%{(project_id :: String.t()) => pos_integer}) ::
           %ResponseResult{
             status_code: DefinedTypes.non_error_status_code(),
             parsed_body: ResponseBodyTypes.GetProjectConfiguration.t(),
@@ -31,7 +31,7 @@ defmodule Procore.Resources.ProjectConfigurations do
   @doc """
   Updates a project configuration.
   """
-  @spec update(%{(project_id :: String.t()) => integer}) ::
+  @spec update(%{(project_id :: String.t()) => pos_integer}) ::
           %ResponseResult{
             status_code: DefinedTypes.non_error_status_code(),
             parsed_body: ResponseBodyTypes.GetProjectConfiguration.t(),
