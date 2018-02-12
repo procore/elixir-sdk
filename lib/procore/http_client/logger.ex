@@ -8,7 +8,8 @@ defmodule Procore.HttpClient.Logger do
   def get_request(url, options) do
     Logger.info("GET Request -> #{url}")
     Logger.info("Query Params ->")
-    Logger.info(inspect(Keyword.get(options, :params)))
+    Apex.ap(Keyword.get(options, :params), numbers: false)
+    # Logger.info(inspect(Keyword.get(options, :params)))
   end
 
   @spec post_multipart_request(String.t(), tuple) :: tuple
@@ -37,7 +38,8 @@ defmodule Procore.HttpClient.Logger do
   def result(%ResponseResult{} = result) do
     Logger.info("Status Code -> #{result.status_code}")
     Logger.info("Response Body ->")
-    Logger.info(inspect(result.parsed_body, printable_limit: :infinity, limit: :infinity))
+    Apex.ap(result.parsed_body, numbers: false)
+    # Logger.info(inspect(result.parsed_body, printable_limit: :infinity, limit: :infinity))
   end
 
   def result(%ErrorResult{} = result) do
@@ -47,7 +49,7 @@ defmodule Procore.HttpClient.Logger do
   @spec time_elasped(tuple) :: String.t()
   def time_elasped({_megasecs, _secs, _microsecs} = from) do
     duration =
-      :timer.now_diff(from, :erlang.timestamp) / 1000
+      (:timer.now_diff(from, :erlang.timestamp()) / 1000)
       |> abs()
 
     Logger.info("Time Elasped -> #{duration} ms")

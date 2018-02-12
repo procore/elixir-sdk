@@ -22,8 +22,8 @@ defmodule Procore.HttpClient.OAuth do
     cache_key = "OAUTH:#{url}:#{id}:#{secret}"
 
     case Cachex.get(:a, cache_key) do
-      {:ok, oauth_oken} ->
-        oauth_oken
+      {:ok, oauth_token} ->
+        oauth_token
 
       {:missing, _} ->
         {body, headers} = oauth_body_headers(id, secret)

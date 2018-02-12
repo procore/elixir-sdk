@@ -37,7 +37,8 @@ defmodule Procore.MixProject do
       {:ex_doc, ">= 0.0.0", only: :dev},
       {:httpoison, "~> 0.13"},
       {:poison, "~> 3.1"},
-      {:retry, "~> 0.8"}
+      {:retry, "~> 0.8"},
+      {:apex, "~> 1.2.0"}
     ]
   end
 
