@@ -124,6 +124,7 @@ defmodule Procore.HttpClient do
   end
 
   defp parse_body(body) do
+    IO.inspect(body)
     ResponseResult.parse_json_body(body)
   end
 

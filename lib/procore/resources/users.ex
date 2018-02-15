@@ -44,7 +44,7 @@ defmodule Procore.Resources.Users do
   def list(%{"company_id" => company_id}) do
     %Request{}
     |> Request.insert_request_type(:get)
-    |> Request.insert_endpoint("/vapid/company/#{company_id}/users")
+    |> Request.insert_endpoint("/vapid/companies/#{company_id}/users")
     |> Procore.send_request()
   end
 
@@ -71,7 +71,7 @@ defmodule Procore.Resources.Users do
         "users" => users
       }) do
     %Request{}
-    |> Request.insert_request_type(:post)
+    |> Request.insert_request_type(:patch)
     |> Request.insert_endpoint("/vapid/companies/#{company_id}/users/sync")
     |> Request.insert_body(%{"updates" => users})
     |> Procore.send_request()
