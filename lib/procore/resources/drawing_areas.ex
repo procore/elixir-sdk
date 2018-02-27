@@ -21,7 +21,7 @@ defmodule Procore.Resources.DrawingAreas do
   @doc """
   Creates a drawing area.
   """
-  @spec create(%{(project_id :: String.t()) => pos_integer, (location :: String.t()) => map}) ::
+  @spec create(%{(project_id :: String.t()) => pos_integer, (name :: String.t()) => String.t()}) ::
           %ResponseResult{} | %ErrorResult{}
   def create(%{"project_id" => project_id, "name" => name}) do
     %Request{}
