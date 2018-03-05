@@ -12,25 +12,9 @@ defmodule Procore.HttpClient do
     IO.puts("GET:")
     IO.inspect(url)
     IO.inspect(options)
-
     retry with: exp_backoff() |> randomize() |> expiry(150_000), rescue_only: [TimeoutError] do
-      case HTTPoison.get(url, headers, build_options(options)) do
-        {:ok, %HTTPoison.Response{status_code: 200, body: body}} ->
-          %ResponseResult{reply: :ok, status_code: 200, parsed_body: parse_body(body)}
-
-        {:ok, %HTTPoison.Response{status_code: 201, body: body}} ->
-          %ResponseResult{reply: :ok, status_code: 201, parsed_body: parse_body(body)}
-
-        {:ok, %HTTPoison.Response{status_code: code, body: body}} ->
-          %ResponseResult{
-            reply: :unrecognized_code,
-            status_code: code,
-            parsed_body: parse_body(body)
-          }
-
-        {:error, %HTTPoison.Error{reason: reason}} ->
-          %ErrorResult{reply: :error, reason: reason}
-      end
+      HTTPoison.get(url, headers, build_options(options)) |>
+        handle_response()
     end
   end
 
@@ -41,23 +25,8 @@ defmodule Procore.HttpClient do
     IO.inspect(body)
 
     retry with: exp_backoff() |> randomize() |> expiry(150_000), rescue_only: [TimeoutError] do
-      case HTTPoison.post(url, body, headers, build_options(options)) do
-        {:ok, %HTTPoison.Response{status_code: 200, body: body}} ->
-          %ResponseResult{reply: :ok, status_code: 200, parsed_body: parse_body(body)}
-
-        {:ok, %HTTPoison.Response{status_code: 201, body: body}} ->
-          %ResponseResult{reply: :ok, status_code: 201, parsed_body: parse_body(body)}
-
-        {:ok, %HTTPoison.Response{status_code: code, body: body}} ->
-          %ResponseResult{
-            reply: :unrecognized_code,
-            status_code: code,
-            parsed_body: parse_body(body)
-          }
-
-        {:error, %HTTPoison.Error{reason: reason}} ->
-          %ErrorResult{reply: :error, reason: reason}
-      end
+      HTTPoison.post(url, body, headers, build_options(options)) |>
+        handle_response()
     end
   end
 
@@ -68,23 +37,8 @@ defmodule Procore.HttpClient do
     IO.inspect(body)
 
     retry with: exp_backoff() |> randomize() |> expiry(150_000), rescue_only: [TimeoutError] do
-      case HTTPoison.post(url, to_json(body), headers, build_options(options)) do
-        {:ok, %HTTPoison.Response{status_code: 200, body: body}} ->
-          %ResponseResult{reply: :ok, status_code: 200, parsed_body: parse_body(body)}
-
-        {:ok, %HTTPoison.Response{status_code: 201, body: body}} ->
-          %ResponseResult{reply: :ok, status_code: 201, parsed_body: parse_body(body)}
-
-        {:ok, %HTTPoison.Response{status_code: code, body: body}} ->
-          %ResponseResult{
-            reply: :unrecognized_code,
-            status_code: code,
-            parsed_body: parse_body(body)
-          }
-
-        {:error, %HTTPoison.Error{reason: reason}} ->
-          %ErrorResult{reply: :error, reason: reason}
-      end
+      HTTPoison.post(url, to_json(body), headers, build_options(options)) |>
+        handle_response()
     end
   end
 
@@ -95,23 +49,8 @@ defmodule Procore.HttpClient do
     IO.inspect(body)
 
     retry with: exp_backoff() |> randomize() |> expiry(150_000), rescue_only: [TimeoutError] do
-      case HTTPoison.patch(url, to_json(body), headers, build_options(options)) do
-        {:ok, %HTTPoison.Response{status_code: 200, body: body}} ->
-          %ResponseResult{reply: :ok, status_code: 200, parsed_body: parse_body(body)}
-
-        {:ok, %HTTPoison.Response{status_code: 201, body: body}} ->
-          %ResponseResult{reply: :ok, status_code: 201, parsed_body: parse_body(body)}
-
-        {:ok, %HTTPoison.Response{status_code: code, body: body}} ->
-          %ResponseResult{
-            reply: :unrecognized_code,
-            status_code: code,
-            parsed_body: parse_body(body)
-          }
-
-        {:error, %HTTPoison.Error{reason: reason}} ->
-          %ErrorResult{reply: :error, reason: reason}
-      end
+      HTTPoison.patch(url, to_json(body), headers, build_options(options)) |>
+        handle_response()
     end
   end
 
@@ -123,9 +62,14 @@ defmodule Procore.HttpClient do
     Poison.encode!(body)
   end
 
-  defp parse_body(body) do
+  defp parse_body(body, headers) do
+    IO.inspect("RESPONSE BODY #######################")
     IO.inspect(body)
-    ResponseResult.parse_json_body(body)
+    IO.inspect("end RESPONSE BODY #######################")
+
+    if List.keymember?(headers, "application/json", 1),
+      do: ResponseResult.parse_json_body(body),
+      else: body
   end
 
   def start_link(opts) do
@@ -144,5 +88,31 @@ defmodule Procore.HttpClient do
       restart: :permanent,
       shutdown: 500
     }
+  end
+
+  defp handle_response(res) do
+    IO.inspect(res)
+
+    case res do
+      {:ok, %HTTPoison.Response{status_code: 200, body: body, headers: headers}} ->
+        %ResponseResult{reply: :ok, status_code: 200, parsed_body: parse_body(body, headers)}
+
+      {:ok, %HTTPoison.Response{status_code: 201, body: body, headers: headers}} ->
+        %ResponseResult{reply: :ok, status_code: 201, parsed_body: parse_body(body, headers)}
+
+      {:ok, %HTTPoison.Response{status_code: 504, body: body, headers: headers}} ->
+        IO.inspect("Got a 504 - raising TimeoutError and retrying")
+        raise TimeoutError
+
+      {:ok, %HTTPoison.Response{status_code: code, body: body, headers: headers}} ->
+        %ResponseResult{
+          reply: :unrecognized_code,
+          status_code: code,
+          parsed_body: parse_body(body, headers)
+        }
+
+      {:error, %HTTPoison.Error{reason: reason}} ->
+        %ErrorResult{reply: :error, reason: reason}
+    end
   end
 end
