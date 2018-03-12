@@ -100,6 +100,11 @@ defmodule Procore.HttpClient do
       {:ok, %HTTPoison.Response{status_code: 201, body: body, headers: headers}} ->
         %ResponseResult{reply: :ok, status_code: 201, parsed_body: parse_body(body, headers)}
 
+      # TODO handle 500 error, which often returns html and then later breaks dependent sequence tasks.
+      {:ok, %HTTPoison.Response{status_code: 500, body: body, headers: headers}} ->
+        IO.inspect("Got a 500 - raising TimeoutError and retrying")
+        raise TimeoutError
+
       {:ok, %HTTPoison.Response{status_code: 504, body: body, headers: headers}} ->
         IO.inspect("Got a 504 - raising TimeoutError and retrying")
         raise TimeoutError
@@ -112,6 +117,7 @@ defmodule Procore.HttpClient do
         }
 
       {:error, %HTTPoison.Error{reason: reason}} ->
+        IO.inspect("ERROR OF REASON #{reason}")
         %ErrorResult{reply: :error, reason: reason}
     end
   end
