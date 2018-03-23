@@ -17,4 +17,17 @@ defmodule Procore.Resources.Trades do
     |> Request.insert_endpoint("/vapid/companies/#{company_id}/trades")
     |> Procore.send_request()
   end
+
+  @doc """
+  Creates a Trade.
+  """
+  @spec create(%{(company_id :: String.t()) => pos_integer, (trade :: String.t()) => map}) ::
+          %ResponseResult{} | %ErrorResult{}
+  def create(%{"company_id" => company_id, "trade" => trade}) do
+    %Request{}
+    |> Request.insert_request_type(:post)
+    |> Request.insert_endpoint("/vapid/companies/#{company_id}/trades")
+    |> Request.insert_body(%{"trade" => trade})
+    |> Procore.send_request()
+  end
 end

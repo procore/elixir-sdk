@@ -9,6 +9,7 @@ defmodule Procore.Resources.CompanyChecklistTemplateSections do
 
   @doc """
   Lists all Checklist Template Sections.
+
   """
   @spec list(%{
           (company_id :: String.t()) => pos_integer,
@@ -17,7 +18,9 @@ defmodule Procore.Resources.CompanyChecklistTemplateSections do
   def list(%{"company_id" => company_id, "list_template_id" => list_template_id}) do
     %Request{}
     |> Request.insert_request_type(:get)
-    |> Request.insert_endpoint("/vapid/companies/#{company_id}/checklist/list_templates/#{list_template_id}/sections")
+    |> Request.insert_endpoint(
+      "/vapid/companies/#{company_id}/checklist/list_templates/#{list_template_id}/sections"
+    )
     |> Procore.send_request()
   end
 
@@ -50,9 +53,11 @@ defmodule Procore.Resources.CompanyChecklistTemplateSections do
       }) do
     %Request{}
     |> Request.insert_request_type(:post)
-    |> Request.insert_endpoint("/vapid/companies/#{company_id}/checklist/list_templates/#{list_template_id}/sections/bulk_create")
+    |> Request.insert_endpoint(
+      "/vapid/companies/#{company_id}/checklist/list_templates/#{list_template_id}/sections/bulk_create"
+    )
     |> Request.insert_body(%{
-      "sections" => sections,
+      "sections" => sections
     })
     |> Procore.send_request()
   end

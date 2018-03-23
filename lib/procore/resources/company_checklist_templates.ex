@@ -35,7 +35,7 @@ defmodule Procore.Resources.CompanyChecklistTemplates do
   end
 
   @doc """
-  Creates a drawing area.
+  Creates a company level Checklist Template.
   """
   @spec create(%{
           (company_id :: String.t()) => pos_integer,
