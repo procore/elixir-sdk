@@ -29,11 +29,8 @@ defmodule Procore.Resources.ProjectChecklistTemplates do
   def show(%{"project_id" => project_id, "list_template_id" => list_template_id}) do
     %Request{}
     |> Request.insert_request_type(:get)
-    |> Request.insert_endpoint(
-      "/vapid/checklist/list_templates/#{list_template_id}"
-    )
+    |> Request.insert_endpoint("/vapid/checklist/list_templates/#{list_template_id}")
     |> Request.insert_query_params(%{"project_id" => project_id})
     |> Procore.send_request()
   end
-
 end
