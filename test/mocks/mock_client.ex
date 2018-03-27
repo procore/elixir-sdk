@@ -132,6 +132,10 @@ defmodule HttpClient.MockClient do
     %ResponseResult{status_code: 201, parsed_body: [], reply: :ok}
   end
 
+  def post("#{@procore_host}/vapid/checklists/list_templates/create_from_company_template", _, _) do
+    %ResponseResult{status_code: 201, parsed_body: %{}, reply: :ok}
+  end
+
   def post("#{@procore_host}/vapid/companies/1/checklist/list_templates", _, _) do
     %ResponseResult{status_code: 201, parsed_body: %{}, reply: :ok}
   end

@@ -20,7 +20,7 @@ defmodule Procore.Resources.ProjectChecklistTemplates do
   end
 
   @doc """
-  Returns Checklist Template.
+  Returns a Project Checklist Template.
   """
   @spec show(%{
           (project_id :: String.t()) => pos_integer,
@@ -31,6 +31,23 @@ defmodule Procore.Resources.ProjectChecklistTemplates do
     |> Request.insert_request_type(:get)
     |> Request.insert_endpoint("/vapid/checklist/list_templates/#{list_template_id}")
     |> Request.insert_query_params(%{"project_id" => project_id})
+    |> Procore.send_request()
+  end
+
+  @doc """
+  Creates a Project Checklist Template from a Company Checklist Template.
+  """
+  @spec create_from_company_template(%{
+          (project_id :: String.t()) => pos_integer,
+          (source_template_id :: String.t()) => pos_integer
+        }) :: %ResponseResult{} | %ErrorResult{}
+  def create_from_company_template(
+        %{"project_id" => _project_id, "source_template_id" => _source_template_id} = params
+      ) do
+    %Request{}
+    |> Request.insert_request_type(:post)
+    |> Request.insert_endpoint("/vapid/checklist/list_templates/create_from_company_template")
+    |> Request.insert_body(params)
     |> Procore.send_request()
   end
 end
