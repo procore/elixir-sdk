@@ -6,6 +6,38 @@ defmodule HttpClient.MockClient do
 
   @spec get(String.t(), any, any) :: %ResponseResult{} | %ErrorResult{}
 
+  def get("#{@procore_host}/vapid/companies/1/checklist/list_templates/1/sections", _, _) do
+    %ResponseResult{status_code: 200, parsed_body: [], reply: :ok}
+  end
+
+  def get("#{@procore_host}/vapid/companies/1/checklist/sections/1", _, _) do
+    %ResponseResult{status_code: 200, parsed_body: %{}, reply: :ok}
+  end
+
+  def get("#{@procore_host}/vapid/companies/1/checklist/list_templates", _, _) do
+    %ResponseResult{status_code: 200, parsed_body: [], reply: :ok}
+  end
+
+  def get("#{@procore_host}/vapid/companies/1/checklist/list_templates/1", _, _) do
+    %ResponseResult{status_code: 200, parsed_body: %{}, reply: :ok}
+  end
+
+  def get("#{@procore_host}/vapid/checklist/list_templates", _, _) do
+    %ResponseResult{status_code: 200, parsed_body: [], reply: :ok}
+  end
+
+  def get("#{@procore_host}/vapid/checklist/list_templates/1", _, _) do
+    %ResponseResult{status_code: 200, parsed_body: %{}, reply: :ok}
+  end
+
+  def get("#{@procore_host}/vapid/checklist/lists", _, _) do
+    %ResponseResult{status_code: 200, parsed_body: [], reply: :ok}
+  end
+
+  def get("#{@procore_host}/vapid/checklist/lists/1", _, _) do
+    %ResponseResult{status_code: 200, parsed_body: %{}, reply: :ok}
+  end
+
   def get("#{@procore_host}/vapid/offices", _, _) do
     %ResponseResult{status_code: 200, parsed_body: [], reply: :ok}
   end
@@ -82,11 +114,35 @@ defmodule HttpClient.MockClient do
     %ResponseResult{status_code: 200, parsed_body: [], reply: :ok}
   end
 
+  def get("#{@procore_host}/vapid/companies/1/trades", _, _) do
+    %ResponseResult{status_code: 200, parsed_body: [], reply: :ok}
+  end
+
   def get(url, _, _) when binary_part(url, 0, 23) == @procore_host do
     %ResponseResult{status_code: 200, parsed_body: %{}, reply: :ok}
   end
 
   @spec post(String.t(), any, any) :: %ResponseResult{} | %ErrorResult{}
+
+  def post(
+        "#{@procore_host}/vapid/companies/1/checklist/list_templates/1/sections/bulk_create",
+        _,
+        _
+      ) do
+    %ResponseResult{status_code: 201, parsed_body: [], reply: :ok}
+  end
+
+  def post("#{@procore_host}/vapid/checklists/list_templates/create_from_company_template", _, _) do
+    %ResponseResult{status_code: 201, parsed_body: %{}, reply: :ok}
+  end
+
+  def post("#{@procore_host}/vapid/companies/1/checklist/list_templates", _, _) do
+    %ResponseResult{status_code: 201, parsed_body: %{}, reply: :ok}
+  end
+
+  def post("#{@procore_host}/vapid/checklist/lists", _, _) do
+    %ResponseResult{status_code: 201, parsed_body: %{}, reply: :ok}
+  end
 
   def post("#{@procore_host}/vapid/projects/1/bid_packages", _, _) do
     %ResponseResult{status_code: 201, parsed_body: %{}, reply: :ok}
@@ -149,6 +205,10 @@ defmodule HttpClient.MockClient do
   end
 
   def post(url, _, _) when binary_part(url, 0, 23) == @procore_host do
+    %ResponseResult{status_code: 201, parsed_body: %{}, reply: :ok}
+  end
+
+  def post("#{@procore_host}/vapid/companies/1/trades", _, _) do
     %ResponseResult{status_code: 201, parsed_body: %{}, reply: :ok}
   end
 
