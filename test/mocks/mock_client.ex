@@ -6,6 +6,10 @@ defmodule HttpClient.MockClient do
 
   @spec get(String.t(), any, any) :: %ResponseResult{} | %ErrorResult{}
 
+  def get("#{@procore_host}/vapid/prime_contract", _, _) do
+    %ResponseResult{status_code: 200, parsed_body: %{}, reply: :ok}
+  end
+
   def get("#{@procore_host}/vapid/companies/1/checklist/list_templates/1/sections", _, _) do
     %ResponseResult{status_code: 200, parsed_body: [], reply: :ok}
   end
@@ -130,6 +134,10 @@ defmodule HttpClient.MockClient do
         _
       ) do
     %ResponseResult{status_code: 201, parsed_body: [], reply: :ok}
+  end
+
+  def post("#{@procore_host}/prime_contract", _, _) do
+    %ResponseResult{status_code: 201, parsed_body: %{}, reply: :ok}
   end
 
   def post("#{@procore_host}/vapid/checklists/list_templates/create_from_company_template", _, _) do
