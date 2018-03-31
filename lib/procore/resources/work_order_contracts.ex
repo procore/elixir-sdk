@@ -41,7 +41,7 @@ defmodule Procore.Resources.WorkOrderContracts do
           %ResponseResult{} | %ErrorResult{}
   def sync(%{"project_id" => project_id, "work_order_contracts" => work_order_contracts}) do
     %Request{}
-    |> Request.insert_request_type(:post)
+    |> Request.insert_request_type(:patch)
     |> Request.insert_endpoint("/vapid/work_order_contracts/sync")
     |> Request.insert_body(%{"project_id" => project_id, "updates" => work_order_contracts})
     |> Procore.send_request()
