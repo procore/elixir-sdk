@@ -37,7 +37,7 @@ defmodule Procore.Resources.WorkOrderContracts do
   @doc """
   Creates or updates a batch of Work Order Contracts.
   """
-  @spec sync(%{(project_id :: String.t()) => pos_integer, (rfi :: String.t()) => map}) ::
+  @spec sync(%{(project_id :: String.t()) => pos_integer, (rfi :: String.t()) => list}) ::
           %ResponseResult{} | %ErrorResult{}
   def sync(%{"project_id" => project_id, "work_order_contracts" => work_order_contracts}) do
     %Request{}
