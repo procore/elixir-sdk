@@ -6,6 +6,10 @@ defmodule HttpClient.MockClient do
 
   @spec get(String.t(), any, any) :: %ResponseResult{} | %ErrorResult{}
 
+  def get("#{@procore_host}/vapid/work_order_contracts/1/line_items", _, _) do
+    %ResponseResult{status_code: 200, parsed_body: [], reply: :ok}
+  end
+
   def get("#{@procore_host}/vapid/work_order_contracts", _, _) do
     %ResponseResult{status_code: 200, parsed_body: [], reply: :ok}
   end
@@ -144,8 +148,8 @@ defmodule HttpClient.MockClient do
     %ResponseResult{status_code: 201, parsed_body: [], reply: :ok}
   end
 
-  def post("#{@procore_host}/vapid/work_order_contracts/sync", _, _) do
-    %ResponseResult{status_code: 200, parsed_body: %{}, reply: :ok}
+  def post("#{@procore_host}/vapid/work_order_contracts/1/line_items", _, _) do
+    %ResponseResult{status_code: 201, parsed_body: %{}, reply: :ok}
   end
 
   def post("#{@procore_host}/vapid/prime_contract", _, _) do
@@ -239,6 +243,10 @@ defmodule HttpClient.MockClient do
   end
 
   @spec patch(String.t(), any, any) :: %ResponseResult{} | %ErrorResult{}
+
+  def patch("#{@procore_host}/vapid/work_order_contracts/sync", _, _) do
+    %ResponseResult{status_code: 200, parsed_body: %{}, reply: :ok}
+  end
 
   def patch("#{@procore_host}/vapid/companies/1/users/sync", _, _) do
     %ResponseResult{status_code: 200, parsed_body: [], reply: :ok}
