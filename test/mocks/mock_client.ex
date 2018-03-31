@@ -6,6 +6,10 @@ defmodule HttpClient.MockClient do
 
   @spec get(String.t(), any, any) :: %ResponseResult{} | %ErrorResult{}
 
+  def get("#{@procore_host}/vapid/cost_codes", _, _) do
+    %ResponseResult{status_code: 200, parsed_body: [], reply: :ok}
+  end
+
   def get("#{@procore_host}/vapid/line_item_types", _, _) do
     %ResponseResult{status_code: 200, parsed_body: [], reply: :ok}
   end
