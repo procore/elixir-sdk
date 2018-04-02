@@ -1,6 +1,6 @@
 defmodule Procore.Resources.ProjectChecklistTemplates do
   @moduledoc """
-  Available actions for the Checklist Template resource.
+  Available actions for the Checklist Template resource at the project level.
   """
 
   alias Procore.ErrorResult

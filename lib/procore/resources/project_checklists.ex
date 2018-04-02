@@ -1,6 +1,6 @@
 defmodule Procore.Resources.ProjectChecklists do
   @moduledoc """
-  Available actions for the Checklist Template resource.
+  Available actions for the Checklist resource.
   """
   alias Procore.ErrorResult
   alias Procore.Request
@@ -45,7 +45,7 @@ defmodule Procore.Resources.ProjectChecklists do
     %Request{}
     |> Request.insert_request_type(:post)
     |> Request.insert_endpoint("/vapid/checklist/lists")
-    |> Request.insert_query_params(%{
+    |> Request.insert_body(%{
       "project_id" => project_id,
       "template_id" => template_id,
       "list" => list,

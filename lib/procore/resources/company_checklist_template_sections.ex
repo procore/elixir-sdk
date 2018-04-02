@@ -1,6 +1,6 @@
 defmodule Procore.Resources.CompanyChecklistTemplateSections do
   @moduledoc """
-  Available actions for the Checklist Template resource.
+  Available actions for the Checklist Template Section resource at the company level.
   """
 
   alias Procore.ErrorResult
