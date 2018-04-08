@@ -1,10 +1,11 @@
 defmodule Procore.HttpClient.QueryParams do
   def build(%{} = params) do
-    Keyword.new([{:params, build_tuples(params)}])
+    [query: build_keyword(params)]
   end
 
-  defp build_tuples(params) do
+  defp build_keyword(params) do
     params
-    |> Enum.into([], fn {key, val} -> {key, val} end)
+    |> Enum.into(Keyword.new(), fn {key, val} -> Keyword.new([{String.to_atom(key), val}]) end)
+    |> List.flatten()
   end
 end

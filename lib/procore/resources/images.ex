@@ -38,26 +38,20 @@ defmodule Procore.Resources.Images do
         "path_to_file" => path_to_file
       }) do
     %Request{}
-    |> Request.insert_request_type(:post_multipart)
+    |> Request.insert_request_type(:post)
     |> Request.insert_endpoint("/vapid/images")
     |> Request.insert_query_params(%{"project_id" => project_id})
     |> Request.insert_body(build_create_body(image_category_id, filename, path_to_file))
     |> Procore.send_request()
   end
 
+  alias Tesla.Multipart
+
   defp build_create_body(image_category_id, filename, path_to_file) do
-    {
-      :multipart,
-      [
-        {"image[name]", filename},
-        {"image[image_category_id]", to_string(image_category_id)},
-        {
-          :file,
-          path_to_file,
-          {"form-data", [name: "image[data]", filename: filename]},
-          []
-        }
-      ]
-    }
+    Multipart.new()
+    |> Multipart.add_content_type_param("charset=utf-8")
+    |> Multipart.add_field("image[name]", filename)
+    |> Multipart.add_field("image[image_category_id]", image_category_id)
+    |> Multipart.add_file(path_to_file, name: filename)
   end
 end
