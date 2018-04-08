@@ -35,8 +35,10 @@ defmodule Procore.Resources.SpecificationSets do
   @doc """
   Creates a meeting.
   """
-  @spec create(%{(project_id :: String.t()) => pos_integer, (specification_set :: String.t()) => map}) ::
-          %ResponseResult{} | %ErrorResult{}
+  @spec create(%{
+          (project_id :: String.t()) => pos_integer,
+          (specification_set :: String.t()) => map
+        }) :: %ResponseResult{} | %ErrorResult{}
   def create(%{"project_id" => project_id, "specification_set" => spec_set}) do
     %Request{}
     |> Request.insert_request_type(:post)

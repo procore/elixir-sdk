@@ -7,7 +7,7 @@ defmodule Procore.HttpClient.OAuth do
   """
 
   use Tesla
-  plug(Tesla.Middleware.EncodeJson)
+  plug(Tesla.Middleware.EncodeJson, engine: Poison)
   plug(Tesla.Middleware.Logger)
 
   @url Application.get_env(:procore, :oauth_url, "https://api.procore.com/oauth/token")

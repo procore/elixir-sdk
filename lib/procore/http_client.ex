@@ -1,8 +1,9 @@
 defmodule Procore.HttpClient do
-  use Tesla
-  plug(Tesla.Middleware.EncodeJson)
-  plug(Tesla.Middleware.RetryBackoff)
+  use Tesla, only: [:post, :get, :patch]
+  plug(Tesla.Middleware.EncodeJson, engine: Poison)
   plug(Tesla.Middleware.HandleResponse)
+  plug(Tesla.Middleware.DecodeJson, engine: Poison)
+  plug(Tesla.Middleware.RetryWithBackoff)
   plug(Tesla.Middleware.Logger)
 
   def start_link(opts) do
