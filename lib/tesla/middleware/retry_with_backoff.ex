@@ -17,13 +17,20 @@ defmodule Tesla.Middleware.RetryWithBackoff do
 
   defp retry(env, next, delay, retries, max_retries) do
     case Tesla.run(env, next) do
-      {:ok, env} ->
-        {:ok, env}
-
       {:error, reason} ->
+        IO.inspect("RETRYING DUE TO: #{reason}")
         backoff(delay, retries, max_retries)
 
         retry(env, next, delay, retries - 1, max_retries)
+
+      {:ok, %Tesla.Env{status: 504}} ->
+        IO.inspect("RETRYING DUE TO: 504 Gateway Timeout")
+        backoff(delay, retries, max_retries)
+
+        retry(env, next, delay, retries - 1, max_retries)
+
+      {:ok, env} ->
+        {:ok, env}
     end
   end
 

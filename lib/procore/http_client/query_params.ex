@@ -5,7 +5,6 @@ defmodule Procore.HttpClient.QueryParams do
 
   defp build_keyword(params) do
     params
-    |> Enum.into(Keyword.new(), fn {key, val} -> Keyword.new([{String.to_atom(key), val}]) end)
-    |> List.flatten()
+    |> Enum.into(Keyword.new(), fn {key, val} -> {String.to_atom(key), val} end)
   end
 end
