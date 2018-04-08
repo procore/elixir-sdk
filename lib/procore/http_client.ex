@@ -3,6 +3,7 @@ defmodule Procore.HttpClient do
   plug(Tesla.Middleware.EncodeJson)
   plug(Tesla.Middleware.RetryBackoff)
   plug(Tesla.Middleware.HandleResponse)
+  plug(Tesla.Middleware.Logger)
 
   def start_link(opts) do
     Supervisor.start_link(__MODULE__, opts, name: __MODULE__)

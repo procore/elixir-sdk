@@ -8,8 +8,6 @@ defmodule Tesla.Middleware.HandleResponse do
   end
 
   defp handle_response(response) do
-    IO.inspect(response)
-
     case response do
       {:ok, %Tesla.Env{status: 200, body: body, headers: headers}} ->
         %ResponseResult{reply: :ok, status_code: 200, parsed_body: parse_body(body, headers)}
@@ -21,7 +19,6 @@ defmodule Tesla.Middleware.HandleResponse do
         %ResponseResult{reply: :ok, status_code: 202, parsed_body: parse_body(body, headers)}
 
       {:ok, %Tesla.Env{status: 504}} ->
-        IO.inspect("Got a 504 - error and retry")
         {:error, :gateway_timeout}
 
       {:ok, %Tesla.Env{status: code, body: body, headers: headers}} ->
@@ -32,16 +29,11 @@ defmodule Tesla.Middleware.HandleResponse do
         }
 
       {:error, reason} ->
-        IO.inspect("ERROR: #{reason}")
         {:error, reason}
     end
   end
 
   defp parse_body(body, headers) do
-    IO.inspect("RESPONSE BODY #######################")
-    IO.inspect(body)
-    IO.inspect("END RESPONSE BODY #######################")
-
     if List.keymember?(headers, "application/json", 1),
       do: ResponseResult.parse_json_body(body),
       else: body
