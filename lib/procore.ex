@@ -60,14 +60,6 @@ defmodule Procore do
   end
 
   @doc """
-  Makes a Multipart POST request.
-  """
-  def send_request(%Request{request_type: :post_multipart, endpoint: endpoint, body: body})
-      when byte_size(endpoint) > 0 do
-    @http_client.post_multipart(tesla_client(), endpoint, body)
-  end
-
-  @doc """
   Raises an error if no request type is set.
   """
   def send_request(%Request{request_type: :unset}) do

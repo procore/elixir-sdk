@@ -1,5 +1,5 @@
 defmodule Procore.HttpClient.OAuth do
-  @doc """
+  @moduledoc """
   Hits OAuth endpoint and returns a token.
 
   Currently, options such as url, id, secret are set
