@@ -12,7 +12,6 @@ defmodule Tesla.Middleware.RetryWithBackoffTest do
             "/404" -> {:ok, Map.put(env, :status, 404)}
             "/retry" when retries < 2 -> {:error, :econnrefused}
             "/retry" -> {:ok, Map.put(env, :status, 200)}
-            "/retry_fail" when retries < 2 -> {:ok, Map.put(env, :status, 504)}
             "/retry_fail" -> {:ok, Map.put(env, :status, 504)}
           end
 

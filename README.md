@@ -24,8 +24,7 @@ config :procore,
   client_secret: "PROCORE_CLIENT_SECRET"
   host: "PROCORE_HOST_URL"
   oauth_url: "#{PROCORE_HOST_URL}/oauth/token",
-  http_client: Procore.HttpClient,
-  oauth: Procore.HttpClient.OAuth
+  http_client: Procore.HttpClient
 ```
 
 Add `:procore` to your list of applications if using Elixir 1.3 or lower.

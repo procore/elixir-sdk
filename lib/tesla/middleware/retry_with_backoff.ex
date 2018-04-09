@@ -1,8 +1,13 @@
 defmodule Tesla.Middleware.RetryWithBackoff do
+  @behaviour Tesla.Middleware
+
   @defaults [
     delay: 500,
     max_retries: 5
   ]
+
+  alias Tesla.Middleware.Logger.Formatter
+  require Logger
 
   def call(env, next, opts \\ []) do
     delay = Keyword.get(opts, :delay, @defaults[:delay])
@@ -18,25 +23,33 @@ defmodule Tesla.Middleware.RetryWithBackoff do
   defp retry(env, next, delay, retries, max_retries) do
     case Tesla.run(env, next) do
       {:error, reason} ->
-        IO.inspect("RETRYING DUE TO: #{reason}")
-        backoff(delay, retries, max_retries)
+        retry_logging(env, "error: #{reason}", retries)
 
-        retry(env, next, delay, retries - 1, max_retries)
+        backoff_and_retry(delay, retries, max_retries, env, next)
 
       {:ok, %Tesla.Env{status: 504}} ->
-        IO.inspect("RETRYING DUE TO: 504 Gateway Timeout")
-        backoff(delay, retries, max_retries)
+        retry_logging(env, "504 gateway_timeout", retries)
 
-        retry(env, next, delay, retries - 1, max_retries)
+        backoff_and_retry(delay, retries, max_retries, env, next)
 
       {:ok, env} ->
         {:ok, env}
     end
   end
 
-  defp backoff(delay, retries, max_retries) do
+  defp backoff_and_retry(delay, retries, max_retries, env, next) do
     :math.pow(delay, max_retries - retries)
     |> trunc()
-    |> :timer.sleep()
+    |> Process.sleep()
+
+    retry(env, next, delay, retries - 1, max_retries)
+  end
+
+  defp retry_logging(env, message, retries) do
+    Logger.log(:warn, fn -> Formatter.format(env, "", 0, [build_message(message, retries)]) end)
+  end
+
+  defp build_message(message, retries) do
+    "Retying Due To -> #{message}\n#{retries - 1} Retries Left"
   end
 end

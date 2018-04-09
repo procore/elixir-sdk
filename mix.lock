@@ -1,7 +1,11 @@
 %{
   cachex:
-    {:hex, :cachex, "2.1.0", "fad49b4e78d11c6c314e75bd8c9408f5b78cb065c047442798caed10803ee3be",
-     [:mix], [{:eternal, "~> 1.1", [hex: :eternal, repo: "hexpm", optional: false]}], "hexpm"},
+    {:hex, :cachex, "3.0.2", "1351caa4e26e29f7d7ec1d29b53d6013f0447630bbf382b4fb5d5bad0209f203",
+     [:mix],
+     [
+       {:eternal, "~> 1.2", [hex: :eternal, repo: "hexpm", optional: false]},
+       {:unsafe, "~> 1.0", [hex: :unsafe, repo: "hexpm", optional: false]}
+     ], "hexpm"},
   certifi:
     {:hex, :certifi, "2.0.0", "a0c0e475107135f76b8c1d5bc7efb33cd3815cb3cf3dea7aefdd174dabead064",
      [:rebar3], [], "hexpm"},
@@ -71,5 +75,8 @@
      ], "hexpm"},
   unicode_util_compat:
     {:hex, :unicode_util_compat, "0.3.1",
-     "a1f612a7b512638634a603c8f401892afbf99b8ce93a45041f8aaca99cadb85e", [:rebar3], [], "hexpm"}
+     "a1f612a7b512638634a603c8f401892afbf99b8ce93a45041f8aaca99cadb85e", [:rebar3], [], "hexpm"},
+  unsafe:
+    {:hex, :unsafe, "1.0.0", "7c21742cd05380c7875546b023481d3a26f52df8e5dfedcb9f958f322baae305",
+     [:mix], [], "hexpm"}
 }

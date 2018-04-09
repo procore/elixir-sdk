@@ -1,5 +1,6 @@
 defmodule Procore.HttpClient do
   use Tesla, only: [:post, :get, :patch]
+  plug(Tesla.Middleware.OAuth)
   plug(Tesla.Middleware.EncodeJson, engine: Poison)
   plug(Tesla.Middleware.HandleResponse)
   plug(Tesla.Middleware.DecodeJson, engine: Poison)

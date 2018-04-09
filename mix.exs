@@ -33,7 +33,7 @@ defmodule Procore.MixProject do
   # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
-      {:cachex, "~> 2.1"},
+      {:cachex, "~> 3.0"},
       {:ex_doc, ">= 0.0.0", only: :dev},
       {:poison, "~> 3.1"},
       {:tesla, "1.0.0-beta.1"}

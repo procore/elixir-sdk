@@ -9,7 +9,6 @@ defmodule Procore do
   alias Procore.ResponseResult
 
   @http_client Application.get_env(:procore, :http_client, HttpClient.MockClient)
-  @oauth Application.get_env(:procore, :oauth, HttpClient.MockOAuth)
   @host Application.get_env(:procore, :host, "https://api.procore.com")
 
   @spec child_spec(list) :: map()
@@ -78,10 +77,6 @@ defmodule Procore do
   end
 
   defp headers do
-    [{"Content-Type", "application/json"}, {"Authorization", "Bearer #{token()}"}]
-  end
-
-  defp token do
-    @oauth.get_oauth_token()
+    [{"Content-Type", "application/json"}]
   end
 end

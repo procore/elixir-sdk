@@ -1,4 +1,6 @@
 defmodule Tesla.Middleware.HandleResponse do
+  @behaviour Tesla.Middleware
+
   alias Procore.ResponseResult
   alias Procore.ErrorResult
 
