@@ -75,10 +75,6 @@ defmodule HttpClient.MockClient do
     %ResponseResult{status_code: 200, parsed_body: [], reply: :ok}
   end
 
-  def get(_, "/vapid/work_order_contracts/1", _) do
-    %ResponseResult{status_code: 200, parsed_body: %{}, reply: :ok}
-  end
-
   def get(_, "/vapid/work_order_contracts", _) do
     %ResponseResult{status_code: 200, parsed_body: [], reply: :ok}
   end
@@ -92,18 +88,6 @@ defmodule HttpClient.MockClient do
   end
 
   def get(_, "/vapid/companies/1", _) do
-    %ResponseResult{status_code: 200, parsed_body: [], reply: :ok}
-  end
-
-  def get(_, "/vapid/companies/1", _) do
-    %ResponseResult{status_code: 200, parsed_body: %{}, reply: :ok}
-  end
-
-  def get(_, "/vapid/companies/1", _) do
-    %ResponseResult{status_code: 200, parsed_body: [], reply: :ok}
-  end
-
-  def get(_, "/vapid/companies/1", _) do
     %ResponseResult{status_code: 200, parsed_body: %{}, reply: :ok}
   end
 
@@ -111,23 +95,15 @@ defmodule HttpClient.MockClient do
     %ResponseResult{status_code: 200, parsed_body: [], reply: :ok}
   end
 
-  def get(_, "/vapid/checklist/list_templates", _) do
-    %ResponseResult{status_code: 200, parsed_body: %{}, reply: :ok}
-  end
-
   def get(_, "/vapid/checklist/lists", _) do
     %ResponseResult{status_code: 200, parsed_body: [], reply: :ok}
-  end
-
-  def get(_, "/vapid/checklist/lists", _) do
-    %ResponseResult{status_code: 200, parsed_body: %{}, reply: :ok}
   end
 
   def get(_, "/vapid/offices", _) do
     %ResponseResult{status_code: 200, parsed_body: [], reply: :ok}
   end
 
-  def get(_, "/vapid/projects/1", _) do
+  def get(_, "/vapid/projects", _) do
     %ResponseResult{status_code: 200, parsed_body: [], reply: :ok}
   end
 
@@ -135,27 +111,11 @@ defmodule HttpClient.MockClient do
     %ResponseResult{status_code: 200, parsed_body: %{}, reply: :ok}
   end
 
-  def get(_, "/vapid/companies/1", _) do
-    %ResponseResult{status_code: 200, parsed_body: [], reply: :ok}
-  end
-
-  def get(_, "/vapid/projects/1", _) do
-    %ResponseResult{status_code: 200, parsed_body: [], reply: :ok}
-  end
-
   def get(_, "/vapid/vendors", _) do
     %ResponseResult{status_code: 200, parsed_body: [], reply: :ok}
   end
 
-  def get(_, "/vapid/projects/1", _) do
-    %ResponseResult{status_code: 200, parsed_body: [], reply: :ok}
-  end
-
   def get(_, "/vapid/locations", _) do
-    %ResponseResult{status_code: 200, parsed_body: [], reply: :ok}
-  end
-
-  def get(_, "/vapid/projects/1", _) do
     %ResponseResult{status_code: 200, parsed_body: [], reply: :ok}
   end
 
@@ -179,14 +139,6 @@ defmodule HttpClient.MockClient do
     %ResponseResult{status_code: 200, parsed_body: [], reply: :ok}
   end
 
-  def get(_, "/vapid/projects/1", _) do
-    %ResponseResult{status_code: 200, parsed_body: [], reply: :ok}
-  end
-
-  def get(_, "/vapid/projects/1", _) do
-    %ResponseResult{status_code: 200, parsed_body: [], reply: :ok}
-  end
-
   def get(_, "/vapid/projects/1/submittals/potential_responsible_contractors", _) do
     %ResponseResult{status_code: 200, parsed_body: [], reply: :ok}
   end
@@ -196,10 +148,6 @@ defmodule HttpClient.MockClient do
   end
 
   def get(_, "/vapid/projects/1/drawing_areas", _) do
-    %ResponseResult{status_code: 200, parsed_body: [], reply: :ok}
-  end
-
-  def get(_, "/vapid/companies/1", _) do
     %ResponseResult{status_code: 200, parsed_body: [], reply: :ok}
   end
 
