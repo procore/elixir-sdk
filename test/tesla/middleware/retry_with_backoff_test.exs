@@ -1,7 +1,7 @@
 defmodule Tesla.Middleware.RetryWithBackoffTest do
   use ExUnit.Case
 
-  defmodule TestAdapter do
+  defmodule RetryTestAdapter do
     def start_link, do: Agent.start_link(fn -> 0 end, name: __MODULE__)
 
     def call(env, _opts) do
@@ -21,35 +21,35 @@ defmodule Tesla.Middleware.RetryWithBackoffTest do
     end
   end
 
-  defmodule TestClient do
+  defmodule RetryTestClient do
     use Tesla
 
     plug(Tesla.Middleware.HandleResponse)
     plug(Tesla.Middleware.RetryWithBackoff, delay: 10, max_retries: 3)
 
-    adapter(TestAdapter)
+    adapter(RetryTestAdapter)
   end
 
   setup do
-    {:ok, _} = TestAdapter.start_link()
+    {:ok, _} = RetryTestAdapter.start_link()
     :ok
   end
 
   test "no retry when successful" do
-    assert %Procore.ResponseResult{reply: :ok, status_code: 200} = TestClient.get("/success")
+    assert %Procore.ResponseResult{reply: :ok, status_code: 200} = RetryTestClient.get("/success")
   end
 
   test "no retry when 4**" do
     assert %Procore.ResponseResult{reply: :unrecognized_code, status_code: 404} =
-             TestClient.get("/404")
+             RetryTestClient.get("/404")
   end
 
   test "will retry and pass eventually" do
-    assert %Procore.ResponseResult{reply: :ok, status_code: 200} = TestClient.get("/retry")
+    assert %Procore.ResponseResult{reply: :ok, status_code: 200} = RetryTestClient.get("/retry")
   end
 
   test "will retry and fail eventually" do
     assert %Procore.ErrorResult{reply: :error, reason: :gateway_timeout} =
-             TestClient.get("/retry_fail")
+             RetryTestClient.get("/retry_fail")
   end
 end
