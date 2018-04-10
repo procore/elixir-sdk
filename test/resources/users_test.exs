@@ -25,6 +25,6 @@ defmodule Procore.Resources.UsersTest do
   test "sync/1" do
     params = %{"company_id" => 1, "users" => []}
 
-    assert %ResponseResult{reply: :ok, status_code: 200, parsed_body: []} = Users.sync(params)
+    assert %ResponseResult{reply: :ok, status_code: 200, parsed_body: %{}} = Users.sync(params)
   end
 end

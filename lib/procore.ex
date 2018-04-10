@@ -9,7 +9,6 @@ defmodule Procore do
   alias Procore.ResponseResult
 
   @http_client Application.get_env(:procore, :http_client, HttpClient.MockClient)
-  @oauth Application.get_env(:procore, :oauth, HttpClient.MockOAuth)
   @host Application.get_env(:procore, :host, "https://api.procore.com")
 
   @spec child_spec(list) :: map()
@@ -40,11 +39,7 @@ defmodule Procore do
   """
   def send_request(%Request{request_type: :get, endpoint: endpoint, query_params: query_params})
       when byte_size(endpoint) > 0 do
-    @http_client.get(
-      "#{@host}#{endpoint}",
-      headers(),
-      QueryParams.build(query_params)
-    )
+    @http_client.get(tesla_client(), endpoint, QueryParams.build(query_params))
   end
 
   @doc """
@@ -52,7 +47,7 @@ defmodule Procore do
   """
   def send_request(%Request{request_type: :post, endpoint: endpoint, body: body})
       when byte_size(endpoint) > 0 do
-    @http_client.post("#{@host}#{endpoint}", body, headers())
+    @http_client.post(tesla_client(), endpoint, body)
   end
 
   @doc """
@@ -60,15 +55,7 @@ defmodule Procore do
   """
   def send_request(%Request{request_type: :patch, endpoint: endpoint, body: body})
       when byte_size(endpoint) > 0 do
-    @http_client.patch("#{@host}#{endpoint}", body, headers())
-  end
-
-  @doc """
-  Makes a Multipart POST request.
-  """
-  def send_request(%Request{request_type: :post_multipart, endpoint: endpoint, body: body})
-      when byte_size(endpoint) > 0 do
-    @http_client.post_multipart("#{@host}#{endpoint}", body, headers())
+    @http_client.patch(tesla_client(), endpoint, body)
   end
 
   @doc """
@@ -85,11 +72,11 @@ defmodule Procore do
     raise ArgumentError, "you must set an endpoint for the Procore.Request struct"
   end
 
-  defp headers do
-    [{"Content-Type", "application/json"}, {"Authorization", "Bearer #{token()}"}]
+  defp tesla_client do
+    Tesla.build_client([{Tesla.Middleware.Headers, headers()}, {Tesla.Middleware.BaseUrl, @host}])
   end
 
-  defp token do
-    @oauth.get_oauth_token()
+  defp headers do
+    [{"Content-Type", "application/json"}]
   end
 end

@@ -3,33 +3,6 @@ defmodule ProcoreTest do
   doctest Procore
 
   alias Procore.Request
-  alias Procore.ResponseResult
-
-  test "making a GET request" do
-    assert %ResponseResult{reply: :ok, status_code: 200, parsed_body: %{}} =
-             Procore.send_request(%Request{
-               request_type: :get,
-               endpoint: "/vapid/endpoint"
-             })
-  end
-
-  test "making a POST request" do
-    assert %ResponseResult{reply: :ok, status_code: 201, parsed_body: %{}} =
-             Procore.send_request(%Request{
-               request_type: :post,
-               endpoint: "/vapid/endpoint",
-               body: %{}
-             })
-  end
-
-  test "making a Multipart POST request" do
-    assert %ResponseResult{reply: :ok, status_code: 201, parsed_body: %{}} =
-             Procore.send_request(%Request{
-               request_type: :post,
-               endpoint: "/vapid/endpoint",
-               body: {}
-             })
-  end
 
   test ":unset request_type on send_request/1" do
     assert_raise ArgumentError, fn ->

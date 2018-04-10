@@ -21,11 +21,11 @@ defmodule Procore.Resources.CompanyChecklistTemplates do
   @doc """
   Returns Checklist Template.
   """
-  @spec show(%{
+  @spec find(%{
           (company_id :: String.t()) => pos_integer,
           (list_template_id :: String.t()) => pos_integer
         }) :: %ResponseResult{} | %ErrorResult{}
-  def show(%{"company_id" => company_id, "list_template_id" => list_template_id}) do
+  def find(%{"company_id" => company_id, "list_template_id" => list_template_id}) do
     %Request{}
     |> Request.insert_request_type(:get)
     |> Request.insert_endpoint(

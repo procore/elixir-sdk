@@ -21,11 +21,11 @@ defmodule Procore.Resources.ProjectChecklists do
   @doc """
   Returns Project Checklist.
   """
-  @spec show(%{
+  @spec find(%{
           (project_id :: String.t()) => pos_integer,
           (checklist_id :: String.t()) => pos_integer
         }) :: %ResponseResult{} | %ErrorResult{}
-  def show(%{"project_id" => project_id, "checklist_id" => checklist_id}) do
+  def find(%{"project_id" => project_id, "checklist_id" => checklist_id}) do
     %Request{}
     |> Request.insert_request_type(:get)
     |> Request.insert_endpoint("/vapid/checklist/lists/#{checklist_id}")

@@ -3,8 +3,8 @@ defmodule Procore.Resources.ProjectsTest do
   alias Procore.ResponseResult
   alias Procore.Resources.Projects
 
-  test "list/1" do
-    params = %{"company_id" => 1, "project_id" => 2}
+  test "find/1" do
+    params = %{"company_id" => 1, "project_id" => 1}
 
     assert %ResponseResult{reply: :ok, status_code: 200, parsed_body: %{}} = Projects.find(params)
   end

@@ -4,7 +4,7 @@ defmodule Procore.Application do
   @spec start(any, any) :: {:ok, pid()} | {:error, {:already_started, pid()}}
   def start(_type, _args) do
     children = [
-      {Cachex, :a},
+      {Cachex, :token_cache},
       {Procore.HttpClient, []},
       {Procore, []}
     ]

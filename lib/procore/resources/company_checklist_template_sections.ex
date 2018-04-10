@@ -27,11 +27,11 @@ defmodule Procore.Resources.CompanyChecklistTemplateSections do
   @doc """
   Returns Checklist Template.
   """
-  @spec show(%{
+  @spec find(%{
           (company_id :: String.t()) => pos_integer,
           (section_id :: String.t()) => pos_integer
         }) :: %ResponseResult{} | %ErrorResult{}
-  def show(%{"company_id" => company_id, "section_id" => section_id}) do
+  def find(%{"company_id" => company_id, "section_id" => section_id}) do
     %Request{}
     |> Request.insert_request_type(:get)
     |> Request.insert_endpoint("/vapid/companies/#{company_id}/checklist/sections/#{section_id}")

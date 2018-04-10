@@ -1,7 +1,6 @@
 defmodule Procore.Resources.SpecificationUploads do
   @moduledoc """
-  Available actions for the SpecificationUploads resource.
-  https://developers.procore.com/reference/specification-uploads
+  Available actions for the Specification Upload resource.
   """
   alias Procore.ErrorResult
   alias Procore.Request
@@ -16,37 +15,27 @@ defmodule Procore.Resources.SpecificationUploads do
         "specification_upload" => spec_upload
       }) do
     %Request{}
-    |> Request.insert_request_type(:post_multipart)
+    |> Request.insert_request_type(:post)
     |> Request.insert_endpoint("/vapid/projects/#{project_id}/specification_uploads")
     |> Request.insert_body(build_create_body(spec_upload))
     |> Procore.send_request()
   end
 
-  def build_create_body(spec_upload) do
-    file_tuples = Enum.map(spec_upload[:files], fn(path_to_file) ->
-     create_file_tuple(path_to_file)
+  alias Tesla.Multipart
+
+  defp build_create_body(spec_upload) do
+    Multipart.new()
+    |> Multipart.add_content_type_param("charset=utf-8")
+    |> Multipart.add_field("specification_set_id", set_id(spec_upload))
+    |> add_files(spec_upload)
+  end
+
+  defp set_id(%{specification_set_id: id} = _spec_upload), do: to_string(id)
+
+  defp add_files(multipart, %{files: files} = _spec_upload) do
+    Enum.reduce(files, multipart, fn file, acc ->
+      acc
+      |> Multipart.add_file(file, name: "files[]", headers: [{"Content-Type", "application/pdf"}])
     end)
-
-    {
-      :multipart,
-      Enum.concat(
-        [
-          {"specification_set_id", to_string(spec_upload[:specification_set_id])}
-        ],
-        file_tuples
-      )
-    }
   end
-
-  defp create_file_tuple(path_to_file) do
-    filename = String.split(path_to_file, "/") |> List.last()
-
-    {
-      :file,
-      path_to_file,
-      {"form-data", [name: "files[]", filename: filename]},
-      []
-    }
-  end
-
 end
