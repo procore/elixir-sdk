@@ -1,6 +1,6 @@
 defmodule Procore.Resources.Submittals do
   @moduledoc """
-  Available actions for the submittal resource.
+  Available actions for the Submittal resource.
   """
 
   alias Procore.ErrorResult
