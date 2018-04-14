@@ -1,6 +1,6 @@
 defmodule Procore.Resources.DrawingAreas do
   @moduledoc """
-  Available actions for the drawing area resource.
+  Available actions for the Drawing Area resource.
   """
 
   alias Procore.ErrorResult
