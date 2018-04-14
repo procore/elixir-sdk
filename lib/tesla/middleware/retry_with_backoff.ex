@@ -50,6 +50,6 @@ defmodule Tesla.Middleware.RetryWithBackoff do
   end
 
   defp build_message(message, retries) do
-    "Retying Due To -> #{message}\n#{retries - 1} Retries Left"
+    "Retying Due To -> #{message}\n#{retries - 1} Retries Remaining"
   end
 end

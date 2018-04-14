@@ -11,11 +11,11 @@ defmodule Procore.Resources.PunchItems do
   Lists all punch items in a project.
   """
   @spec list(%{(project_id :: String.t()) => pos_integer}) :: %ResponseResult{} | %ErrorResult{}
-  def list(%{"project_id" => project_id}) do
+  def list(%{"project_id" => _project_id} = params) do
     %Request{}
     |> Request.insert_request_type(:get)
     |> Request.insert_endpoint("/vapid/punch_items")
-    |> Request.insert_query_params(%{"project_id" => project_id})
+    |> Request.insert_query_params(params)
     |> Procore.send_request()
   end
 
