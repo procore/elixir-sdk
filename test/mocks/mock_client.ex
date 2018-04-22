@@ -187,113 +187,113 @@ defmodule HttpClient.MockClient do
     %ResponseResult{status_code: 200, parsed_body: [], reply: :ok}
   end
 
-  @spec post(String.t(), any, any) :: %ResponseResult{}
+  @spec post(String.t(), any, any, any) :: %ResponseResult{}
 
-  def post(_, "/vapid/companies/1/observation_templates", _) do
+  def post(_, "/vapid/companies/1/observation_templates", _, _) do
     %ResponseResult{status_code: 201, parsed_body: %{}, reply: :ok}
   end
 
-  def post(_, "/vapid/companies/1/inspection_types", _) do
+  def post(_, "/vapid/companies/1/inspection_types", _, _) do
     %ResponseResult{status_code: 201, parsed_body: %{}, reply: :ok}
   end
 
-  def post(_, "/vapid/images", _) do
+  def post(_, "/vapid/images", _, _) do
     %ResponseResult{status_code: 201, parsed_body: %{}, reply: :ok}
   end
 
-  def post(_, "/vapid/change_events", _) do
+  def post(_, "/vapid/change_events", _, _) do
     %ResponseResult{status_code: 201, parsed_body: %{}, reply: :ok}
   end
 
-  def post(_, "/vapid/companies/1/checklist/list_templates/1/sections/bulk_create", _) do
+  def post(_, "/vapid/companies/1/checklist/list_templates/1/sections/bulk_create", _, _) do
     %ResponseResult{status_code: 201, parsed_body: [], reply: :ok}
   end
 
-  def post(_, "/vapid/work_order_contracts/1/line_items", _) do
+  def post(_, "/vapid/work_order_contracts/1/line_items", _, _) do
     %ResponseResult{status_code: 201, parsed_body: %{}, reply: :ok}
   end
 
-  def post(_, "/vapid/purchase_order_contracts/1/line_items", _) do
+  def post(_, "/vapid/purchase_order_contracts/1/line_items", _, _) do
     %ResponseResult{status_code: 201, parsed_body: %{}, reply: :ok}
   end
 
-  def post(_, "/vapid/prime_contract", _) do
+  def post(_, "/vapid/prime_contract", _, _) do
     %ResponseResult{status_code: 201, parsed_body: %{}, reply: :ok}
   end
 
-  def post(_, "/vapid/checklists/list_templates/create_from_company_template", _) do
+  def post(_, "/vapid/checklists/list_templates/create_from_company_template", _, _) do
     %ResponseResult{status_code: 201, parsed_body: %{}, reply: :ok}
   end
 
-  def post(_, "/vapid/companies/1/checklist/list_templates", _) do
+  def post(_, "/vapid/companies/1/checklist/list_templates", _, _) do
     %ResponseResult{status_code: 201, parsed_body: %{}, reply: :ok}
   end
 
-  def post(_, "/vapid/checklist/lists", _) do
+  def post(_, "/vapid/checklist/lists", _, _) do
     %ResponseResult{status_code: 201, parsed_body: %{}, reply: :ok}
   end
 
-  def post(_, "/vapid/projects/1/bid_packages", _) do
+  def post(_, "/vapid/projects/1/bid_packages", _, _) do
     %ResponseResult{status_code: 201, parsed_body: %{}, reply: :ok}
   end
 
-  def post(_, "/vapid/locations", _) do
+  def post(_, "/vapid/locations", _, _) do
     %ResponseResult{status_code: 201, parsed_body: %{}, reply: :ok}
   end
 
-  def post(_, "/vapid/projects", _) do
+  def post(_, "/vapid/projects", _, _) do
     %ResponseResult{status_code: 201, parsed_body: %{}, reply: :ok}
   end
 
-  def post(_, "/vapid/projects/1/vendors/1/actions/add", _) do
+  def post(_, "/vapid/projects/1/vendors/1/actions/add", _, _) do
     %ResponseResult{status_code: 200, parsed_body: %{}, reply: :ok}
   end
 
-  def post(_, "/vapid/projects/1/users/1/actions/add", _) do
+  def post(_, "/vapid/projects/1/users/1/actions/add", _, _) do
     %ResponseResult{status_code: 200, parsed_body: %{}, reply: :ok}
   end
 
-  def post(_, "/vapid/meetings", _) do
+  def post(_, "/vapid/meetings", _, _) do
     %ResponseResult{status_code: 201, parsed_body: %{}, reply: :ok}
   end
 
-  def post(_, "/vapid/meeting_categories", _) do
+  def post(_, "/vapid/meeting_categories", _, _) do
     %ResponseResult{status_code: 201, parsed_body: %{}, reply: :ok}
   end
 
-  def post(_, "/vapid/meeting_topics", _) do
+  def post(_, "/vapid/meeting_topics", _, _) do
     %ResponseResult{status_code: 201, parsed_body: %{}, reply: :ok}
   end
 
-  def post(_, "/vapid/punch_items", _) do
+  def post(_, "/vapid/punch_items", _, _) do
     %ResponseResult{status_code: 201, parsed_body: %{}, reply: :ok}
   end
 
-  def post(_, "/vapid/projects/1/rfis", _) do
+  def post(_, "/vapid/projects/1/rfis", _, _) do
     %ResponseResult{status_code: 201, parsed_body: %{}, reply: :ok}
   end
 
-  def post(_, "/vapid/resources", _) do
+  def post(_, "/vapid/resources", _, _) do
     %ResponseResult{status_code: 201, parsed_body: %{}, reply: :ok}
   end
 
-  def post(_, "/vapid/tasks", _) do
+  def post(_, "/vapid/tasks", _, _) do
     %ResponseResult{status_code: 201, parsed_body: %{}, reply: :ok}
   end
 
-  def post(_, "/vapid/projects/1/submittals", _) do
+  def post(_, "/vapid/projects/1/submittals", _, _) do
     %ResponseResult{status_code: 201, parsed_body: %{}, reply: :ok}
   end
 
-  def post(_, "/vapid/projects/1/drawing_areas", _) do
+  def post(_, "/vapid/projects/1/drawing_areas", _, _) do
     %ResponseResult{status_code: 201, parsed_body: %{}, reply: :ok}
   end
 
-  def post(_, "/vapid/companies/1/trades", _) do
+  def post(_, "/vapid/companies/1/trades", _, _) do
     %ResponseResult{status_code: 201, parsed_body: %{}, reply: :ok}
   end
 
-  def post(_, "/vapid/checklist/list_templates/create_from_company_template", _) do
+  def post(_, "/vapid/checklist/list_templates/create_from_company_template", _, _) do
     %ResponseResult{status_code: 201, parsed_body: %{}, reply: :ok}
   end
 
