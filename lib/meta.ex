@@ -48,7 +48,7 @@ defmodule Procore.Meta do
               (<%= provider_singular %>_id :: String.t()) => pos_integer,
               (<%= res_down %> :: String.t()) => map
             }) :: %ResponseResult{} | %ErrorResult{}
-      def create(%{"<%= provider_singular %>_id" => <%= provider_singular %>_id, "<%= res_down %>" => <%= res_down %>} = params) do
+      def create(%{"<%= provider_singular %>_id" => <%= provider_singular %>_id, "<%= res_down %>" => _<%= res_down %>} = params) do
         %Request{}
         |> Request.insert_request_type(:post)
         |> Request.insert_endpoint("/vapid/<%= provider_plural %>/#{<%= provider_singular %>_id}/<%= res_down %>s")
@@ -72,7 +72,7 @@ defmodule Procore.Meta do
       end
 
       test "find/1" do
-        params = %{"observation_item_id" => 1, "<%= provider_singular %>_id" => 1}
+        params = %{"<%= res_down %>_id" => 1, "<%= provider_singular %>_id" => 1}
 
         assert %ResponseResult{reply: :ok, status_code: 200, parsed_body: %{}} =
                  <%= res %>s.find(params)
@@ -93,10 +93,10 @@ defmodule Procore.Meta do
     provider_singular = if company_or_project == "company", do: "company", else: "project"
     provider_plural = if company_or_project == "company", do: "companies", else: "projects"
 
-    resource_file_path = "procore/resources/#{res_down}s.ex"
-    resource_test_file_path = "../test/resources/#{res_down}s_test.exs"
+    resource_file_path = Path.expand("./lib/procore/resources/#{res_down}s.ex") |> Path.absname
+    resource_test_file_path = Path.expand("./test/resources/#{res_down}s_test.exs") |> Path.absname
 
-    File.write(
+    File.write!(
       resource_file_path,
       EEx.eval_string(
         resource_code,
@@ -107,7 +107,7 @@ defmodule Procore.Meta do
       )
     )
 
-    File.write(
+    File.write!(
       resource_test_file_path,
       EEx.eval_string(
         resource_test_code,

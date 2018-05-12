@@ -41,7 +41,7 @@ defmodule Procore.Resources.Hazards do
           (company_id :: String.t()) => pos_integer,
           (hazard :: String.t()) => map
         }) :: %ResponseResult{} | %ErrorResult{}
-  def create(%{"company_id" => company_id, "hazard" => hazard} = params) do
+  def create(%{"company_id" => company_id, "hazard" => _hazard} = params) do
     %Request{}
     |> Request.insert_request_type(:post)
     |> Request.insert_endpoint("/vapid/companies/#{company_id}/hazards")
