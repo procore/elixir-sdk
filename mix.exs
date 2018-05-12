@@ -36,7 +36,8 @@ defmodule Procore.MixProject do
       {:cachex, "~> 3.0"},
       {:ex_doc, ">= 0.0.0", only: :dev},
       {:poison, "~> 3.1"},
-      {:tesla, "1.0.0-beta.1"}
+      {:tesla, "1.0.0-beta.1"},
+      {:recase, "~> 0.2"}
     ]
   end
 
