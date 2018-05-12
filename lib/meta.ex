@@ -1,5 +1,5 @@
 defmodule Procore.Meta do
-  def test(resource_name, company_or_project) do
+  def gen(resource_name, company_or_project) do
     if !Enum.member?(["company", "project"], company_or_project) do
       raise "second argument must be either 'company' or 'project'"
     end
