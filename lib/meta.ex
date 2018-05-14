@@ -1,5 +1,5 @@
 defmodule Procore.Meta do
-  # Procore.Meta.gen("ContributingCondition", "company")
+  # Procore.Meta.gen!("ContributingCondition", "company")
   # => creates 'lib/procore/resources/contributing_conditions.ex' and
   #            'test/resources/contributing_conditions_test.exs'
   def gen!(resource_name, company_or_project) do
