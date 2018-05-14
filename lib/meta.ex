@@ -1,5 +1,8 @@
 defmodule Procore.Meta do
-  def gen(resource_name, company_or_project) do
+  # Procore.Meta.gen("ContributingCondition", "company")
+  # => creates 'lib/procore/resources/contributing_conditions.ex' and
+  #            'test/resources/contributing_conditions_test.exs'
+  def gen!(resource_name, company_or_project) do
     if !Enum.member?(["company", "project"], company_or_project) do
       raise "second argument must be either 'company' or 'project'"
     end
