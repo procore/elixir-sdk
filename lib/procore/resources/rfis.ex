@@ -10,6 +10,18 @@ defmodule Procore.Resources.Rfis do
   @doc """
   Lists all RFIs in a project.
   """
+  @spec list(%{
+          (project_id :: String.t()) => pos_integer,
+          (serializer_view :: String.t()) => String.t()
+        }) :: %ResponseResult{} | %ErrorResult{}
+  def list(%{"project_id" => project_id, "serializer_view" => serializer_view}) do
+    %Request{}
+    |> Request.insert_request_type(:get)
+    |> Request.insert_endpoint("/vapid/projects/#{project_id}/rfis")
+    |> Request.insert_query_params(%{"serializer_view" => serializer_view})
+    |> Procore.send_request()
+  end
+
   @spec list(%{(project_id :: String.t()) => pos_integer}) :: %ResponseResult{} | %ErrorResult{}
   def list(%{"project_id" => project_id}) do
     %Request{}
