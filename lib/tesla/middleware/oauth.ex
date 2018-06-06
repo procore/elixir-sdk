@@ -1,5 +1,11 @@
 defmodule Tesla.Middleware.OAuth do
   @behaviour Tesla.Middleware
+  use Tesla, only: [:post]
+
+  adapter(
+    Tesla.Adapter.Hackney,
+    Application.get_env(:procore, :http_client_adapter_options, recv_timeout: 30_000)
+  )
 
   defp procore_host(), do: Application.get_env(:procore, :host, "https://api.procore.com")
   defp client_id(), do: Application.get_env(:procore, :client_id)
@@ -19,7 +25,7 @@ defmodule Tesla.Middleware.OAuth do
     case Cachex.get(:token_cache, :access_token) do
       {:ok, nil} ->
         %{"access_token" => token, "expires_in" => expires_in} =
-          Tesla.post!(tesla_client(), oauth_url(), oauth_request_body()).body |> Poison.decode!()
+          post!(tesla_client(), oauth_url(), oauth_request_body()).body |> Poison.decode!()
 
         Cachex.put(:token_cache, :access_token, token, ttl: :timer.seconds(expires_in - 1000))
         token
