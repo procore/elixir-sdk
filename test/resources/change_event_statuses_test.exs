@@ -9,5 +9,4 @@ defmodule Procore.Resources.ChangeEventStatusesTest do
     assert %ResponseResult{reply: :ok, status_code: 200, parsed_body: []} =
              ChangeEventStatuses.list(params)
   end
-
 end

@@ -45,7 +45,12 @@ defmodule Procore do
   @doc """
   Makes a POST request.
   """
-  def send_request(%Request{request_type: :post, endpoint: endpoint, body: body, query_params: query_params})
+  def send_request(%Request{
+        request_type: :post,
+        endpoint: endpoint,
+        body: body,
+        query_params: query_params
+      })
       when byte_size(endpoint) > 0 do
     @http_client.post(tesla_client(), endpoint, body, QueryParams.build(query_params))
   end

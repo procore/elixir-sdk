@@ -26,7 +26,10 @@ defmodule Procore.Resources.PurchaseOrderContracts do
           (project_id :: String.t()) => pos_integer,
           (purchase_order_contract_id :: String.t()) => pos_integer
         }) :: %ResponseResult{} | %ErrorResult{}
-  def find(%{"project_id" => project_id, "purchase_order_contract_id" => purchase_order_contract_id}) do
+  def find(%{
+        "project_id" => project_id,
+        "purchase_order_contract_id" => purchase_order_contract_id
+      }) do
     %Request{}
     |> Request.insert_request_type(:get)
     |> Request.insert_endpoint("/vapid/purchase_order_contracts/#{purchase_order_contract_id}")

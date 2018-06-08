@@ -41,13 +41,15 @@ defmodule Procore.Resources.ObservationItemResponseLogs do
           (company_id :: String.t()) => pos_integer,
           (observationitemresponse_log :: String.t()) => map
         }) :: %ResponseResult{} | %ErrorResult{}
-  def create(%{
-        "project_id" => project_id,
-        "reponse_log" => response_log,
-        "status" => status,
-        "attachments" => attachments,
-        "observation_item_id" => item_id
-      } = params) do
+  def create(
+        %{
+          "project_id" => project_id,
+          "reponse_log" => response_log,
+          "status" => status,
+          "attachments" => attachments,
+          "observation_item_id" => item_id
+        } = params
+      ) do
     %Request{}
     |> Request.insert_request_type(:post)
     |> Request.insert_endpoint("/vapid/observations/items/#{item_id}/response_logs")

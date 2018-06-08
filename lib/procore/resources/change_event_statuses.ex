@@ -18,5 +18,4 @@ defmodule Procore.Resources.ChangeEventStatuses do
     |> Request.insert_query_params(params)
     |> Procore.send_request()
   end
-
 end
