@@ -96,8 +96,10 @@ defmodule Procore.Meta do
     provider_singular = if company_or_project == "company", do: "company", else: "project"
     provider_plural = if company_or_project == "company", do: "companies", else: "projects"
 
-    resource_file_path = Path.expand("./lib/procore/resources/#{res_down}s.ex") |> Path.absname
-    resource_test_file_path = Path.expand("./test/resources/#{res_down}s_test.exs") |> Path.absname
+    resource_file_path = Path.expand("./lib/procore/resources/#{res_down}s.ex") |> Path.absname()
+
+    resource_test_file_path =
+      Path.expand("./test/resources/#{res_down}s_test.exs") |> Path.absname()
 
     File.write!(
       resource_file_path,

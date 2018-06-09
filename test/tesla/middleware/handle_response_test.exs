@@ -3,6 +3,7 @@ defmodule Tesla.Middleware.HandleResponseTest do
 
   defmodule ResponseTestClient do
     use Tesla
+    adapter(Tesla.Adapter.Hackney, recv_timeout: 30_000)
 
     plug(Tesla.Middleware.HandleResponse)
     plug(Tesla.Middleware.DecodeJson, engine: Poison)

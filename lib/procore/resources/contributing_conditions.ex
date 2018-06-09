@@ -29,7 +29,9 @@ defmodule Procore.Resources.ContributingConditions do
   def find(%{"company_id" => company_id, "contributing_condition_id" => contributing_condition_id}) do
     %Request{}
     |> Request.insert_request_type(:get)
-    |> Request.insert_endpoint("/vapid/companies/#{company_id}/contributing_conditions/#{contributing_condition_id}")
+    |> Request.insert_endpoint(
+      "/vapid/companies/#{company_id}/contributing_conditions/#{contributing_condition_id}"
+    )
     |> Request.insert_query_params(%{"company_id" => company_id})
     |> Procore.send_request()
   end
@@ -41,7 +43,10 @@ defmodule Procore.Resources.ContributingConditions do
           (company_id :: String.t()) => pos_integer,
           (contributing_condition :: String.t()) => map
         }) :: %ResponseResult{} | %ErrorResult{}
-  def create(%{"company_id" => company_id, "contributing_condition" => _contributing_condition} = params) do
+  def create(
+        %{"company_id" => company_id, "contributing_condition" => _contributing_condition} =
+          params
+      ) do
     %Request{}
     |> Request.insert_request_type(:post)
     |> Request.insert_endpoint("/vapid/companies/#{company_id}/contributing_conditions")

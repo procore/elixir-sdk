@@ -22,6 +22,7 @@ defmodule Tesla.Middleware.RetryWithBackoffTest do
 
   defmodule RetryTestClient do
     use Tesla
+    adapter(Tesla.Adapter.Hackney, recv_timeout: 30_000)
 
     plug(Tesla.Middleware.HandleResponse)
     plug(Tesla.Middleware.RetryWithBackoff, delay: 10, max_retries: 3)

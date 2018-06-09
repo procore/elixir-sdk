@@ -9,5 +9,4 @@ defmodule Procore.Resources.ChangeOrderStatusesTest do
     assert %ResponseResult{reply: :ok, status_code: 200, parsed_body: []} =
              ChangeOrderStatuses.list(params)
   end
-
 end
