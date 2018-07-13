@@ -47,11 +47,12 @@ defmodule Procore.Resources.Images do
 
   alias Tesla.Multipart
 
+  require IEx
   defp build_create_body(image_category_id, filename, path_to_file) do
     Multipart.new()
     |> Multipart.add_content_type_param("charset=utf-8")
     |> Multipart.add_field("image[name]", filename)
-    |> Multipart.add_field("image[image_category_id]", image_category_id)
-    |> Multipart.add_file(path_to_file, name: filename)
+    |> Multipart.add_field("image[image_category_id]", Integer.to_string(image_category_id))
+    |> Multipart.add_file(path_to_file, name: "image[data]", detect_content_type: true)
   end
 end

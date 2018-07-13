@@ -82,6 +82,8 @@ defmodule Procore do
   end
 
   defp headers do
-    [{"Content-Type", "application/json"}]
+    #[{"Content-Type", "application/json"}] # works for everything, besides multipart
+    #[{"Content-Type", "multipart/form-data"}] # works for multipart
+    [] # seems to work for both
   end
 end
