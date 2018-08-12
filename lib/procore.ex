@@ -8,9 +8,6 @@ defmodule Procore do
   alias Procore.Request
   alias Procore.ResponseResult
 
-  @http_client Application.get_env(:procore, :http_client, HttpClient.MockClient)
-  @host Application.get_env(:procore, :host, "https://api.procore.com")
-
   @spec child_spec(list) :: map()
   def child_spec(opts) do
     %{
@@ -39,7 +36,7 @@ defmodule Procore do
   """
   def send_request(%Request{request_type: :get, endpoint: endpoint, query_params: query_params})
       when byte_size(endpoint) > 0 do
-    @http_client.get(tesla_client(), endpoint, QueryParams.build(query_params))
+    http_client().get(tesla_client(), endpoint, QueryParams.build(query_params))
   end
 
   @doc """
@@ -52,7 +49,7 @@ defmodule Procore do
         query_params: query_params
       })
       when byte_size(endpoint) > 0 do
-    @http_client.post(tesla_client(), endpoint, body, QueryParams.build(query_params))
+    http_client().post(tesla_client(), endpoint, body, QueryParams.build(query_params))
   end
 
   @doc """
@@ -60,7 +57,7 @@ defmodule Procore do
   """
   def send_request(%Request{request_type: :patch, endpoint: endpoint, body: body})
       when byte_size(endpoint) > 0 do
-    @http_client.patch(tesla_client(), endpoint, body)
+    http_client().patch(tesla_client(), endpoint, body)
   end
 
   @doc """
@@ -78,7 +75,7 @@ defmodule Procore do
   end
 
   defp tesla_client do
-    Tesla.build_client([{Tesla.Middleware.Headers, headers()}, {Tesla.Middleware.BaseUrl, @host}])
+    Tesla.build_client([{Tesla.Middleware.Headers, headers()}, {Tesla.Middleware.BaseUrl, host()}])
   end
 
   defp headers do
@@ -86,5 +83,13 @@ defmodule Procore do
     # [{"Content-Type", "multipart/form-data"}] # works for multipart
     # seems to work for both
     []
+  end
+
+  defp host() do
+    Application.get_env(:procore, :host, "https://api.procore.com")
+  end
+
+  def http_client() do
+    Application.get_env(:procore, :http_client, HttpClient.MockClient)
   end
 end
