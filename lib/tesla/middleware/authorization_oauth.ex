@@ -31,12 +31,4 @@ defmodule Tesla.Middleware.AuthorizationOAuth do
   def headers do
     [{"Content-type", "application/json"}, {"Accept", "application/json"}]
   end
-
-  def oauth_url do
-    procore_host() <> "/oauth/token"
-  end
-
-  def oauth_request_body do
-    %{client_id: client_id(), client_secret: client_secret(), grant_type: "client_credentials"}
-  end
 end
