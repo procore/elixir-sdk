@@ -20,6 +20,18 @@ defmodule Procore.Resources.Projects do
   end
 
   @doc """
+  Lists projects.
+  """
+  @spec list(map) :: %ResponseResult{} | %ErrorResult{}
+  def list(%{"company_id" => company_id}) do
+    %Request{}
+    |> Request.insert_request_type(:get)
+    |> Request.insert_endpoint("/vapid/projects")
+    |> Request.insert_query_params(%{"company_id" => company_id})
+    |> Procore.send_request()
+  end
+
+  @doc """
   Creates a project and all of it's required defaults and associations.
   """
   @spec create(map) :: %ResponseResult{} | %ErrorResult{}

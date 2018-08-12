@@ -9,6 +9,12 @@ defmodule Procore.Resources.ProjectsTest do
     assert %ResponseResult{reply: :ok, status_code: 200, parsed_body: %{}} = Projects.find(params)
   end
 
+  test "list/1" do
+    params = %{"company_id" => 1}
+
+    assert %ResponseResult{reply: :ok, status_code: 200, parsed_body: %{}} = Projects.list(params)
+  end
+
   test "create/1" do
     params = %{"company_id" => 1, "project" => %{}}
 
