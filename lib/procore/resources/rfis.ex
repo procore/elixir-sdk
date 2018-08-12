@@ -52,18 +52,21 @@ defmodule Procore.Resources.Rfis do
       Multipart.new()
       |> Multipart.add_content_type_param("charset=utf-8")
       |> add_field("rfi", rfi)
+      |> add_attachments(attachments)
+  end
 
+  defp build_create_body(rfi), do: %{"rfi" => rfi}
+
+  defp add_attachments(multipart, attachments) do
     Enum.reduce(attachments, multipart, fn attachment, multipart ->
       Multipart.add_file_content(
         multipart,
-        attachment["file"],
-        attachment["name"],
+        Map.fetch!(attachment, "file"),
+        Map.fetch!(attachment, "name"),
         name: "rfi[question][attachments][]"
       )
     end)
   end
-
-  defp build_create_body(rfi), do: %{"rfi" => rfi}
 
   defp add_field(multipart, key, %{} = value) do
     Enum.reduce(value, multipart, fn {nested_key, nested_value}, multipart ->
