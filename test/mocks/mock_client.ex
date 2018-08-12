@@ -337,6 +337,10 @@ defmodule HttpClient.MockClient do
     %ResponseResult{status_code: 201, parsed_body: %{}, reply: :ok}
   end
 
+  def post(_, "/vapid/projects/1/rfis/1/replies", _, _) do
+    %ResponseResult{status_code: 201, parsed_body: %{}, reply: :ok}
+  end
+
   def post(_, "/vapid/resources", _, _) do
     %ResponseResult{status_code: 201, parsed_body: %{}, reply: :ok}
   end
