@@ -8,6 +8,14 @@ defmodule Procore do
   alias Procore.Request
   alias Procore.ResponseResult
 
+  @http_client Application.get_env(:procore, :http_client, HttpClient.MockClient)
+  @oauth_client Application.get_env(
+                  :procore,
+                  :oauth_client,
+                  Tesla.Middleware.ClientCredentialsOAuth
+                )
+  @host Application.get_env(:procore, :host, "https://api.procore.com")
+
   @spec child_spec(list) :: map()
   def child_spec(opts) do
     %{
@@ -29,35 +37,43 @@ defmodule Procore do
     {:ok, {%{}, opts}}
   end
 
+  def client(token) do
+    tesla_client(token)
+  end
+
   @spec send_request(Request.t()) :: %ResponseResult{} | %ErrorResult{} | ArgumentError
 
   @doc """
   Makes a GET request.
   """
-  def send_request(%Request{request_type: :get, endpoint: endpoint, query_params: query_params})
+  def send_request(client, %Request{
+        request_type: :get,
+        endpoint: endpoint,
+        query_params: query_params
+      })
       when byte_size(endpoint) > 0 do
-    http_client().get(tesla_client(), endpoint, QueryParams.build(query_params))
+    http_client().get(client, endpoint, QueryParams.build(query_params))
   end
 
   @doc """
   Makes a POST request.
   """
-  def send_request(%Request{
+  def send_request(client, %Request{
         request_type: :post,
         endpoint: endpoint,
         body: body,
         query_params: query_params
       })
       when byte_size(endpoint) > 0 do
-    http_client().post(tesla_client(), endpoint, body, QueryParams.build(query_params))
+    http_client().post(client, endpoint, body, QueryParams.build(query_params))
   end
 
   @doc """
   Makes a PATCH request.
   """
-  def send_request(%Request{request_type: :patch, endpoint: endpoint, body: body})
+  def send_request(client, %Request{request_type: :patch, endpoint: endpoint, body: body})
       when byte_size(endpoint) > 0 do
-    http_client().patch(tesla_client(), endpoint, body)
+    http_client().patch(client, endpoint, body)
   end
 
   @doc """
@@ -74,8 +90,12 @@ defmodule Procore do
     raise ArgumentError, "you must set an endpoint for the Procore.Request struct"
   end
 
-  defp tesla_client do
-    Tesla.build_client([{Tesla.Middleware.Headers, headers()}, {Tesla.Middleware.BaseUrl, host()}])
+  defp tesla_client(token) do
+    Tesla.build_client([
+      {Tesla.Middleware.Headers, headers()},
+      {Tesla.Middleware.BaseUrl, @host},
+      {@oauth_client, [token: token]}
+    ])
   end
 
   defp headers do
