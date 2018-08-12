@@ -39,7 +39,39 @@ defmodule Procore.Resources.Rfis do
     %Request{}
     |> Request.insert_request_type(:post)
     |> Request.insert_endpoint("/vapid/projects/#{project_id}/rfis")
-    |> Request.insert_body(%{"rfi" => rfi})
+    |> Request.insert_body(build_create_body(rfi))
     |> Procore.send_request()
+  end
+
+  alias Tesla.Multipart
+
+  defp build_create_body(%{"question" => %{"attachments" => attachments}} = rfi) do
+    rfi = Map.update!(rfi, "question", &Map.drop(&1, ["attachments"]))
+
+    multipart =
+      Multipart.new()
+      |> Multipart.add_content_type_param("charset=utf-8")
+      |> add_field("rfi", rfi)
+
+    Enum.reduce(attachments, multipart, fn attachment, multipart ->
+      Multipart.add_file_content(
+        multipart,
+        attachment["file"],
+        attachment["name"],
+        name: "rfi[question][attachments][]"
+      )
+    end)
+  end
+
+  defp build_create_body(rfi), do: %{"rfi" => rfi}
+
+  defp add_field(multipart, key, %{} = value) do
+    Enum.reduce(value, multipart, fn {nested_key, nested_value}, multipart ->
+      add_field(multipart, "#{key}[#{nested_key}]", nested_value)
+    end)
+  end
+
+  defp add_field(multipart, key, value) do
+    Multipart.add_field(multipart, key, to_string(value))
   end
 end
