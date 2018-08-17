@@ -18,20 +18,21 @@ defmodule Tesla.Middleware.OAuth do
   end
 
   defp add_auth_header(env) do
-    %{env | headers: [{"Authorization", "Bearer #{get_access_token()}"} | env.headers]}
+    %{env | headers: [{"Authorization", "Bearer #{get_access_token(procore_host())}"} | env.headers]}
   end
 
-  defp get_access_token do
-    case Cachex.get(:token_cache, :access_token) do
+  defp get_access_token(host_url) do
+    cache_key = "access_token/#{host_url}"
+    case Cachex.get(:token_cache, cache_key) do
       {:ok, nil} ->
         %{"access_token" => token, "expires_in" => expires_in} =
           post!(tesla_client(), oauth_url(), oauth_request_body()).body |> Poison.decode!()
 
-        Cachex.put(:token_cache, :access_token, token, ttl: :timer.seconds(expires_in - 1000))
+        Cachex.put(:token_cache, cache_key, token, ttl: :timer.seconds(expires_in - 1000))
         token
 
-      {:ok, oauth_token} ->
-        oauth_token
+      {:ok, token} ->
+        token
     end
   end
 
