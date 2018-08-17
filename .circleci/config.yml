@@ -25,3 +25,33 @@ jobs:
       - run:
           name: Run Tests
           command: mix test
+  blackduck:
+    docker:
+      - image: elixir:1.6.0
+    working_directory: /elixir-sdk
+    steps:
+      - checkout
+      - run: echo "deb http://http.debian.net/debian jessie-backports main" | tee --append /etc/apt/sources.list.d/jessie-backports.list > /dev/null
+      - run: apt update -qq
+      - run: apt install -y --no-install-recommends -t jessie-backports openjdk-8-jdk
+      - run: |
+          mix local.hex --force && \
+          mix local.rebar --force && \
+          mix deps.get
+      - run: bash <(curl -s https://blackducksoftware.github.io/hub-detect/hub-detect.sh) --blackduck.hub.url="https://procore.blackducksoftware.com" --blackduck.hub.api.token=$BLACKDUCK_API_TOKEN || exit 0
+workflows:
+  version: 2
+  build_and_test:
+    jobs:
+      - build
+      - blackduck
+  nightly:
+    triggers:
+      - schedule:
+          cron: "0 0 * * *"
+          filters:
+            branches:
+              only:
+                - master
+    jobs:
+      - blackduck
