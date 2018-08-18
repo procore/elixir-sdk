@@ -10,7 +10,8 @@ defmodule Procore.Resources.ChangeEventStatuses do
   @doc """
   Lists all Change Event Statuses with associated records in a project.
   """
-  @spec list(%{(company_id :: String.t()) => pos_integer}) :: %ResponseResult{} | %ErrorResult{}
+  @spec list(Tesla.Client.t(), %{(company_id :: String.t()) => pos_integer}) ::
+          %ResponseResult{} | %ErrorResult{}
   def list(client, %{"company_id" => _company_id} = params) do
     %Request{}
     |> Request.insert_request_type(:get)

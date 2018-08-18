@@ -10,7 +10,8 @@ defmodule Procore.Resources.ImageCategories do
   @doc """
   Lists all image_categories (albums) for a given project_id.
   """
-  @spec list(%{(project_id :: String.t()) => pos_integer}) :: %ResponseResult{} | %ErrorResult{}
+  @spec list(Tesla.Client.t(), %{(project_id :: String.t()) => pos_integer}) ::
+          %ResponseResult{} | %ErrorResult{}
   def list(client, %{"project_id" => project_id}) do
     %Request{}
     |> Request.insert_request_type(:get)

@@ -10,7 +10,8 @@ defmodule Procore.Resources.CommitmentLineItemTypes do
   @doc """
   Lists all Line Item Types in a company.
   """
-  @spec list(%{(company_id :: String.t()) => pos_integer}) :: %ResponseResult{} | %ErrorResult{}
+  @spec list(Tesla.Client.t(), %{(company_id :: String.t()) => pos_integer}) ::
+          %ResponseResult{} | %ErrorResult{}
   def list(client, %{"company_id" => _company_id} = params) do
     %Request{}
     |> Request.insert_request_type(:get)

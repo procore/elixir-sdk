@@ -10,7 +10,8 @@ defmodule Procore.Resources.Trades do
   @doc """
   Lists all Trades in a company.
   """
-  @spec list(%{(company_id :: String.t()) => pos_integer}) :: %ResponseResult{} | %ErrorResult{}
+  @spec list(Tesla.Client.t(), %{(company_id :: String.t()) => pos_integer}) ::
+          %ResponseResult{} | %ErrorResult{}
   def list(client, %{"company_id" => company_id}) do
     %Request{}
     |> Request.insert_request_type(:get)

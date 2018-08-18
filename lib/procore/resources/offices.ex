@@ -11,7 +11,7 @@ defmodule Procore.Resources.Offices do
   @doc """
   Lists all offices in a company.
   """
-  @spec list(%{(company_id :: String.t()) => pos_integer}) ::
+  @spec list(Tesla.Client.t(), %{(company_id :: String.t()) => pos_integer}) ::
           %ResponseResult{
             status_code: DefinedTypes.non_error_status_code(),
             parsed_body: ResponseBodyTypes.ListOffices.t(),

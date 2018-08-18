@@ -10,7 +10,8 @@ defmodule Procore.Resources.ObservationItemResponseLogs do
   @doc """
   Lists all ObservationItemResponseLogs in a ObservationItem.
   """
-  @spec list(%{(company_id :: String.t()) => pos_integer}) :: %ResponseResult{} | %ErrorResult{}
+  @spec list(Tesla.Client.t(), %{(company_id :: String.t()) => pos_integer}) ::
+          %ResponseResult{} | %ErrorResult{}
   def list(client, %{"project_id" => project_id, "observation_item_id" => item_id} = params) do
     %Request{}
     |> Request.insert_request_type(:get)

@@ -34,7 +34,7 @@ defmodule Procore.Resources.Users do
   @doc """
   Lists all users in a company directory.
   """
-  @spec list(%{(company_id :: String.t()) => pos_integer}) ::
+  @spec list(Tesla.Client.t(), %{(company_id :: String.t()) => pos_integer}) ::
           %ResponseResult{
             status_code: DefinedTypes.non_error_status_code(),
             parsed_body: ResponseBodyTypes.ListCompanyUsers.t(),
@@ -51,7 +51,8 @@ defmodule Procore.Resources.Users do
   @doc """
   Lists all users in a project directory.
   """
-  @spec list(%{(project_id :: String.t()) => pos_integer}) :: %ResponseResult{} | %ErrorResult{}
+  @spec list(Tesla.Client.t(), %{(project_id :: String.t()) => pos_integer}) ::
+          %ResponseResult{} | %ErrorResult{}
   def list(client, %{"project_id" => project_id}) do
     %Request{}
     |> Request.insert_request_type(:get)

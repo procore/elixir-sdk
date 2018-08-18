@@ -10,7 +10,8 @@ defmodule Procore.Resources.ContributingBehaviors do
   @doc """
   Lists all ContributingBehaviors in a Project.
   """
-  @spec list(%{(company_id :: String.t()) => pos_integer}) :: %ResponseResult{} | %ErrorResult{}
+  @spec list(Tesla.Client.t(), %{(company_id :: String.t()) => pos_integer}) ::
+          %ResponseResult{} | %ErrorResult{}
   def list(client, %{"company_id" => company_id} = params) do
     %Request{}
     |> Request.insert_request_type(:get)
@@ -26,7 +27,10 @@ defmodule Procore.Resources.ContributingBehaviors do
           (company_id :: String.t()) => pos_integer,
           (contributing_behavior_id :: String.t()) => pos_integer
         }) :: %ResponseResult{} | %ErrorResult{}
-  def find(client, %{"company_id" => company_id, "contributing_behavior_id" => contributing_behavior_id}) do
+  def find(client, %{
+        "company_id" => company_id,
+        "contributing_behavior_id" => contributing_behavior_id
+      }) do
     %Request{}
     |> Request.insert_request_type(:get)
     |> Request.insert_endpoint(

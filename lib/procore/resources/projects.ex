@@ -22,7 +22,7 @@ defmodule Procore.Resources.Projects do
   @doc """
   Lists projects.
   """
-  @spec list(map) :: %ResponseResult{} | %ErrorResult{}
+  @spec list(Tesla.Client.t(), map) :: %ResponseResult{} | %ErrorResult{}
   def list(client, %{"company_id" => company_id}) do
     %Request{}
     |> Request.insert_request_type(:get)

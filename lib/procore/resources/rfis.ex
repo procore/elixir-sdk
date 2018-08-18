@@ -10,7 +10,7 @@ defmodule Procore.Resources.Rfis do
   @doc """
   Lists all RFIs in a project.
   """
-  @spec list(%{
+  @spec list(Tesla.Client.t(), %{
           (project_id :: String.t()) => pos_integer,
           (serializer_view :: String.t()) => String.t()
         }) :: %ResponseResult{} | %ErrorResult{}
@@ -22,7 +22,8 @@ defmodule Procore.Resources.Rfis do
     |> Procore.send_request()
   end
 
-  @spec list(%{(project_id :: String.t()) => pos_integer}) :: %ResponseResult{} | %ErrorResult{}
+  @spec list(Tesla.Client.t(), %{(project_id :: String.t()) => pos_integer}) ::
+          %ResponseResult{} | %ErrorResult{}
   def list(client, %{"project_id" => project_id}) do
     %Request{}
     |> Request.insert_request_type(:get)

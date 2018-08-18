@@ -10,7 +10,7 @@ defmodule Procore.Resources.PurchaseOrderContractLineItems do
   @doc """
   Lists all Line Items for a specific Purchase Order Contract.
   """
-  @spec list(%{
+  @spec list(Tesla.Client.t(), %{
           (project_id :: String.t()) => pos_integer,
           (purchase_order_contract_id :: String.t()) => pos_integer
         }) :: %ResponseResult{} | %ErrorResult{}

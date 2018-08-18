@@ -10,7 +10,8 @@ defmodule Procore.Resources.ContributingConditions do
   @doc """
   Lists all ContributingConditions in a Project.
   """
-  @spec list(%{(company_id :: String.t()) => pos_integer}) :: %ResponseResult{} | %ErrorResult{}
+  @spec list(Tesla.Client.t(), %{(company_id :: String.t()) => pos_integer}) ::
+          %ResponseResult{} | %ErrorResult{}
   def list(client, %{"company_id" => company_id} = params) do
     %Request{}
     |> Request.insert_request_type(:get)
@@ -26,7 +27,10 @@ defmodule Procore.Resources.ContributingConditions do
           (company_id :: String.t()) => pos_integer,
           (contributing_condition_id :: String.t()) => pos_integer
         }) :: %ResponseResult{} | %ErrorResult{}
-  def find(client, %{"company_id" => company_id, "contributing_condition_id" => contributing_condition_id}) do
+  def find(client, %{
+        "company_id" => company_id,
+        "contributing_condition_id" => contributing_condition_id
+      }) do
     %Request{}
     |> Request.insert_request_type(:get)
     |> Request.insert_endpoint(

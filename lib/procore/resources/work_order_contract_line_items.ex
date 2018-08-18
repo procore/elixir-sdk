@@ -10,11 +10,14 @@ defmodule Procore.Resources.WorkOrderContractLineItems do
   @doc """
   Lists all Line Items for a specific Work Order Contract.
   """
-  @spec list(%{
+  @spec list(Tesla.Client.t(), %{
           (project_id :: String.t()) => pos_integer,
           (work_order_contract_id :: String.t()) => pos_integer
         }) :: %ResponseResult{} | %ErrorResult{}
-  def list(client, %{"project_id" => project_id, "work_order_contract_id" => work_order_contract_id}) do
+  def list(client, %{
+        "project_id" => project_id,
+        "work_order_contract_id" => work_order_contract_id
+      }) do
     %Request{}
     |> Request.insert_request_type(:get)
     |> Request.insert_endpoint("/vapid/work_order_contracts/#{work_order_contract_id}/line_items")

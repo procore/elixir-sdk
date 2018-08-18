@@ -11,7 +11,7 @@ defmodule Procore.Resources.CompanyChecklistTemplateSections do
   Lists all Checklist Template Sections.
 
   """
-  @spec list(%{
+  @spec list(Tesla.Client.t(), %{
           (company_id :: String.t()) => pos_integer,
           (list_template_id :: String.t()) => pos_integer
         }) :: %ResponseResult{} | %ErrorResult{}
