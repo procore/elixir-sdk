@@ -11,7 +11,7 @@ defmodule Procore.Resources.ObservationItemResponseLogs do
   Lists all ObservationItemResponseLogs in a ObservationItem.
   """
   @spec list(%{(company_id :: String.t()) => pos_integer}) :: %ResponseResult{} | %ErrorResult{}
-  def list(%{"project_id" => project_id, "observation_item_id" => item_id} = params) do
+  def list(client, %{"project_id" => project_id, "observation_item_id" => item_id} = params) do
     %Request{}
     |> Request.insert_request_type(:get)
     |> Request.insert_endpoint("/vapid/observations/items/#{item_id}/response_logs")
@@ -26,7 +26,7 @@ defmodule Procore.Resources.ObservationItemResponseLogs do
           (company_id :: String.t()) => pos_integer,
           (observationitemresponse_log_id :: String.t()) => pos_integer
         }) :: %ResponseResult{} | %ErrorResult{}
-  def find(%{"project_id" => project_id, "observation_item_id" => item_id, "id" => id}) do
+  def find(client, %{"project_id" => project_id, "observation_item_id" => item_id, "id" => id}) do
     %Request{}
     |> Request.insert_request_type(:get)
     |> Request.insert_endpoint("/vapid/observations/items/#{item_id}/response_logs/#{id}")

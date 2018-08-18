@@ -11,7 +11,7 @@ defmodule Procore.Resources.ObservationItems do
   Lists all Observation Items in a Project.
   """
   @spec list(%{(project_id :: String.t()) => pos_integer}) :: %ResponseResult{} | %ErrorResult{}
-  def list(%{"project_id" => _project_id} = params) do
+  def list(client, %{"project_id" => _project_id} = params) do
     %Request{}
     |> Request.insert_request_type(:get)
     |> Request.insert_endpoint("/vapid/observations/items")
@@ -26,7 +26,7 @@ defmodule Procore.Resources.ObservationItems do
           (project_id :: String.t()) => pos_integer,
           (observation_item_id :: String.t()) => pos_integer
         }) :: %ResponseResult{} | %ErrorResult{}
-  def find(%{"project_id" => project_id, "observation_item_id" => observation_item_id}) do
+  def find(client, %{"project_id" => project_id, "observation_item_id" => observation_item_id}) do
     %Request{}
     |> Request.insert_request_type(:get)
     |> Request.insert_endpoint("/vapid/observations/items/#{observation_item_id}")
@@ -41,7 +41,7 @@ defmodule Procore.Resources.ObservationItems do
           (project_id :: String.t()) => pos_integer,
           (observation_item :: String.t()) => map
         }) :: %ResponseResult{} | %ErrorResult{}
-  def create(%{"project_id" => _project_id, "observation" => _observation_item} = params) do
+  def create(client, %{"project_id" => _project_id, "observation" => _observation_item} = params) do
     %Request{}
     |> Request.insert_request_type(:post)
     |> Request.insert_endpoint("/vapid/observations/items")

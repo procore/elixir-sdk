@@ -11,7 +11,7 @@ defmodule Procore.Resources.ProjectChecklistTemplates do
   Lists all Checklist Template for a Project.
   """
   @spec list(%{(project_id :: String.t()) => pos_integer}) :: %ResponseResult{} | %ErrorResult{}
-  def list(%{"project_id" => project_id}) do
+  def list(client, %{"project_id" => project_id}) do
     %Request{}
     |> Request.insert_request_type(:get)
     |> Request.insert_endpoint("/vapid/checklist/list_templates")
@@ -26,7 +26,7 @@ defmodule Procore.Resources.ProjectChecklistTemplates do
           (project_id :: String.t()) => pos_integer,
           (list_template_id :: String.t()) => pos_integer
         }) :: %ResponseResult{} | %ErrorResult{}
-  def find(%{"project_id" => project_id, "list_template_id" => list_template_id}) do
+  def find(client, %{"project_id" => project_id, "list_template_id" => list_template_id}) do
     %Request{}
     |> Request.insert_request_type(:get)
     |> Request.insert_endpoint("/vapid/checklist/list_templates/#{list_template_id}")

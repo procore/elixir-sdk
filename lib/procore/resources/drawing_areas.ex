@@ -11,7 +11,7 @@ defmodule Procore.Resources.DrawingAreas do
   Lists all drawing areas in a project.
   """
   @spec list(%{(project_id :: String.t()) => pos_integer}) :: %ResponseResult{} | %ErrorResult{}
-  def list(%{"project_id" => project_id}) do
+  def list(client, %{"project_id" => project_id}) do
     %Request{}
     |> Request.insert_request_type(:get)
     |> Request.insert_endpoint("/vapid/projects/#{project_id}/drawing_areas")
@@ -23,7 +23,7 @@ defmodule Procore.Resources.DrawingAreas do
   """
   @spec create(%{(project_id :: String.t()) => pos_integer, (name :: String.t()) => String.t()}) ::
           %ResponseResult{} | %ErrorResult{}
-  def create(%{"project_id" => project_id, "name" => name}) do
+  def create(client, %{"project_id" => project_id, "name" => name}) do
     %Request{}
     |> Request.insert_request_type(:post)
     |> Request.insert_endpoint("/vapid/projects/#{project_id}/drawing_areas")

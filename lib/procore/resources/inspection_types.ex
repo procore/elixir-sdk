@@ -11,7 +11,7 @@ defmodule Procore.Resources.InspectionTypes do
   Lists all Inspection Types for a company.
   """
   @spec list(%{(company_id :: String.t()) => pos_integer}) :: %ResponseResult{} | %ErrorResult{}
-  def list(%{"company_id" => company_id}) do
+  def list(client, %{"company_id" => company_id}) do
     %Request{}
     |> Request.insert_request_type(:get)
     |> Request.insert_endpoint("/vapid/companies/#{company_id}/inspection_types")
@@ -25,7 +25,7 @@ defmodule Procore.Resources.InspectionTypes do
           (company_id :: String.t()) => pos_integer,
           (inspection_type :: String.t()) => map
         }) :: %ResponseResult{} | %ErrorResult{}
-  def create(%{"company_id" => company_id, "inspection_type" => inspection_type}) do
+  def create(client, %{"company_id" => company_id, "inspection_type" => inspection_type}) do
     %Request{}
     |> Request.insert_request_type(:post)
     |> Request.insert_endpoint("/vapid/companies/#{company_id}/inspection_types")

@@ -14,7 +14,7 @@ defmodule Procore.Resources.Meetings do
           (meeting_id :: String.t()) => pos_integer,
           (project_id :: String.t()) => pos_integer
         }) :: %ResponseResult{} | %ErrorResult{}
-  def find(%{"meeting_id" => meeting_id, "project_id" => _project_id} = params) do
+  def find(client, %{"meeting_id" => meeting_id, "project_id" => _project_id} = params) do
     %Request{}
     |> Request.insert_request_type(:get)
     |> Request.insert_endpoint("/vapid/meetings/#{meeting_id}")
@@ -26,7 +26,7 @@ defmodule Procore.Resources.Meetings do
   List all meetings in a project.
   """
   @spec list(%{(project_id :: String.t()) => pos_integer}) :: %ResponseResult{} | %ErrorResult{}
-  def list(%{"project_id" => _project_id} = params) do
+  def list(client, %{"project_id" => _project_id} = params) do
     %Request{}
     |> Request.insert_request_type(:get)
     |> Request.insert_endpoint("/vapid/meetings")
@@ -39,7 +39,7 @@ defmodule Procore.Resources.Meetings do
   """
   @spec create(%{(project_id :: String.t()) => pos_integer, (meeting :: String.t()) => map}) ::
           %ResponseResult{} | %ErrorResult{}
-  def create(%{"project_id" => _project_id, "meeting" => _meeting} = params) do
+  def create(client, %{"project_id" => _project_id, "meeting" => _meeting} = params) do
     %Request{}
     |> Request.insert_request_type(:post)
     |> Request.insert_endpoint("/vapid/meetings")

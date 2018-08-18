@@ -11,7 +11,7 @@ defmodule Procore.Resources.CompanyObservationTemplates do
   Lists all observation templates for a company.
   """
   @spec list(%{(company_id :: String.t()) => pos_integer}) :: %ResponseResult{} | %ErrorResult{}
-  def list(%{"company_id" => company_id}) do
+  def list(client, %{"company_id" => company_id}) do
     %Request{}
     |> Request.insert_request_type(:get)
     |> Request.insert_endpoint("/vapid/companies/#{company_id}/observation_templates")
@@ -25,7 +25,7 @@ defmodule Procore.Resources.CompanyObservationTemplates do
           (company_id :: String.t()) => pos_integer,
           (observation_template :: String.t()) => map
         }) :: %ResponseResult{} | %ErrorResult{}
-  def create(%{"company_id" => company_id, "observation_template" => observation_template}) do
+  def create(client, %{"company_id" => company_id, "observation_template" => observation_template}) do
     %Request{}
     |> Request.insert_request_type(:post)
     |> Request.insert_endpoint("/vapid/companies/#{company_id}/observation_templates")

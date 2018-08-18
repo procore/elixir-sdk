@@ -11,7 +11,7 @@ defmodule Procore.Resources.Trades do
   Lists all Trades in a company.
   """
   @spec list(%{(company_id :: String.t()) => pos_integer}) :: %ResponseResult{} | %ErrorResult{}
-  def list(%{"company_id" => company_id}) do
+  def list(client, %{"company_id" => company_id}) do
     %Request{}
     |> Request.insert_request_type(:get)
     |> Request.insert_endpoint("/vapid/companies/#{company_id}/trades")
@@ -23,7 +23,7 @@ defmodule Procore.Resources.Trades do
   """
   @spec create(%{(company_id :: String.t()) => pos_integer, (trade :: String.t()) => map}) ::
           %ResponseResult{} | %ErrorResult{}
-  def create(%{"company_id" => company_id, "trade" => trade}) do
+  def create(client, %{"company_id" => company_id, "trade" => trade}) do
     %Request{}
     |> Request.insert_request_type(:post)
     |> Request.insert_endpoint("/vapid/companies/#{company_id}/trades")

@@ -10,7 +10,7 @@ defmodule Procore.Resources.ProjectChecklists do
   Lists Inspection Checklists in a specified Project.
   """
   @spec list(%{(project_id :: String.t()) => pos_integer}) :: %ResponseResult{} | %ErrorResult{}
-  def list(%{"project_id" => project_id}) do
+  def list(client, %{"project_id" => project_id}) do
     %Request{}
     |> Request.insert_request_type(:get)
     |> Request.insert_endpoint("/vapid/checklist/lists")
@@ -25,7 +25,7 @@ defmodule Procore.Resources.ProjectChecklists do
           (project_id :: String.t()) => pos_integer,
           (checklist_id :: String.t()) => pos_integer
         }) :: %ResponseResult{} | %ErrorResult{}
-  def find(%{"project_id" => project_id, "checklist_id" => checklist_id}) do
+  def find(client, %{"project_id" => project_id, "checklist_id" => checklist_id}) do
     %Request{}
     |> Request.insert_request_type(:get)
     |> Request.insert_endpoint("/vapid/checklist/lists/#{checklist_id}")
@@ -41,7 +41,7 @@ defmodule Procore.Resources.ProjectChecklists do
           (template_id :: String.t()) => pos_integer,
           (list :: String.t()) => map()
         }) :: %ResponseResult{} | %ErrorResult{}
-  def create(%{"project_id" => project_id, "template_id" => template_id, "list" => list}) do
+  def create(client, %{"project_id" => project_id, "template_id" => template_id, "list" => list}) do
     %Request{}
     |> Request.insert_request_type(:post)
     |> Request.insert_endpoint("/vapid/checklist/lists")

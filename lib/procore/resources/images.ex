@@ -14,7 +14,7 @@ defmodule Procore.Resources.Images do
           (project_id :: String.t()) => pos_integer,
           (image_category_id :: String.t()) => pos_integer
         }) :: %ResponseResult{} | %ErrorResult{}
-  def list(%{"project_id" => _project_id, "image_category_id" => _image_category_id} = params) do
+  def list(client, %{"project_id" => _project_id, "image_category_id" => _image_category_id} = params) do
     %Request{}
     |> Request.insert_request_type(:get)
     |> Request.insert_endpoint("/vapid/images")
@@ -31,7 +31,7 @@ defmodule Procore.Resources.Images do
           (filename :: String.t()) => String.t(),
           (path_to_file :: String.t()) => String.t()
         }) :: %ResponseResult{} | %ErrorResult{}
-  def create(%{
+  def create(client, %{
         "project_id" => project_id,
         "image_category_id" => image_category_id,
         "filename" => filename,

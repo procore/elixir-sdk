@@ -20,7 +20,7 @@ defmodule Procore.Resources.ProjectConfigurations do
             reply: atom
           }
           | %ErrorResult{}
-  def find(%{"project_id" => _project_id} = params) do
+  def find(client, %{"project_id" => _project_id} = params) do
     %Request{}
     |> Request.insert_request_type(:get)
     |> Request.insert_endpoint("/vapid/project_configuration")

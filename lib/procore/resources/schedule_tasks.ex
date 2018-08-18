@@ -12,7 +12,7 @@ defmodule Procore.Resources.ScheduleTasks do
   """
   @spec create(%{(project_id :: String.t()) => pos_integer, (task :: String.t()) => map}) ::
           %ResponseResult{} | %ErrorResult{}
-  def create(%{"project_id" => _project_id, "task" => _task} = params) do
+  def create(client, %{"project_id" => _project_id, "task" => _task} = params) do
     %Request{}
     |> Request.insert_request_type(:post)
     |> Request.insert_endpoint("/vapid/tasks")

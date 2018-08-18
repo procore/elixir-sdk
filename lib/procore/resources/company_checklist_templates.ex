@@ -11,7 +11,7 @@ defmodule Procore.Resources.CompanyChecklistTemplates do
   Lists all Checklist Template for a company.
   """
   @spec list(%{(company_id :: String.t()) => pos_integer}) :: %ResponseResult{} | %ErrorResult{}
-  def list(%{"company_id" => company_id}) do
+  def list(client, %{"company_id" => company_id}) do
     %Request{}
     |> Request.insert_request_type(:get)
     |> Request.insert_endpoint("/vapid/companies/#{company_id}/checklist/list_templates")
@@ -25,7 +25,7 @@ defmodule Procore.Resources.CompanyChecklistTemplates do
           (company_id :: String.t()) => pos_integer,
           (list_template_id :: String.t()) => pos_integer
         }) :: %ResponseResult{} | %ErrorResult{}
-  def find(%{"company_id" => company_id, "list_template_id" => list_template_id}) do
+  def find(client, %{"company_id" => company_id, "list_template_id" => list_template_id}) do
     %Request{}
     |> Request.insert_request_type(:get)
     |> Request.insert_endpoint(
@@ -42,7 +42,7 @@ defmodule Procore.Resources.CompanyChecklistTemplates do
           (list_template :: String.t()) => map,
           (attachments :: String.t()) => List.t()
         }) :: %ResponseResult{} | %ErrorResult{}
-  def create(%{
+  def create(client, %{
         "company_id" => company_id,
         "list_template" => list_template,
         "attachments" => attachments

@@ -11,7 +11,7 @@ defmodule Procore.Resources.WorkOrderContracts do
   Lists all Work Order Contracts in a project.
   """
   @spec list(%{(project_id :: String.t()) => pos_integer}) :: %ResponseResult{} | %ErrorResult{}
-  def list(%{"project_id" => _project_id} = params) do
+  def list(client, %{"project_id" => _project_id} = params) do
     %Request{}
     |> Request.insert_request_type(:get)
     |> Request.insert_endpoint("/vapid/work_order_contracts")
@@ -26,7 +26,7 @@ defmodule Procore.Resources.WorkOrderContracts do
           (project_id :: String.t()) => pos_integer,
           (work_order_contract_id :: String.t()) => pos_integer
         }) :: %ResponseResult{} | %ErrorResult{}
-  def find(%{"project_id" => project_id, "work_order_contract_id" => work_order_contract_id}) do
+  def find(client, %{"project_id" => project_id, "work_order_contract_id" => work_order_contract_id}) do
     %Request{}
     |> Request.insert_request_type(:get)
     |> Request.insert_endpoint("/vapid/work_order_contracts/#{work_order_contract_id}")

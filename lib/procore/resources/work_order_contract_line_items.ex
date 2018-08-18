@@ -14,7 +14,7 @@ defmodule Procore.Resources.WorkOrderContractLineItems do
           (project_id :: String.t()) => pos_integer,
           (work_order_contract_id :: String.t()) => pos_integer
         }) :: %ResponseResult{} | %ErrorResult{}
-  def list(%{"project_id" => project_id, "work_order_contract_id" => work_order_contract_id}) do
+  def list(client, %{"project_id" => project_id, "work_order_contract_id" => work_order_contract_id}) do
     %Request{}
     |> Request.insert_request_type(:get)
     |> Request.insert_endpoint("/vapid/work_order_contracts/#{work_order_contract_id}/line_items")
@@ -30,7 +30,7 @@ defmodule Procore.Resources.WorkOrderContractLineItems do
           (work_order_contract_id :: String.t()) => pos_integer,
           (line_item :: String.t()) => map
         }) :: %ResponseResult{} | %ErrorResult{}
-  def create(%{
+  def create(client, %{
         "project_id" => project_id,
         "work_order_contract_id" => work_order_contract_id,
         "line_item" => line_item

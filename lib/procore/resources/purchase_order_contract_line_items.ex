@@ -14,7 +14,7 @@ defmodule Procore.Resources.PurchaseOrderContractLineItems do
           (project_id :: String.t()) => pos_integer,
           (purchase_order_contract_id :: String.t()) => pos_integer
         }) :: %ResponseResult{} | %ErrorResult{}
-  def list(%{
+  def list(client, %{
         "project_id" => project_id,
         "purchase_order_contract_id" => purchase_order_contract_id
       }) do
@@ -35,7 +35,7 @@ defmodule Procore.Resources.PurchaseOrderContractLineItems do
           (purchase_order_contract_id :: String.t()) => pos_integer,
           (line_item :: String.t()) => map
         }) :: %ResponseResult{} | %ErrorResult{}
-  def create(%{
+  def create(client, %{
         "project_id" => project_id,
         "purchase_order_contract_id" => purchase_order_contract_id,
         "line_item" => line_item

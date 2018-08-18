@@ -11,7 +11,7 @@ defmodule Procore.Resources.ContributingBehaviors do
   Lists all ContributingBehaviors in a Project.
   """
   @spec list(%{(company_id :: String.t()) => pos_integer}) :: %ResponseResult{} | %ErrorResult{}
-  def list(%{"company_id" => company_id} = params) do
+  def list(client, %{"company_id" => company_id} = params) do
     %Request{}
     |> Request.insert_request_type(:get)
     |> Request.insert_endpoint("/vapid/companies/#{company_id}/contributing_behaviors")
@@ -26,7 +26,7 @@ defmodule Procore.Resources.ContributingBehaviors do
           (company_id :: String.t()) => pos_integer,
           (contributing_behavior_id :: String.t()) => pos_integer
         }) :: %ResponseResult{} | %ErrorResult{}
-  def find(%{"company_id" => company_id, "contributing_behavior_id" => contributing_behavior_id}) do
+  def find(client, %{"company_id" => company_id, "contributing_behavior_id" => contributing_behavior_id}) do
     %Request{}
     |> Request.insert_request_type(:get)
     |> Request.insert_endpoint(

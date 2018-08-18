@@ -15,7 +15,7 @@ defmodule Procore.Resources.CompanyChecklistTemplateSections do
           (company_id :: String.t()) => pos_integer,
           (list_template_id :: String.t()) => pos_integer
         }) :: %ResponseResult{} | %ErrorResult{}
-  def list(%{"company_id" => company_id, "list_template_id" => list_template_id}) do
+  def list(client, %{"company_id" => company_id, "list_template_id" => list_template_id}) do
     %Request{}
     |> Request.insert_request_type(:get)
     |> Request.insert_endpoint(
@@ -31,7 +31,7 @@ defmodule Procore.Resources.CompanyChecklistTemplateSections do
           (company_id :: String.t()) => pos_integer,
           (section_id :: String.t()) => pos_integer
         }) :: %ResponseResult{} | %ErrorResult{}
-  def find(%{"company_id" => company_id, "section_id" => section_id}) do
+  def find(client, %{"company_id" => company_id, "section_id" => section_id}) do
     %Request{}
     |> Request.insert_request_type(:get)
     |> Request.insert_endpoint("/vapid/companies/#{company_id}/checklist/sections/#{section_id}")

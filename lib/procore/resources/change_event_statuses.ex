@@ -11,7 +11,7 @@ defmodule Procore.Resources.ChangeEventStatuses do
   Lists all Change Event Statuses with associated records in a project.
   """
   @spec list(%{(company_id :: String.t()) => pos_integer}) :: %ResponseResult{} | %ErrorResult{}
-  def list(%{"company_id" => _company_id} = params) do
+  def list(client, %{"company_id" => _company_id} = params) do
     %Request{}
     |> Request.insert_request_type(:get)
     |> Request.insert_endpoint("/vapid/change_event/statuses")

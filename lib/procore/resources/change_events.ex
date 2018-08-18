@@ -11,7 +11,7 @@ defmodule Procore.Resources.ChangeEvents do
   Lists all Change Events with associated records in a project.
   """
   @spec list(%{(project_id :: String.t()) => pos_integer}) :: %ResponseResult{} | %ErrorResult{}
-  def list(%{"project_id" => _project_id} = params) do
+  def list(client, %{"project_id" => _project_id} = params) do
     %Request{}
     |> Request.insert_request_type(:get)
     |> Request.insert_endpoint("/vapid/change_events")
@@ -27,7 +27,7 @@ defmodule Procore.Resources.ChangeEvents do
           (attachments :: String.t()) => list,
           (change_event :: String.t()) => map
         }) :: %ResponseResult{} | %ErrorResult{}
-  def create(%{
+  def create(client, %{
         "project_id" => project_id,
         "attachments" => attachments,
         "change_event" => change_event

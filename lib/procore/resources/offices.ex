@@ -18,7 +18,7 @@ defmodule Procore.Resources.Offices do
             reply: atom
           }
           | %ErrorResult{}
-  def list(%{"company_id" => company_id}) do
+  def list(client, %{"company_id" => company_id}) do
     %Request{}
     |> Request.insert_request_type(:get)
     |> Request.insert_endpoint("/vapid/offices")

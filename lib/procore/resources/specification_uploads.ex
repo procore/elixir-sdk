@@ -10,7 +10,7 @@ defmodule Procore.Resources.SpecificationUploads do
           (project_id :: String.t()) => pos_integer,
           (specification_upload :: String.t()) => map
         }) :: %ResponseResult{} | %ErrorResult{}
-  def create(%{
+  def create(client, %{
         "project_id" => project_id,
         "specification_upload" => spec_upload
       }) do
