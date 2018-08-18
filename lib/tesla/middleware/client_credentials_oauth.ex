@@ -8,25 +8,27 @@ defmodule Tesla.Middleware.ClientCredentialsOAuth do
   )
 
   defp procore_host(), do: Application.get_env(:procore, :host, "https://api.procore.com")
-  defp client_id(), do: Application.get_env(:procore, :client_id)
-  defp client_secret(), do: Application.get_env(:procore, :client_secret)
 
-  def call(env, next, _options) do
+  def call(env, next, client_id: client_id, client_secret: client_secret, host: host) do
     env
-    |> add_auth_header()
+    |> add_auth_header(client_id: client_id, client_secret: client_secret, host: host)
     |> Tesla.run(next)
   end
 
-  defp add_auth_header(env) do
-    %{env | headers: [{"Authorization", "Bearer #{get_access_token(procore_host())}"} | env.headers]}
+  defp add_auth_header(env, client_id: client_id, client_secret: client_secret, host: host) do
+    token = get_access_token(client_id, client_secret, host)
+
+    %{env | headers: [{"Authorization", "Bearer #{token}"} | env.headers]}
   end
 
-  defp get_access_token(host_url) do
-    cache_key = "access_token/#{host_url}"
+  defp get_access_token(client_id, client_secret, host) do
+    cache_key = "access_token/#{host}"
+
     case Cachex.get(:token_cache, cache_key) do
       {:ok, nil} ->
         %{"access_token" => token, "expires_in" => expires_in} =
-          post!(tesla_client(), oauth_url(), oauth_request_body()).body |> Poison.decode!()
+          post!(tesla_client(), oauth_url(host), oauth_request_body(client_id, client_secret)).body
+          |> Poison.decode!()
 
         Cachex.put(:token_cache, cache_key, token, ttl: :timer.seconds(expires_in - 1000))
         token
@@ -47,11 +49,11 @@ defmodule Tesla.Middleware.ClientCredentialsOAuth do
     [{"Content-type", "application/json"}, {"Accept", "application/json"}]
   end
 
-  def oauth_url do
-    procore_host() <> "/oauth/token"
+  def oauth_url(host) do
+    host <> "/oauth/token"
   end
 
-  def oauth_request_body do
-    %{client_id: client_id(), client_secret: client_secret(), grant_type: "client_credentials"}
+  def oauth_request_body(client_id, client_secret) do
+    %{client_id: client_id, client_secret: client_secret, grant_type: "client_credentials"}
   end
 end

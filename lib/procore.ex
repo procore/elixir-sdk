@@ -3,18 +3,11 @@ defmodule Procore do
   Makes requests using the HttpClient.
   """
 
+  alias Procore.ClientBuilder
   alias Procore.ErrorResult
   alias Procore.HttpClient.QueryParams
   alias Procore.Request
   alias Procore.ResponseResult
-
-  @http_client Application.get_env(:procore, :http_client, HttpClient.MockClient)
-  @oauth_client Application.get_env(
-                  :procore,
-                  :oauth_client,
-                  Tesla.Middleware.ClientCredentialsOAuth
-                )
-  @host Application.get_env(:procore, :host, "https://api.procore.com")
 
   @spec child_spec(list) :: map()
   def child_spec(opts) do
@@ -37,11 +30,21 @@ defmodule Procore do
     {:ok, {%{}, opts}}
   end
 
-  def client(token) do
-    tesla_client(token)
-  end
-
   @spec send_request(Request.t()) :: %ResponseResult{} | %ErrorResult{} | ArgumentError
+
+  @doc """
+  Builds a Procore client.
+
+  Handles creating a client credentials client with or without client_id and
+  client_secret passed in as options.
+
+  Handles creating a authorization client with or without client_id and
+  client_secret passed in as options. However a token is always required in options
+  for an authorization client.
+  """
+  def client(opts \\ []) do
+    ClientBuilder.build(oauth_client(), opts)
+  end
 
   @doc """
   Makes a GET request.
@@ -90,23 +93,12 @@ defmodule Procore do
     raise ArgumentError, "you must set an endpoint for the Procore.Request struct"
   end
 
-  defp tesla_client(token) do
-    Tesla.build_client([
-      {Tesla.Middleware.Headers, headers()},
-      {Tesla.Middleware.BaseUrl, @host},
-      {@oauth_client, [token: token]}
-    ])
-  end
-
-  defp headers do
-    # [{"Content-Type", "application/json"}] # works for everything, besides multipart
-    # [{"Content-Type", "multipart/form-data"}] # works for multipart
-    # seems to work for both
-    []
-  end
-
-  defp host() do
-    Application.get_env(:procore, :host, "https://api.procore.com")
+  defp oauth_client() do
+    Application.get_env(
+      :procore,
+      :oauth_client,
+      Tesla.Middleware.ClientCredentialsOAuth
+    )
   end
 
   def http_client() do
