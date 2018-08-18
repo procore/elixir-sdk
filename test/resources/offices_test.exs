@@ -4,7 +4,6 @@ defmodule Procore.Resources.OfficesTest do
   alias Procore.Resources.Offices
 
   doctest Procore.Resources.Offices
-  client = Procore.client()
 
   test "list/1" do
     client = Procore.client()

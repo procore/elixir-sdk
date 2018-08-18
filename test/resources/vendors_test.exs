@@ -24,13 +24,14 @@ defmodule Procore.Resources.VendorsTest do
     params = %{"project_id" => 1, "vendor_id" => 1}
 
     assert %ResponseResult{reply: :ok, status_code: 200, parsed_body: %{}} =
-             Vendors.add_vendor_to_project(params)
+             Vendors.add_vendor_to_project(client, params)
   end
 
   test "sync/1" do
     client = Procore.client()
     params = %{"company_id" => 1, "vendors" => []}
 
-    assert %ResponseResult{reply: :ok, status_code: 200, parsed_body: %{}} = Vendors.sync(params)
+    assert %ResponseResult{reply: :ok, status_code: 200, parsed_body: %{}} =
+             Vendors.sync(client, params)
   end
 end

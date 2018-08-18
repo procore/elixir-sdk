@@ -8,7 +8,7 @@ defmodule Procore.Resources.UsersTest do
     params = %{"project_id" => 1, "user_id" => 1, "permission_template_id" => 1}
 
     assert %ResponseResult{reply: :ok, status_code: 200, parsed_body: %{}} =
-             Users.add_user_to_project(params)
+             Users.add_user_to_project(client, params)
   end
 
   test "list/1 for company directory" do
@@ -31,6 +31,7 @@ defmodule Procore.Resources.UsersTest do
     client = Procore.client()
     params = %{"company_id" => 1, "users" => []}
 
-    assert %ResponseResult{reply: :ok, status_code: 200, parsed_body: %{}} = Users.sync(params)
+    assert %ResponseResult{reply: :ok, status_code: 200, parsed_body: %{}} =
+             Users.sync(client, params)
   end
 end
