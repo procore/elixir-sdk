@@ -16,7 +16,7 @@ defmodule Procore.Resources.Trades do
     %Request{}
     |> Request.insert_request_type(:get)
     |> Request.insert_endpoint("/vapid/companies/#{company_id}/trades")
-    |> Procore.send_request()
+    |> Procore.send_request(client)
   end
 
   @doc """
@@ -31,6 +31,6 @@ defmodule Procore.Resources.Trades do
     |> Request.insert_request_type(:post)
     |> Request.insert_endpoint("/vapid/companies/#{company_id}/trades")
     |> Request.insert_body(%{"trade" => trade})
-    |> Procore.send_request()
+    |> Procore.send_request(client)
   end
 end

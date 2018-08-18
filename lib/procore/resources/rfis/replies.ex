@@ -20,6 +20,6 @@ defmodule Procore.Resources.Rfis.Replies do
     |> Request.insert_request_type(:post)
     |> Request.insert_endpoint("/vapid/projects/#{project_id}/rfis/#{rfi_id}/replies")
     |> Request.insert_body(%{"reply" => reply})
-    |> Procore.send_request()
+    |> Procore.send_request(client)
   end
 end

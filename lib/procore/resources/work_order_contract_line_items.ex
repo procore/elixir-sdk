@@ -22,7 +22,7 @@ defmodule Procore.Resources.WorkOrderContractLineItems do
     |> Request.insert_request_type(:get)
     |> Request.insert_endpoint("/vapid/work_order_contracts/#{work_order_contract_id}/line_items")
     |> Request.insert_query_params(%{"project_id" => project_id})
-    |> Procore.send_request()
+    |> Procore.send_request(client)
   end
 
   @doc """
@@ -42,6 +42,6 @@ defmodule Procore.Resources.WorkOrderContractLineItems do
     |> Request.insert_request_type(:post)
     |> Request.insert_endpoint("/vapid/work_order_contracts/#{work_order_contract_id}/line_items")
     |> Request.insert_body(%{"project_id" => project_id, "line_item" => line_item})
-    |> Procore.send_request()
+    |> Procore.send_request(client)
   end
 end

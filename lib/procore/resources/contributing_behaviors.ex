@@ -17,7 +17,7 @@ defmodule Procore.Resources.ContributingBehaviors do
     |> Request.insert_request_type(:get)
     |> Request.insert_endpoint("/vapid/companies/#{company_id}/contributing_behaviors")
     |> Request.insert_query_params(params)
-    |> Procore.send_request()
+    |> Procore.send_request(client)
   end
 
   @doc """
@@ -37,7 +37,7 @@ defmodule Procore.Resources.ContributingBehaviors do
       "/vapid/companies/#{company_id}/contributing_behaviors/#{contributing_behavior_id}"
     )
     |> Request.insert_query_params(%{"company_id" => company_id})
-    |> Procore.send_request()
+    |> Procore.send_request(client)
   end
 
   @doc """
@@ -48,12 +48,13 @@ defmodule Procore.Resources.ContributingBehaviors do
           (contributing_behavior :: String.t()) => map
         }) :: %ResponseResult{} | %ErrorResult{}
   def create(
+        client,
         %{"company_id" => company_id, "contributing_behavior" => _contributing_behavior} = params
       ) do
     %Request{}
     |> Request.insert_request_type(:post)
     |> Request.insert_endpoint("/vapid/companies/#{company_id}/contributing_behaviors")
     |> Request.insert_body(params)
-    |> Procore.send_request()
+    |> Procore.send_request(client)
   end
 end

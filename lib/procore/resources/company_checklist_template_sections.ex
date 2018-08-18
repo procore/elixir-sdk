@@ -21,7 +21,7 @@ defmodule Procore.Resources.CompanyChecklistTemplateSections do
     |> Request.insert_endpoint(
       "/vapid/companies/#{company_id}/checklist/list_templates/#{list_template_id}/sections"
     )
-    |> Procore.send_request()
+    |> Procore.send_request(client)
   end
 
   @doc """
@@ -35,18 +35,18 @@ defmodule Procore.Resources.CompanyChecklistTemplateSections do
     %Request{}
     |> Request.insert_request_type(:get)
     |> Request.insert_endpoint("/vapid/companies/#{company_id}/checklist/sections/#{section_id}")
-    |> Procore.send_request()
+    |> Procore.send_request(client)
   end
 
   @doc """
   Bulk Creates Company Checklist Sections for a specified Checklist Template.
   """
-  @spec bulk_create(%{
+  @spec bulk_create(Tesla.Client.t(), %{
           (company_id :: String.t()) => pos_integer,
           (list_template_id :: String.t()) => pos_integer,
           (sections :: String.t()) => List.t()
         }) :: %ResponseResult{} | %ErrorResult{}
-  def bulk_create(%{
+  def bulk_create(client, %{
         "company_id" => company_id,
         "list_template_id" => list_template_id,
         "sections" => sections
@@ -59,6 +59,6 @@ defmodule Procore.Resources.CompanyChecklistTemplateSections do
     |> Request.insert_body(%{
       "sections" => sections
     })
-    |> Procore.send_request()
+    |> Procore.send_request(client)
   end
 end

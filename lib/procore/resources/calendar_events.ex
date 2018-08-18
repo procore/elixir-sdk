@@ -17,6 +17,6 @@ defmodule Procore.Resources.CalendarEvents do
     |> Request.insert_request_type(:get)
     |> Request.insert_endpoint("/vapid/calendar_events")
     |> Request.insert_query_params(%{"project_id" => project_id})
-    |> Procore.send_request()
+    |> Procore.send_request(client)
   end
 end

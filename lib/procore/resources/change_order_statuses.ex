@@ -17,6 +17,6 @@ defmodule Procore.Resources.ChangeOrderStatuses do
     |> Request.insert_request_type(:get)
     |> Request.insert_endpoint("/vapid/change_order/statuses")
     |> Request.insert_query_params(params)
-    |> Procore.send_request()
+    |> Procore.send_request(client)
   end
 end

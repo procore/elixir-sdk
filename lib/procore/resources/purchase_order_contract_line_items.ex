@@ -24,7 +24,7 @@ defmodule Procore.Resources.PurchaseOrderContractLineItems do
       "/vapid/purchase_order_contracts/#{purchase_order_contract_id}/line_items"
     )
     |> Request.insert_query_params(%{"project_id" => project_id})
-    |> Procore.send_request()
+    |> Procore.send_request(client)
   end
 
   @doc """
@@ -46,6 +46,6 @@ defmodule Procore.Resources.PurchaseOrderContractLineItems do
       "/vapid/purchase_order_contracts/#{purchase_order_contract_id}/line_items"
     )
     |> Request.insert_body(%{"project_id" => project_id, "line_item" => line_item})
-    |> Procore.send_request()
+    |> Procore.send_request(client)
   end
 end

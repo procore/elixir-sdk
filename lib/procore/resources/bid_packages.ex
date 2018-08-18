@@ -21,7 +21,7 @@ defmodule Procore.Resources.BidPackages do
   @doc """
   Creates a bid package.
   """
-  @spec create(Tesla.Client.t(), Tesla.Client.t(), %{
+  @spec create(Tesla.Client.t(), %{
           (project_id :: String.t()) => integer,
           (bid_package :: String.t()) => map
         }) :: %ResponseResult{} | %ErrorResult{}

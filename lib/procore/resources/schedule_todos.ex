@@ -10,14 +10,16 @@ defmodule Procore.Resources.ScheduleTodos do
   @doc """
   Creates or updates a batch of todos.
   """
-  @spec sync(%{(project_id :: String.t()) => pos_integer, (todos :: String.t()) => list}) ::
-          %ResponseResult{} | %ErrorResult{}
-  def sync(%{"project_id" => project_id, "todos" => todos}) do
+  @spec sync(Tesla.Client.t(), %{
+          (project_id :: String.t()) => pos_integer,
+          (todos :: String.t()) => list
+        }) :: %ResponseResult{} | %ErrorResult{}
+  def sync(client, %{"project_id" => project_id, "todos" => todos}) do
     %Request{}
     |> Request.insert_request_type(:patch)
     |> Request.insert_endpoint("/vapid/todos/sync")
     |> Request.insert_query_params(%{"project_id" => project_id})
     |> Request.insert_body(%{"udpates" => todos})
-    |> Procore.send_request()
+    |> Procore.send_request(client)
   end
 end

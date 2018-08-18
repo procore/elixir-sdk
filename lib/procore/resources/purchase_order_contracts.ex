@@ -17,7 +17,7 @@ defmodule Procore.Resources.PurchaseOrderContracts do
     |> Request.insert_request_type(:get)
     |> Request.insert_endpoint("/vapid/purchase_order_contracts")
     |> Request.insert_query_params(params)
-    |> Procore.send_request()
+    |> Procore.send_request(client)
   end
 
   @doc """
@@ -35,19 +35,24 @@ defmodule Procore.Resources.PurchaseOrderContracts do
     |> Request.insert_request_type(:get)
     |> Request.insert_endpoint("/vapid/purchase_order_contracts/#{purchase_order_contract_id}")
     |> Request.insert_query_params(%{"project_id" => project_id})
-    |> Procore.send_request()
+    |> Procore.send_request(client)
   end
 
   @doc """
   Creates or updates a batch of Purchase Order Contracts.
   """
-  @spec sync(%{(project_id :: String.t()) => pos_integer, (rfi :: String.t()) => list}) ::
-          %ResponseResult{} | %ErrorResult{}
-  def sync(%{"project_id" => project_id, "purchase_order_contracts" => purchase_order_contracts}) do
+  @spec sync(Tesla.Client.t(), %{
+          (project_id :: String.t()) => pos_integer,
+          (rfi :: String.t()) => list
+        }) :: %ResponseResult{} | %ErrorResult{}
+  def sync(client, %{
+        "project_id" => project_id,
+        "purchase_order_contracts" => purchase_order_contracts
+      }) do
     %Request{}
     |> Request.insert_request_type(:patch)
     |> Request.insert_endpoint("/vapid/purchase_order_contracts/sync")
     |> Request.insert_body(%{"project_id" => project_id, "updates" => purchase_order_contracts})
-    |> Procore.send_request()
+    |> Procore.send_request(client)
   end
 end

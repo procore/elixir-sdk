@@ -19,7 +19,7 @@ defmodule Procore.Resources.Rfis do
     |> Request.insert_request_type(:get)
     |> Request.insert_endpoint("/vapid/projects/#{project_id}/rfis")
     |> Request.insert_query_params(%{"serializer_view" => serializer_view})
-    |> Procore.send_request()
+    |> Procore.send_request(client)
   end
 
   @spec list(Tesla.Client.t(), %{(project_id :: String.t()) => pos_integer}) ::
@@ -28,7 +28,7 @@ defmodule Procore.Resources.Rfis do
     %Request{}
     |> Request.insert_request_type(:get)
     |> Request.insert_endpoint("/vapid/projects/#{project_id}/rfis")
-    |> Procore.send_request()
+    |> Procore.send_request(client)
   end
 
   @doc """
@@ -43,7 +43,7 @@ defmodule Procore.Resources.Rfis do
     |> Request.insert_request_type(:post)
     |> Request.insert_endpoint("/vapid/projects/#{project_id}/rfis")
     |> Request.insert_body(build_create_body(rfi))
-    |> Procore.send_request()
+    |> Procore.send_request(client)
   end
 
   alias Tesla.Multipart
@@ -51,11 +51,10 @@ defmodule Procore.Resources.Rfis do
   defp build_create_body(%{"question" => %{"attachments" => attachments}} = rfi) do
     rfi = Map.update!(rfi, "question", &Map.drop(&1, ["attachments"]))
 
-    multipart =
-      Multipart.new()
-      |> Multipart.add_content_type_param("charset=utf-8")
-      |> add_field("rfi", rfi)
-      |> add_attachments(attachments)
+    Multipart.new()
+    |> Multipart.add_content_type_param("charset=utf-8")
+    |> add_field("rfi", rfi)
+    |> add_attachments(attachments)
   end
 
   defp build_create_body(rfi), do: %{"rfi" => rfi}

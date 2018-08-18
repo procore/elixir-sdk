@@ -16,7 +16,7 @@ defmodule Procore.Resources.InspectionTypes do
     %Request{}
     |> Request.insert_request_type(:get)
     |> Request.insert_endpoint("/vapid/companies/#{company_id}/inspection_types")
-    |> Procore.send_request()
+    |> Procore.send_request(client)
   end
 
   @doc """
@@ -31,6 +31,6 @@ defmodule Procore.Resources.InspectionTypes do
     |> Request.insert_request_type(:post)
     |> Request.insert_endpoint("/vapid/companies/#{company_id}/inspection_types")
     |> Request.insert_body(%{"inspection_type" => inspection_type})
-    |> Procore.send_request()
+    |> Procore.send_request(client)
   end
 end

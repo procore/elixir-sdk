@@ -7,8 +7,6 @@ defmodule Tesla.Middleware.ClientCredentialsOAuth do
     Application.get_env(:procore, :http_client_adapter_options, recv_timeout: 30_000)
   )
 
-  defp procore_host(), do: Application.get_env(:procore, :host, "https://api.procore.com")
-
   def call(env, next, client_id: client_id, client_secret: client_secret, host: host) do
     env
     |> add_auth_header(client_id: client_id, client_secret: client_secret, host: host)

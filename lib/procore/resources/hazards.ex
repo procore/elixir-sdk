@@ -17,7 +17,7 @@ defmodule Procore.Resources.Hazards do
     |> Request.insert_request_type(:get)
     |> Request.insert_endpoint("/vapid/companies/#{company_id}/hazards")
     |> Request.insert_query_params(params)
-    |> Procore.send_request()
+    |> Procore.send_request(client)
   end
 
   @doc """
@@ -32,7 +32,7 @@ defmodule Procore.Resources.Hazards do
     |> Request.insert_request_type(:get)
     |> Request.insert_endpoint("/vapid/companies/#{company_id}/hazards/#{hazard_id}")
     |> Request.insert_query_params(%{"company_id" => company_id})
-    |> Procore.send_request()
+    |> Procore.send_request(client)
   end
 
   @doc """
@@ -47,6 +47,6 @@ defmodule Procore.Resources.Hazards do
     |> Request.insert_request_type(:post)
     |> Request.insert_endpoint("/vapid/companies/#{company_id}/hazards")
     |> Request.insert_body(params)
-    |> Procore.send_request()
+    |> Procore.send_request(client)
   end
 end

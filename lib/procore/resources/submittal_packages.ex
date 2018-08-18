@@ -16,6 +16,6 @@ defmodule Procore.Resources.SubmittalPackages do
     %Request{}
     |> Request.insert_request_type(:get)
     |> Request.insert_endpoint("/vapid/projects/#{project_id}/submittal_packages")
-    |> Procore.send_request()
+    |> Procore.send_request(client)
   end
 end

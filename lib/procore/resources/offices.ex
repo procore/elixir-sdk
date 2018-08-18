@@ -23,6 +23,6 @@ defmodule Procore.Resources.Offices do
     |> Request.insert_request_type(:get)
     |> Request.insert_endpoint("/vapid/offices")
     |> Request.insert_query_params(%{"company_id" => company_id})
-    |> Procore.send_request()
+    |> Procore.send_request(client)
   end
 end

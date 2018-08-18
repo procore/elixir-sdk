@@ -17,7 +17,7 @@ defmodule Procore.Resources.ScheduleResources do
     |> Request.insert_request_type(:get)
     |> Request.insert_endpoint("/vapid/resources")
     |> Request.insert_query_params(%{"project_id" => project_id})
-    |> Procore.send_request()
+    |> Procore.send_request(client)
   end
 
   @doc """
@@ -30,6 +30,6 @@ defmodule Procore.Resources.ScheduleResources do
     |> Request.insert_request_type(:post)
     |> Request.insert_endpoint("/vapid/resources")
     |> Request.insert_body(params)
-    |> Procore.send_request()
+    |> Procore.send_request(client)
   end
 end

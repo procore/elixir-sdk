@@ -10,12 +10,12 @@ defmodule Procore.Resources.Users do
   @doc """
   Adds an existing user from a company to a project's directory in that company.
   """
-  @spec add_user_to_project(%{
+  @spec add_user_to_project(Tesla.Client.t(), %{
           (project_id :: String.t()) => pos_integer,
           (user_id :: String.t()) => pos_integer,
           (permission_template_id :: String.t()) => pos_integer
         }) :: %ResponseResult{} | %ErrorResult{}
-  def add_user_to_project(%{
+  def add_user_to_project(client, %{
         "project_id" => project_id,
         "user_id" => user_id,
         "permission_template_id" => permission_template_id
@@ -24,7 +24,7 @@ defmodule Procore.Resources.Users do
     |> Request.insert_request_type(:post)
     |> Request.insert_endpoint("/vapid/projects/#{project_id}/users/#{user_id}/actions/add")
     |> Request.insert_body(build_add_user_to_project_body(permission_template_id))
-    |> Procore.send_request()
+    |> Procore.send_request(client)
   end
 
   defp build_add_user_to_project_body(permission_template_id) do
@@ -45,7 +45,7 @@ defmodule Procore.Resources.Users do
     %Request{}
     |> Request.insert_request_type(:get)
     |> Request.insert_endpoint("/vapid/companies/#{company_id}/users")
-    |> Procore.send_request()
+    |> Procore.send_request(client)
   end
 
   @doc """
@@ -57,17 +57,17 @@ defmodule Procore.Resources.Users do
     %Request{}
     |> Request.insert_request_type(:get)
     |> Request.insert_endpoint("/vapid/projects/#{project_id}/users")
-    |> Procore.send_request()
+    |> Procore.send_request(client)
   end
 
   @doc """
   Creates or updates a batch of users in a company directory.
   """
-  @spec sync(%{
+  @spec sync(Tesla.Client.t(), %{
           (company_id :: String.t()) => pos_integer,
           (users :: String.t()) => list
         }) :: %ResponseResult{} | %ErrorResult{}
-  def sync(%{
+  def sync(client, %{
         "company_id" => company_id,
         "users" => users
       }) do
@@ -75,6 +75,6 @@ defmodule Procore.Resources.Users do
     |> Request.insert_request_type(:patch)
     |> Request.insert_endpoint("/vapid/companies/#{company_id}/users/sync")
     |> Request.insert_body(%{"updates" => users})
-    |> Procore.send_request()
+    |> Procore.send_request(client)
   end
 end

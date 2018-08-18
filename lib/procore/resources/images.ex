@@ -22,7 +22,7 @@ defmodule Procore.Resources.Images do
     |> Request.insert_request_type(:get)
     |> Request.insert_endpoint("/vapid/images")
     |> Request.insert_query_params(params)
-    |> Procore.send_request()
+    |> Procore.send_request(client)
   end
 
   @doc """
@@ -45,7 +45,7 @@ defmodule Procore.Resources.Images do
     |> Request.insert_endpoint("/vapid/images")
     |> Request.insert_query_params(%{"project_id" => project_id})
     |> Request.insert_body(build_create_body(image_category_id, filename, path_to_file))
-    |> Procore.send_request()
+    |> Procore.send_request(client)
   end
 
   alias Tesla.Multipart

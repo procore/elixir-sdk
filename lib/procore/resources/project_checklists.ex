@@ -16,7 +16,7 @@ defmodule Procore.Resources.ProjectChecklists do
     |> Request.insert_request_type(:get)
     |> Request.insert_endpoint("/vapid/checklist/lists")
     |> Request.insert_query_params(%{"project_id" => project_id})
-    |> Procore.send_request()
+    |> Procore.send_request(client)
   end
 
   @doc """
@@ -31,7 +31,7 @@ defmodule Procore.Resources.ProjectChecklists do
     |> Request.insert_request_type(:get)
     |> Request.insert_endpoint("/vapid/checklist/lists/#{checklist_id}")
     |> Request.insert_query_params(%{"project_id" => project_id})
-    |> Procore.send_request()
+    |> Procore.send_request(client)
   end
 
   @doc """
@@ -52,6 +52,6 @@ defmodule Procore.Resources.ProjectChecklists do
       "list" => list,
       "attachments" => list["attachments"]
     })
-    |> Procore.send_request()
+    |> Procore.send_request(client)
   end
 end

@@ -18,7 +18,7 @@ defmodule Procore.Resources.SpecificationSets do
     %Request{}
     |> Request.insert_request_type(:get)
     |> Request.insert_endpoint("/vapid/projects/#{project_id}/specification_sets/#{id}")
-    |> Procore.send_request()
+    |> Procore.send_request(client)
   end
 
   @doc """
@@ -30,7 +30,7 @@ defmodule Procore.Resources.SpecificationSets do
     %Request{}
     |> Request.insert_request_type(:get)
     |> Request.insert_endpoint("/vapid/projects/#{project_id}/specification_sets")
-    |> Procore.send_request()
+    |> Procore.send_request(client)
   end
 
   @doc """
@@ -45,6 +45,6 @@ defmodule Procore.Resources.SpecificationSets do
     |> Request.insert_request_type(:post)
     |> Request.insert_endpoint("/vapid/projects/#{project_id}/specification_sets")
     |> Request.insert_body(spec_set)
-    |> Procore.send_request()
+    |> Procore.send_request(client)
   end
 end

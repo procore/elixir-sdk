@@ -17,7 +17,7 @@ defmodule Procore.Resources.ObservationItemResponseLogs do
     |> Request.insert_request_type(:get)
     |> Request.insert_endpoint("/vapid/observations/items/#{item_id}/response_logs")
     |> Request.insert_query_params(params)
-    |> Procore.send_request()
+    |> Procore.send_request(client)
   end
 
   @doc """
@@ -32,7 +32,7 @@ defmodule Procore.Resources.ObservationItemResponseLogs do
     |> Request.insert_request_type(:get)
     |> Request.insert_endpoint("/vapid/observations/items/#{item_id}/response_logs/#{id}")
     |> Request.insert_query_params(%{"project_id" => project_id})
-    |> Procore.send_request()
+    |> Procore.send_request(client)
   end
 
   @doc """
@@ -43,6 +43,7 @@ defmodule Procore.Resources.ObservationItemResponseLogs do
           (observationitemresponse_log :: String.t()) => map
         }) :: %ResponseResult{} | %ErrorResult{}
   def create(
+        client,
         %{
           "project_id" => project_id,
           "reponse_log" => response_log,
@@ -55,6 +56,6 @@ defmodule Procore.Resources.ObservationItemResponseLogs do
     |> Request.insert_request_type(:post)
     |> Request.insert_endpoint("/vapid/observations/items/#{item_id}/response_logs")
     |> Request.insert_body(params)
-    |> Procore.send_request()
+    |> Procore.send_request(client)
   end
 end

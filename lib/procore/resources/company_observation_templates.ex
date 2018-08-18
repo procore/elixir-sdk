@@ -16,7 +16,7 @@ defmodule Procore.Resources.CompanyObservationTemplates do
     %Request{}
     |> Request.insert_request_type(:get)
     |> Request.insert_endpoint("/vapid/companies/#{company_id}/observation_templates")
-    |> Procore.send_request()
+    |> Procore.send_request(client)
   end
 
   @doc """
@@ -31,6 +31,6 @@ defmodule Procore.Resources.CompanyObservationTemplates do
     |> Request.insert_request_type(:post)
     |> Request.insert_endpoint("/vapid/companies/#{company_id}/observation_templates")
     |> Request.insert_body(%{"observation_template" => observation_template})
-    |> Procore.send_request()
+    |> Procore.send_request(client)
   end
 end

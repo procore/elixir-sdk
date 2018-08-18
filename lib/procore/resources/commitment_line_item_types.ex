@@ -17,19 +17,21 @@ defmodule Procore.Resources.CommitmentLineItemTypes do
     |> Request.insert_request_type(:get)
     |> Request.insert_endpoint("/vapid/line_item_types")
     |> Request.insert_query_params(params)
-    |> Procore.send_request()
+    |> Procore.send_request(client)
   end
 
   @doc """
   Creates or updates a batch of Line Item Types for a company.
   """
-  @spec sync(%{(company_id :: String.t()) => pos_integer, (line_item_types :: String.t()) => list}) ::
-          %ResponseResult{} | %ErrorResult{}
-  def sync(%{"company_id" => company_id, "line_item_types" => line_item_types}) do
+  @spec sync(Tesla.Client.t(), %{
+          (company_id :: String.t()) => pos_integer,
+          (line_item_types :: String.t()) => list
+        }) :: %ResponseResult{} | %ErrorResult{}
+  def sync(client, %{"company_id" => company_id, "line_item_types" => line_item_types}) do
     %Request{}
     |> Request.insert_request_type(:patch)
     |> Request.insert_endpoint("/vapid/line_item_types/sync")
     |> Request.insert_body(%{"company_id" => company_id, "updates" => line_item_types})
-    |> Procore.send_request()
+    |> Procore.send_request(client)
   end
 end

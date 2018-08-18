@@ -16,6 +16,7 @@ defmodule Procore.Resources.MeetingCategories do
           (meeting_category :: String.t()) => map
         }) :: %ResponseResult{} | %ErrorResult{}
   def create(
+        client,
         %{
           "project_id" => _project_id,
           "meeting_id" => _meeting_id,
@@ -26,6 +27,6 @@ defmodule Procore.Resources.MeetingCategories do
     |> Request.insert_request_type(:post)
     |> Request.insert_endpoint("/vapid/meeting_categories")
     |> Request.insert_body(params)
-    |> Procore.send_request()
+    |> Procore.send_request(client)
   end
 end
