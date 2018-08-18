@@ -8,7 +8,7 @@ defmodule Procore.Resources.ObservationItemsTest do
     params = %{"project_id" => 1}
 
     assert %ResponseResult{reply: :ok, status_code: 200, parsed_body: []} =
-             ObservationItems.list(params)
+             ObservationItems.list(client, params)
   end
 
   test "find/1" do

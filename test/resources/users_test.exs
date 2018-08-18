@@ -15,14 +15,16 @@ defmodule Procore.Resources.UsersTest do
     client = Procore.client()
     params = %{"company_id" => 1}
 
-    assert %ResponseResult{reply: :ok, status_code: 200, parsed_body: []} = Users.list(params)
+    assert %ResponseResult{reply: :ok, status_code: 200, parsed_body: []} =
+             Users.list(client, params)
   end
 
   test "list/1 for project directory" do
     client = Procore.client()
     params = %{"project_id" => 1}
 
-    assert %ResponseResult{reply: :ok, status_code: 200, parsed_body: []} = Users.list(params)
+    assert %ResponseResult{reply: :ok, status_code: 200, parsed_body: []} =
+             Users.list(client, params)
   end
 
   test "sync/1" do

@@ -8,7 +8,7 @@ defmodule Procore.Resources.ContributingConditionsTest do
     params = %{"company_id" => 1}
 
     assert %ResponseResult{reply: :ok, status_code: 200, parsed_body: []} =
-             ContributingConditions.list(params)
+             ContributingConditions.list(client, params)
   end
 
   test "find/1" do

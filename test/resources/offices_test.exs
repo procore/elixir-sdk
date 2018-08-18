@@ -10,6 +10,7 @@ defmodule Procore.Resources.OfficesTest do
     client = Procore.client()
     params = %{"company_id" => 1}
 
-    assert %ResponseResult{reply: :ok, status_code: 200, parsed_body: []} = Offices.list(params)
+    assert %ResponseResult{reply: :ok, status_code: 200, parsed_body: []} =
+             Offices.list(client, params)
   end
 end

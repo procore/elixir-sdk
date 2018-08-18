@@ -8,7 +8,7 @@ defmodule Procore.Resources.PurchaseOrderContractLineItemsTest do
     params = %{"project_id" => 1, "purchase_order_contract_id" => 1}
 
     assert %ResponseResult{reply: :ok, status_code: 200, parsed_body: []} =
-             PurchaseOrderContractLineItems.list(params)
+             PurchaseOrderContractLineItems.list(client, params)
   end
 
   test "create/1" do

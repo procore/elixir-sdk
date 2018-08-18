@@ -8,7 +8,7 @@ defmodule Procore.Resources.CompanyChecklistTemplateSectionsTest do
     params = %{"company_id" => 1, "list_template_id" => 1}
 
     assert %ResponseResult{reply: :ok, status_code: 200, parsed_body: []} =
-             CompanyChecklistTemplateSections.list(params)
+             CompanyChecklistTemplateSections.list(client, params)
   end
 
   test "find/1" do

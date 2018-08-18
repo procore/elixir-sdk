@@ -8,7 +8,7 @@ defmodule Procore.Resources.CompanyObservationTemplatesTest do
     params = %{"company_id" => 1}
 
     assert %ResponseResult{reply: :ok, status_code: 200, parsed_body: []} =
-             CompanyObservationTemplates.list(params)
+             CompanyObservationTemplates.list(client, params)
   end
 
   test "create/1" do

@@ -6,6 +6,12 @@ defmodule ProcoreTest do
   alias Tesla.Middleware.AuthorizationOauth
   alias Tesla.Middleware.ClientCredentialsOAuth
 
+  setup do
+    on_exit(fn ->
+      Application.put_env(:procore, :oauth_client, ClientCredentialsOAuth)
+    end)
+  end
+
   test ":unset request_type on send_request/1" do
     assert_raise ArgumentError, fn ->
       Procore.send_request(%Request{

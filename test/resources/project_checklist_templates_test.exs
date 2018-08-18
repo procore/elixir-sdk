@@ -8,7 +8,7 @@ defmodule Procore.Resources.ProjectChecklistTemplatesTest do
     params = %{"project_id" => 1}
 
     assert %ResponseResult{reply: :ok, status_code: 200, parsed_body: []} =
-             ProjectChecklistTemplates.list(params)
+             ProjectChecklistTemplates.list(client, params)
   end
 
   test "find/1" do

@@ -8,6 +8,6 @@ defmodule Procore.Resources.PermissionTemplatesTest do
     params = %{"project_id" => 1}
 
     assert %ResponseResult{reply: :ok, status_code: 200, parsed_body: []} =
-             PermissionTemplates.list(params)
+             PermissionTemplates.list(client, params)
   end
 end
