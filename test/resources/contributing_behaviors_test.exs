@@ -4,6 +4,7 @@ defmodule Procore.Resources.ContributingBehaviorsTest do
   alias Procore.Resources.ContributingBehaviors
 
   test "list/1" do
+    client = Procore.client()
     params = %{"company_id" => 1}
 
     assert %ResponseResult{reply: :ok, status_code: 200, parsed_body: []} =
@@ -11,6 +12,7 @@ defmodule Procore.Resources.ContributingBehaviorsTest do
   end
 
   test "find/1" do
+    client = Procore.client()
     params = %{"contributing_behavior_id" => 1, "company_id" => 1}
 
     assert %ResponseResult{reply: :ok, status_code: 200, parsed_body: %{}} =
@@ -18,6 +20,7 @@ defmodule Procore.Resources.ContributingBehaviorsTest do
   end
 
   test "create/1" do
+    client = Procore.client()
     params = %{"company_id" => 1, "contributing_behavior" => %{}}
 
     assert %ResponseResult{reply: :ok, status_code: 201, parsed_body: %{}} =

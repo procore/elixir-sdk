@@ -4,6 +4,7 @@ defmodule Procore.Resources.ObservationItemResponseLogsTest do
   alias Procore.Resources.ObservationItemResponseLogs
 
   test "list/1" do
+    client = Procore.client()
     params = %{"project_id" => 1, "observation_item_id" => 1}
 
     assert %ResponseResult{reply: :ok, status_code: 200, parsed_body: []} =
@@ -11,6 +12,7 @@ defmodule Procore.Resources.ObservationItemResponseLogsTest do
   end
 
   test "find/1" do
+    client = Procore.client()
     params = %{"project_id" => 1, "observation_item_id" => 1, "id" => 1}
 
     assert %ResponseResult{reply: :ok, status_code: 200, parsed_body: %{}} =
@@ -18,6 +20,8 @@ defmodule Procore.Resources.ObservationItemResponseLogsTest do
   end
 
   test "create/1" do
+    client = Procore.client()
+
     params = %{
       "project_id" => 1,
       "reponse_log" => %{},

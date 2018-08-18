@@ -4,12 +4,15 @@ defmodule Procore.Resources.ImagesTest do
   alias Procore.Resources.Images
 
   test "list/1" do
+    client = Procore.client()
     params = %{"project_id" => 1, "image_category_id" => 1}
 
     assert %ResponseResult{reply: :ok, status_code: 200, parsed_body: []} = Images.list(params)
   end
 
   test "create/1" do
+    client = Procore.client()
+
     params = %{
       "project_id" => 1,
       "image_category_id" => 1,

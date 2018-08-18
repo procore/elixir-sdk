@@ -4,6 +4,7 @@ defmodule Procore.Resources.SubmittalsTest do
   alias Procore.Resources.Submittals
 
   test "list/1" do
+    client = Procore.client()
     params = %{"project_id" => 1}
 
     assert %ResponseResult{reply: :ok, status_code: 200, parsed_body: []} =
@@ -11,6 +12,7 @@ defmodule Procore.Resources.SubmittalsTest do
   end
 
   test "list_potential_responsible_contractors/1" do
+    client = Procore.client()
     params = %{"project_id" => 1}
 
     assert %ResponseResult{reply: :ok, status_code: 200, parsed_body: []} =
@@ -18,6 +20,7 @@ defmodule Procore.Resources.SubmittalsTest do
   end
 
   test "create/1" do
+    client = Procore.client()
     params = %{"project_id" => 1, "submittal" => %{}}
 
     assert %ResponseResult{reply: :ok, status_code: 201, parsed_body: %{}} =

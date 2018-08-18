@@ -4,6 +4,7 @@ defmodule Procore.Resources.PunchItemsTest do
   alias Procore.Resources.PunchItems
 
   test "list/1" do
+    client = Procore.client()
     params = %{"project_id" => 1}
 
     assert %ResponseResult{reply: :ok, status_code: 200, parsed_body: []} =
@@ -11,6 +12,7 @@ defmodule Procore.Resources.PunchItemsTest do
   end
 
   test "create/1" do
+    client = Procore.client()
     params = %{"project_id" => 1, "punch_item" => %{}}
 
     assert %ResponseResult{reply: :ok, status_code: 201, parsed_body: %{}} =

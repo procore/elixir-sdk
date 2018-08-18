@@ -4,6 +4,7 @@ defmodule Procore.Resources.CompanyChecklistTemplatesTest do
   alias Procore.Resources.CompanyChecklistTemplates
 
   test "list/1" do
+    client = Procore.client()
     params = %{"company_id" => 1}
 
     assert %ResponseResult{reply: :ok, status_code: 200, parsed_body: []} =
@@ -11,6 +12,7 @@ defmodule Procore.Resources.CompanyChecklistTemplatesTest do
   end
 
   test "find/1" do
+    client = Procore.client()
     params = %{"company_id" => 1, "list_template_id" => 1}
 
     assert %ResponseResult{reply: :ok, status_code: 200, parsed_body: %{}} =
@@ -18,6 +20,7 @@ defmodule Procore.Resources.CompanyChecklistTemplatesTest do
   end
 
   test "create/1" do
+    client = Procore.client()
     params = %{"company_id" => 1, "list_template" => %{}, "attachments" => []}
 
     assert %ResponseResult{reply: :ok, status_code: 201, parsed_body: %{}} =

@@ -4,12 +4,14 @@ defmodule Procore.Resources.LocationsTest do
   alias Procore.Resources.Locations
 
   test "list/1" do
+    client = Procore.client()
     params = %{"project_id" => 1}
 
     assert %ResponseResult{reply: :ok, status_code: 200, parsed_body: []} = Locations.list(params)
   end
 
   test "create/1" do
+    client = Procore.client()
     params = %{"project_id" => 1, "location" => %{}}
 
     assert %ResponseResult{reply: :ok, status_code: 201, parsed_body: %{}} =
