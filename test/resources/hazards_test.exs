@@ -15,7 +15,7 @@ defmodule Procore.Resources.HazardsTest do
     client = Procore.client()
     params = %{"hazard_id" => 1, "company_id" => 1}
 
-    assert %ResponseResult{reply: :ok, status_code: 200, parsed_body: %{}} = Hazards.find(params)
+    assert %ResponseResult{reply: :ok, status_code: 200, parsed_body: %{}} = Hazards.find(client, params)
   end
 
   test "create/1" do

@@ -7,7 +7,7 @@ defmodule Procore.Resources.MeetingsTest do
     client = Procore.client()
     params = %{"meeting_id" => 1, "project_id" => 1}
 
-    assert %ResponseResult{reply: :ok, status_code: 200, parsed_body: %{}} = Meetings.find(params)
+    assert %ResponseResult{reply: :ok, status_code: 200, parsed_body: %{}} = Meetings.find(client, params)
   end
 
   test "list/1" do

@@ -11,6 +11,6 @@ defmodule Procore.Resources.ProjectConfigurationsTest do
     params = %{"project_id" => 2}
 
     assert %ResponseResult{reply: :ok, status_code: 200, parsed_body: %{}} =
-             ProjectConfigurations.find(params)
+             ProjectConfigurations.find(client, params)
   end
 end

@@ -16,7 +16,7 @@ defmodule Procore.Resources.WorkOrderContractsTest do
     params = %{"project_id" => 1, "work_order_contract_id" => 1}
 
     assert %ResponseResult{reply: :ok, status_code: 200, parsed_body: %{}} =
-             WorkOrderContracts.find(params)
+             WorkOrderContracts.find(client, params)
   end
 
   test "sync/1" do
