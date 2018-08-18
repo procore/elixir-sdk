@@ -16,6 +16,6 @@ defmodule Procore.Resources.PunchItemsTest do
     params = %{"project_id" => 1, "punch_item" => %{}}
 
     assert %ResponseResult{reply: :ok, status_code: 201, parsed_body: %{}} =
-             PunchItems.create(params)
+             PunchItems.create(client, params)
   end
 end

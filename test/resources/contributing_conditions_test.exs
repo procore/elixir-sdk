@@ -24,6 +24,6 @@ defmodule Procore.Resources.ContributingConditionsTest do
     params = %{"company_id" => 1, "contributing_condition" => %{}}
 
     assert %ResponseResult{reply: :ok, status_code: 201, parsed_body: %{}} =
-             ContributingConditions.create(params)
+             ContributingConditions.create(client, params)
   end
 end

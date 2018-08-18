@@ -24,6 +24,6 @@ defmodule Procore.Resources.CompanyChecklistTemplatesTest do
     params = %{"company_id" => 1, "list_template" => %{}, "attachments" => []}
 
     assert %ResponseResult{reply: :ok, status_code: 201, parsed_body: %{}} =
-             CompanyChecklistTemplates.create(params)
+             CompanyChecklistTemplates.create(client, params)
   end
 end

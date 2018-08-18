@@ -16,6 +16,6 @@ defmodule Procore.Resources.PrimeContractsTest do
     params = %{"project_id" => 1, "attachments" => [], "prime_contract" => %{}}
 
     assert %ResponseResult{reply: :ok, status_code: 201, parsed_body: %{}} =
-             PrimeContracts.create(params)
+             PrimeContracts.create(client, params)
   end
 end

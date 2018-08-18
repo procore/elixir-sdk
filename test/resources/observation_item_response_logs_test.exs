@@ -31,6 +31,6 @@ defmodule Procore.Resources.ObservationItemResponseLogsTest do
     }
 
     assert %ResponseResult{reply: :ok, status_code: 201, parsed_body: %{}} =
-             ObservationItemResponseLogs.create(params)
+             ObservationItemResponseLogs.create(client, params)
   end
 end

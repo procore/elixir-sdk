@@ -24,6 +24,6 @@ defmodule Procore.Resources.ContributingBehaviorsTest do
     params = %{"company_id" => 1, "contributing_behavior" => %{}}
 
     assert %ResponseResult{reply: :ok, status_code: 201, parsed_body: %{}} =
-             ContributingBehaviors.create(params)
+             ContributingBehaviors.create(client, params)
   end
 end

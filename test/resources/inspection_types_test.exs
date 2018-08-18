@@ -16,6 +16,6 @@ defmodule Procore.Resources.InspectionTypesTest do
     params = %{"company_id" => 1, "inspection_type" => %{}}
 
     assert %ResponseResult{reply: :ok, status_code: 201, parsed_body: %{}} =
-             InspectionTypes.create(params)
+             InspectionTypes.create(client, params)
   end
 end

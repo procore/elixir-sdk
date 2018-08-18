@@ -8,6 +8,6 @@ defmodule Procore.Resources.ScheduleTasksTest do
     params = %{"project_id" => 1, "task" => %{}}
 
     assert %ResponseResult{reply: :ok, status_code: 201, parsed_body: %{}} =
-             ScheduleTasks.create(params)
+             ScheduleTasks.create(client, params)
   end
 end

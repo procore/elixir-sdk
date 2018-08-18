@@ -24,6 +24,6 @@ defmodule Procore.Resources.ObservationItemsTest do
     params = %{"project_id" => 1, "observation" => %{}}
 
     assert %ResponseResult{reply: :ok, status_code: 201, parsed_body: %{}} =
-             ObservationItems.create(params)
+             ObservationItems.create(client, params)
   end
 end

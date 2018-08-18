@@ -23,6 +23,6 @@ defmodule Procore.Resources.HazardsTest do
     params = %{"company_id" => 1, "hazard" => %{}}
 
     assert %ResponseResult{reply: :ok, status_code: 201, parsed_body: %{}} =
-             Hazards.create(params)
+             Hazards.create(client, params)
   end
 end

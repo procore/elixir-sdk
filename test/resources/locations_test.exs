@@ -16,6 +16,6 @@ defmodule Procore.Resources.LocationsTest do
     params = %{"project_id" => 1, "location" => %{}}
 
     assert %ResponseResult{reply: :ok, status_code: 201, parsed_body: %{}} =
-             Locations.create(params)
+             Locations.create(client, params)
   end
 end

@@ -8,6 +8,6 @@ defmodule Procore.Resources.Rfis.RepliesTest do
     params = %{"project_id" => 1, "rfi_id" => 1, "reply" => %{}}
 
     assert %ResponseResult{reply: :ok, status_code: 201, parsed_body: %{}} =
-             Replies.create(params)
+             Replies.create(client, params)
   end
 end

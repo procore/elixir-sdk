@@ -16,6 +16,6 @@ defmodule Procore.Resources.WorkOrderContractLineItemsTest do
     params = %{"project_id" => 1, "work_order_contract_id" => 1, "line_item" => %{}}
 
     assert %ResponseResult{reply: :ok, status_code: 201, parsed_body: %{}} =
-             WorkOrderContractLineItems.create(params)
+             WorkOrderContractLineItems.create(client, params)
   end
 end

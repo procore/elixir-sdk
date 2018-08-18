@@ -8,6 +8,6 @@ defmodule Procore.Resources.MeetingsCategoriesTest do
     params = %{"meeting_id" => 1, "project_id" => 1, "meeting_category" => %{}}
 
     assert %ResponseResult{reply: :ok, status_code: 201, parsed_body: %{}} =
-             MeetingCategories.create(params)
+             MeetingCategories.create(client, params)
   end
 end

@@ -15,6 +15,6 @@ defmodule Procore.Resources.RfisTest do
     client = Procore.client()
     params = %{"project_id" => 1, "rfi" => %{}}
 
-    assert %ResponseResult{reply: :ok, status_code: 201, parsed_body: %{}} = Rfis.create(params)
+    assert %ResponseResult{reply: :ok, status_code: 201, parsed_body: %{}} = Rfis.create(client, params)
   end
 end

@@ -16,6 +16,6 @@ defmodule Procore.Resources.ChangeEventsTest do
     params = %{"project_id" => 1, "attachments" => [], "change_event" => %{}}
 
     assert %ResponseResult{reply: :ok, status_code: 201, parsed_body: %{}} =
-             ChangeEvents.create(params)
+             ChangeEvents.create(client, params)
   end
 end

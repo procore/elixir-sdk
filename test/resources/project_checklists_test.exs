@@ -24,6 +24,6 @@ defmodule Procore.Resources.ProjectChecklistsTest do
     params = %{"project_id" => 1, "template_id" => 1, "list" => %{}}
 
     assert %ResponseResult{reply: :ok, status_code: 201, parsed_body: %{}} =
-             ProjectChecklists.create(params)
+             ProjectChecklists.create(client, params)
   end
 end

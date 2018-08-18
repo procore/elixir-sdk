@@ -15,6 +15,6 @@ defmodule Procore.Resources.TradesTest do
     client = Procore.client()
     params = %{"company_id" => 1, "trade" => %{"name" => "Trade A"}}
 
-    assert %ResponseResult{reply: :ok, status_code: 201, parsed_body: %{}} = Trades.create(params)
+    assert %ResponseResult{reply: :ok, status_code: 201, parsed_body: %{}} = Trades.create(client, params)
   end
 end

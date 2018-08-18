@@ -16,6 +16,6 @@ defmodule Procore.Resources.DrawingAreasTest do
     params = %{"project_id" => 1, "name" => "Area A"}
 
     assert %ResponseResult{reply: :ok, status_code: 201, parsed_body: %{}} =
-             DrawingAreas.create(params)
+             DrawingAreas.create(client, params)
   end
 end

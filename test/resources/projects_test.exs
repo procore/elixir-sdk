@@ -23,6 +23,6 @@ defmodule Procore.Resources.ProjectsTest do
     params = %{"company_id" => 1, "project" => %{}}
 
     assert %ResponseResult{reply: :ok, status_code: 201, parsed_body: %{}} =
-             Projects.create(params)
+             Projects.create(client, params)
   end
 end
