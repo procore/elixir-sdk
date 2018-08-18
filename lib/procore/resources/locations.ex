@@ -23,8 +23,10 @@ defmodule Procore.Resources.Locations do
   @doc """
   Creates a location.
   """
-  @spec create(%{(project_id :: String.t()) => pos_integer, (location :: String.t()) => map}) ::
-          %ResponseResult{} | %ErrorResult{}
+  @spec create(Tesla.Client.t(), %{
+          (project_id :: String.t()) => pos_integer,
+          (location :: String.t()) => map
+        }) :: %ResponseResult{} | %ErrorResult{}
   def create(client, %{"project_id" => _project_id, "location" => _location} = params) do
     %Request{}
     |> Request.insert_request_type(:post)

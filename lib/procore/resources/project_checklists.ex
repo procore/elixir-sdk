@@ -37,7 +37,7 @@ defmodule Procore.Resources.ProjectChecklists do
   @doc """
   Creates Project Checklist.
   """
-  @spec create(%{
+  @spec create(Tesla.Client.t(), %{
           (project_id :: String.t()) => pos_integer,
           (template_id :: String.t()) => pos_integer,
           (list :: String.t()) => map()

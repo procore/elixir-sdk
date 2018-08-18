@@ -23,7 +23,7 @@ defmodule Procore.Resources.PrimeContracts do
   @doc """
   Creates a the Prime Contract for a Project.
   """
-  @spec create(%{
+  @spec create(Tesla.Client.t(), %{
           (project_id :: String.t()) => pos_integer,
           (attachments :: String.t()) => list,
           (prime_contract :: String.t()) => map

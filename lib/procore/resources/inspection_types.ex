@@ -22,7 +22,7 @@ defmodule Procore.Resources.InspectionTypes do
   @doc """
   Creates an Inspection Type.
   """
-  @spec create(%{
+  @spec create(Tesla.Client.t(), %{
           (company_id :: String.t()) => pos_integer,
           (inspection_type :: String.t()) => map
         }) :: %ResponseResult{} | %ErrorResult{}

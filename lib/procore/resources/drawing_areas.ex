@@ -22,8 +22,10 @@ defmodule Procore.Resources.DrawingAreas do
   @doc """
   Creates a drawing area.
   """
-  @spec create(%{(project_id :: String.t()) => pos_integer, (name :: String.t()) => String.t()}) ::
-          %ResponseResult{} | %ErrorResult{}
+  @spec create(Tesla.Client.t(), %{
+          (project_id :: String.t()) => pos_integer,
+          (name :: String.t()) => String.t()
+        }) :: %ResponseResult{} | %ErrorResult{}
   def create(client, %{"project_id" => project_id, "name" => name}) do
     %Request{}
     |> Request.insert_request_type(:post)

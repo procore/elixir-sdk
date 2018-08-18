@@ -28,7 +28,7 @@ defmodule Procore.Resources.Images do
   @doc """
   Creates an image within an image category (album).
   """
-  @spec create(%{
+  @spec create(Tesla.Client.t(), %{
           (project_id :: String.t()) => pos_integer,
           (image_category_id :: String.t()) => pos_integer,
           (filename :: String.t()) => String.t(),

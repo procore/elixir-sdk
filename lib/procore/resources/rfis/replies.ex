@@ -10,7 +10,7 @@ defmodule Procore.Resources.Rfis.Replies do
   @doc """
   Creates a RFI Reply.
   """
-  @spec create(%{
+  @spec create(Tesla.Client.t(), %{
           (project_id :: String.t()) => pos_integer,
           (rfi_id :: String.t()) => pos_integer,
           (reply :: String.t()) => map

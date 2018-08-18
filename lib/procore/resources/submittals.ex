@@ -22,8 +22,10 @@ defmodule Procore.Resources.Submittals do
   @doc """
   Creates a submittal.
   """
-  @spec create(%{(project_id :: String.t()) => pos_integer, (submittal :: String.t()) => map}) ::
-          %ResponseResult{} | %ErrorResult{}
+  @spec create(Tesla.Client.t(), %{
+          (project_id :: String.t()) => pos_integer,
+          (submittal :: String.t()) => map
+        }) :: %ResponseResult{} | %ErrorResult{}
   def create(client, %{"project_id" => project_id, "submittal" => submittal}) do
     %Request{}
     |> Request.insert_request_type(:post)

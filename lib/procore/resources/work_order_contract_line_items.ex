@@ -28,7 +28,7 @@ defmodule Procore.Resources.WorkOrderContractLineItems do
   @doc """
   Creates a Work Order Contract Line Item.
   """
-  @spec create(%{
+  @spec create(Tesla.Client.t(), %{
           (project_id :: String.t()) => pos_integer,
           (work_order_contract_id :: String.t()) => pos_integer,
           (line_item :: String.t()) => map

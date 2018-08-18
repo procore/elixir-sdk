@@ -23,7 +23,7 @@ defmodule Procore.Resources.ChangeEvents do
   @doc """
   Creates a Change Event with its nested, optional, Change Event Line Items.
   """
-  @spec create(%{
+  @spec create(Tesla.Client.t(), %{
           (project_id :: String.t()) => pos_integer,
           (attachments :: String.t()) => list,
           (change_event :: String.t()) => map

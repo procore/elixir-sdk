@@ -38,7 +38,7 @@ defmodule Procore.Resources.ObservationItemResponseLogs do
   @doc """
   Creates an ObservationItemResponseLog.
   """
-  @spec create(%{
+  @spec create(Tesla.Client.t(), %{
           (company_id :: String.t()) => pos_integer,
           (observationitemresponse_log :: String.t()) => map
         }) :: %ResponseResult{} | %ErrorResult{}

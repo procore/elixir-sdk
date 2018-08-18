@@ -30,7 +30,7 @@ defmodule Procore.Resources.PurchaseOrderContractLineItems do
   @doc """
   Creates a Purchase Order Contract Line Item.
   """
-  @spec create(%{
+  @spec create(Tesla.Client.t(), %{
           (project_id :: String.t()) => pos_integer,
           (purchase_order_contract_id :: String.t()) => pos_integer,
           (line_item :: String.t()) => map

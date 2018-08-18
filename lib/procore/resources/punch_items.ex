@@ -23,8 +23,10 @@ defmodule Procore.Resources.PunchItems do
   @doc """
   Creates a punch item.
   """
-  @spec create(%{(project_id :: String.t()) => pos_integer, (punch_item :: String.t()) => map}) ::
-          %ResponseResult{} | %ErrorResult{}
+  @spec create(Tesla.Client.t(), %{
+          (project_id :: String.t()) => pos_integer,
+          (punch_item :: String.t()) => map
+        }) :: %ResponseResult{} | %ErrorResult{}
   def create(client, %{"project_id" => _project_id, "punch_item" => _punch_item} = params) do
     %Request{}
     |> Request.insert_request_type(:post)

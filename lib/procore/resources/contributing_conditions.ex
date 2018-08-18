@@ -43,7 +43,7 @@ defmodule Procore.Resources.ContributingConditions do
   @doc """
   Creates an ContributingCondition.
   """
-  @spec create(%{
+  @spec create(Tesla.Client.t(), %{
           (company_id :: String.t()) => pos_integer,
           (contributing_condition :: String.t()) => map
         }) :: %ResponseResult{} | %ErrorResult{}

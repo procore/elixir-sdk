@@ -23,7 +23,8 @@ defmodule Procore.Resources.ScheduleResources do
   @doc """
   Create a schedule resource.
   """
-  @spec create(%{(project_id :: String.t()) => pos_integer}) :: %ResponseResult{} | %ErrorResult{}
+  @spec create(Tesla.Client.t(), %{(project_id :: String.t()) => pos_integer}) ::
+          %ResponseResult{} | %ErrorResult{}
   def create(client, %{"project_id" => _project_id, "resource" => _resource} = params) do
     %Request{}
     |> Request.insert_request_type(:post)

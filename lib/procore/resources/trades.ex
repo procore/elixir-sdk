@@ -22,8 +22,10 @@ defmodule Procore.Resources.Trades do
   @doc """
   Creates a Trade.
   """
-  @spec create(%{(company_id :: String.t()) => pos_integer, (trade :: String.t()) => map}) ::
-          %ResponseResult{} | %ErrorResult{}
+  @spec create(Tesla.Client.t(), %{
+          (company_id :: String.t()) => pos_integer,
+          (trade :: String.t()) => map
+        }) :: %ResponseResult{} | %ErrorResult{}
   def create(client, %{"company_id" => company_id, "trade" => trade}) do
     %Request{}
     |> Request.insert_request_type(:post)

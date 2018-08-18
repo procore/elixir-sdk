@@ -10,7 +10,7 @@ defmodule Procore.Resources.MeetingCategories do
   @doc """
   Creates a meeting category.
   """
-  @spec create(%{
+  @spec create(Tesla.Client.t(), %{
           (project_id :: String.t()) => pos_integer,
           (meeting_id :: String.t()) => pos_integer,
           (meeting_category :: String.t()) => map

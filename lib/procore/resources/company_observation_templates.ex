@@ -22,7 +22,7 @@ defmodule Procore.Resources.CompanyObservationTemplates do
   @doc """
   Creates an observation template for a company.
   """
-  @spec create(%{
+  @spec create(Tesla.Client.t(), %{
           (company_id :: String.t()) => pos_integer,
           (observation_template :: String.t()) => map
         }) :: %ResponseResult{} | %ErrorResult{}

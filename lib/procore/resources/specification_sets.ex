@@ -36,7 +36,7 @@ defmodule Procore.Resources.SpecificationSets do
   @doc """
   Creates a meeting.
   """
-  @spec create(%{
+  @spec create(Tesla.Client.t(), %{
           (project_id :: String.t()) => pos_integer,
           (specification_set :: String.t()) => map
         }) :: %ResponseResult{} | %ErrorResult{}

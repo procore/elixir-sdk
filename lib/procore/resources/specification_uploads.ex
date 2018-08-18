@@ -6,7 +6,7 @@ defmodule Procore.Resources.SpecificationUploads do
   alias Procore.Request
   alias Procore.ResponseResult
 
-  @spec create(%{
+  @spec create(Tesla.Client.t(), %{
           (project_id :: String.t()) => pos_integer,
           (specification_upload :: String.t()) => map
         }) :: %ResponseResult{} | %ErrorResult{}

@@ -10,7 +10,7 @@ defmodule Procore.Resources.MeetingTopics do
   @doc """
   Creates a meeting topic.
   """
-  @spec create(%{
+  @spec create(Tesla.Client.t(), %{
           (project_id :: String.t()) => pos_integer,
           (meeting_id :: String.t()) => pos_integer,
           (meeting_topic :: String.t()) => map

@@ -23,8 +23,10 @@ defmodule Procore.Resources.ImageCategories do
   @doc """
   Creates an image category (album).
   """
-  @spec create(%{(project_id :: String.t()) => pos_integer, (image_category :: String.t()) => map}) ::
-          %ResponseResult{} | %ErrorResult{}
+  @spec create(Tesla.Client.t(), %{
+          (project_id :: String.t()) => pos_integer,
+          (image_category :: String.t()) => map
+        }) :: %ResponseResult{} | %ErrorResult{}
   def create(client, %{"project_id" => project_id, "image_category" => image_category}) do
     %Request{}
     |> Request.insert_request_type(:post)

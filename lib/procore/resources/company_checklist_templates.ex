@@ -38,7 +38,7 @@ defmodule Procore.Resources.CompanyChecklistTemplates do
   @doc """
   Creates a company level Checklist Template.
   """
-  @spec create(%{
+  @spec create(Tesla.Client.t(), %{
           (company_id :: String.t()) => pos_integer,
           (list_template :: String.t()) => map,
           (attachments :: String.t()) => List.t()

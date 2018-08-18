@@ -43,7 +43,7 @@ defmodule Procore.Resources.ContributingBehaviors do
   @doc """
   Creates an ContributingBehavior.
   """
-  @spec create(%{
+  @spec create(Tesla.Client.t(), %{
           (company_id :: String.t()) => pos_integer,
           (contributing_behavior :: String.t()) => map
         }) :: %ResponseResult{} | %ErrorResult{}

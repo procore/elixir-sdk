@@ -38,7 +38,7 @@ defmodule Procore.Resources.ObservationItems do
   @doc """
   Creates an Observation Item.
   """
-  @spec create(%{
+  @spec create(Tesla.Client.t(), %{
           (project_id :: String.t()) => pos_integer,
           (observation_item :: String.t()) => map
         }) :: %ResponseResult{} | %ErrorResult{}

@@ -38,7 +38,7 @@ defmodule Procore.Resources.Hazards do
   @doc """
   Creates an Hazard.
   """
-  @spec create(%{
+  @spec create(Tesla.Client.t(), %{
           (company_id :: String.t()) => pos_integer,
           (hazard :: String.t()) => map
         }) :: %ResponseResult{} | %ErrorResult{}

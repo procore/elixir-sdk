@@ -34,7 +34,7 @@ defmodule Procore.Resources.Projects do
   @doc """
   Creates a project and all of it's required defaults and associations.
   """
-  @spec create(map) :: %ResponseResult{} | %ErrorResult{}
+  @spec create(Tesla.Client.t(), map) :: %ResponseResult{} | %ErrorResult{}
   def create(client, %{"company_id" => company_id, "project" => project}) do
     %Request{}
     |> Request.insert_request_type(:post)
