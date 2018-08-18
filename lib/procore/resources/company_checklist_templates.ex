@@ -22,7 +22,7 @@ defmodule Procore.Resources.CompanyChecklistTemplates do
   @doc """
   Returns Checklist Template.
   """
-  @spec find(%{
+  @spec find(Tesla.Client.t(), %{
           (company_id :: String.t()) => pos_integer,
           (list_template_id :: String.t()) => pos_integer
         }) :: %ResponseResult{} | %ErrorResult{}

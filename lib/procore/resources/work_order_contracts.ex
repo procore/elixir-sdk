@@ -23,7 +23,7 @@ defmodule Procore.Resources.WorkOrderContracts do
   @doc """
   Returns a Work Order Contract and associated records.
   """
-  @spec find(%{
+  @spec find(Tesla.Client.t(), %{
           (project_id :: String.t()) => pos_integer,
           (work_order_contract_id :: String.t()) => pos_integer
         }) :: %ResponseResult{} | %ErrorResult{}

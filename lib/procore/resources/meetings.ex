@@ -10,7 +10,7 @@ defmodule Procore.Resources.Meetings do
   @doc """
   Gets a meeting with assoication records attendees, attachments, and meeting categories.
   """
-  @spec find(%{
+  @spec find(Tesla.Client.t(), %{
           (meeting_id :: String.t()) => pos_integer,
           (project_id :: String.t()) => pos_integer
         }) :: %ResponseResult{} | %ErrorResult{}

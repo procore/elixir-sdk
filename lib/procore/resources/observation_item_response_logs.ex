@@ -23,7 +23,7 @@ defmodule Procore.Resources.ObservationItemResponseLogs do
   @doc """
   Gets a single ObservationItemResponseLog.
   """
-  @spec find(%{
+  @spec find(Tesla.Client.t(), %{
           (company_id :: String.t()) => pos_integer,
           (observationitemresponse_log_id :: String.t()) => pos_integer
         }) :: %ResponseResult{} | %ErrorResult{}

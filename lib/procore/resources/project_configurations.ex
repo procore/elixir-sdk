@@ -13,7 +13,7 @@ defmodule Procore.Resources.ProjectConfigurations do
 
   See `Procore.Resources.ProjectConfigurations.ResponseBodyTypes.GetProjectConfiguration.t/0` for response body.
   """
-  @spec find(%{(project_id :: String.t()) => pos_integer}) ::
+  @spec find(Tesla.Client.t(), %{(project_id :: String.t()) => pos_integer}) ::
           %ResponseResult{
             status_code: DefinedTypes.non_error_status_code(),
             parsed_body: ResponseBodyTypes.GetProjectConfiguration.t(),

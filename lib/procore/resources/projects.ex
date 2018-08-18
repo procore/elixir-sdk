@@ -10,7 +10,7 @@ defmodule Procore.Resources.Projects do
   @doc """
   Gets a project.
   """
-  @spec find(map) :: %ResponseResult{} | %ErrorResult{}
+  @spec find(Tesla.Client.t(), map) :: %ResponseResult{} | %ErrorResult{}
   def find(client, %{"company_id" => company_id, "project_id" => project_id}) do
     %Request{}
     |> Request.insert_request_type(:get)

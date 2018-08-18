@@ -23,7 +23,7 @@ defmodule Procore.Resources.ContributingConditions do
   @doc """
   Gets a single ContributingCondition.
   """
-  @spec find(%{
+  @spec find(Tesla.Client.t(), %{
           (company_id :: String.t()) => pos_integer,
           (contributing_condition_id :: String.t()) => pos_integer
         }) :: %ResponseResult{} | %ErrorResult{}

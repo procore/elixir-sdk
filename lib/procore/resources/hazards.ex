@@ -23,7 +23,7 @@ defmodule Procore.Resources.Hazards do
   @doc """
   Gets a single Hazard.
   """
-  @spec find(%{
+  @spec find(Tesla.Client.t(), %{
           (company_id :: String.t()) => pos_integer,
           (hazard_id :: String.t()) => pos_integer
         }) :: %ResponseResult{} | %ErrorResult{}

@@ -23,7 +23,7 @@ defmodule Procore.Resources.ProjectChecklistTemplates do
   @doc """
   Returns a Project Checklist Template.
   """
-  @spec find(%{
+  @spec find(Tesla.Client.t(), %{
           (project_id :: String.t()) => pos_integer,
           (list_template_id :: String.t()) => pos_integer
         }) :: %ResponseResult{} | %ErrorResult{}

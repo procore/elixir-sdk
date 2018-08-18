@@ -23,7 +23,7 @@ defmodule Procore.Resources.PurchaseOrderContracts do
   @doc """
   Returns a Purchase Order Contract and associated records.
   """
-  @spec find(%{
+  @spec find(Tesla.Client.t(), %{
           (project_id :: String.t()) => pos_integer,
           (purchase_order_contract_id :: String.t()) => pos_integer
         }) :: %ResponseResult{} | %ErrorResult{}

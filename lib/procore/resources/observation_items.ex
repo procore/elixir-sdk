@@ -23,7 +23,7 @@ defmodule Procore.Resources.ObservationItems do
   @doc """
   Gets a single Observation Item.
   """
-  @spec find(%{
+  @spec find(Tesla.Client.t(), %{
           (project_id :: String.t()) => pos_integer,
           (observation_item_id :: String.t()) => pos_integer
         }) :: %ResponseResult{} | %ErrorResult{}

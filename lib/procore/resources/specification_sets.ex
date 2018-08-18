@@ -10,7 +10,7 @@ defmodule Procore.Resources.SpecificationSets do
   @doc """
   Gets a specification set.
   """
-  @spec find(%{
+  @spec find(Tesla.Client.t(), %{
           (project_id :: String.t()) => pos_integer,
           (id :: String.t()) => pos_integer
         }) :: %ResponseResult{} | %ErrorResult{}

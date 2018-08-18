@@ -22,7 +22,7 @@ defmodule Procore.Resources.ProjectChecklists do
   @doc """
   Returns Project Checklist.
   """
-  @spec find(%{
+  @spec find(Tesla.Client.t(), %{
           (project_id :: String.t()) => pos_integer,
           (checklist_id :: String.t()) => pos_integer
         }) :: %ResponseResult{} | %ErrorResult{}

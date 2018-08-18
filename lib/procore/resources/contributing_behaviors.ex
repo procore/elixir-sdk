@@ -23,7 +23,7 @@ defmodule Procore.Resources.ContributingBehaviors do
   @doc """
   Gets a single ContributingBehavior.
   """
-  @spec find(%{
+  @spec find(Tesla.Client.t(), %{
           (company_id :: String.t()) => pos_integer,
           (contributing_behavior_id :: String.t()) => pos_integer
         }) :: %ResponseResult{} | %ErrorResult{}
