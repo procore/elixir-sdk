@@ -58,45 +58,16 @@ defmodule ProcoreTest do
       assert(client_secret == client_secret_config)
     end
 
-    test "creates a authorization client with token/client_id/client_secret" do
-      token = "token"
-      client_id_config = "client-id"
-      client_secret_config = "client-secret"
-
-      Application.put_env(:procore, :oauth_client, AuthorizationOauth)
-
-      %Tesla.Client{pre: middleware} =
-        Procore.client(
-          token: token,
-          client_id: client_id_config,
-          client_secret: client_secret_config
-        )
-
-      {_, _, [[token: actual_token, client_id: client_id, client_secret: client_secret, host: _]]} =
-        List.keyfind(middleware, AuthorizationOauth, 0)
-
-      assert(token == actual_token)
-      assert(client_id == client_id_config)
-      assert(client_secret == client_secret_config)
-    end
-
     test "creates a authorization client with token" do
       token = "token"
-      client_id_config = "client-id"
-      client_secret_config = "client-secret"
 
       Application.put_env(:procore, :oauth_client, AuthorizationOauth)
-      Application.put_env(:procore, :client_id, client_id_config)
-      Application.put_env(:procore, :client_secret, client_secret_config)
 
       %Tesla.Client{pre: middleware} = Procore.client(token: token)
 
-      {_, _, [[token: actual_token, client_id: client_id, client_secret: client_secret, host: _]]} =
-        List.keyfind(middleware, AuthorizationOauth, 0)
+      {_, _, [[token: actual_token]]} = List.keyfind(middleware, AuthorizationOauth, 0)
 
       assert(token == actual_token)
-      assert(client_id == client_id_config)
-      assert(client_secret == client_secret_config)
     end
   end
 end

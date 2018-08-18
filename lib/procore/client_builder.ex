@@ -34,27 +34,7 @@ defmodule Procore.ClientBuilder do
     Tesla.build_client([
       {Tesla.Middleware.Headers, headers()},
       {Tesla.Middleware.BaseUrl, host()},
-      {AuthorizationOauth,
-       [
-         token: token,
-         client_id: credentials_from_config(:client_id),
-         client_secret: credentials_from_config(:client_secret),
-         host: host()
-       ]}
-    ])
-  end
-
-  def build(AuthorizationOauth, token: token, client_id: client_id, client_secret: client_secret) do
-    Tesla.build_client([
-      {Tesla.Middleware.Headers, headers()},
-      {Tesla.Middleware.BaseUrl, host()},
-      {AuthorizationOauth,
-       [
-         token: token,
-         client_id: client_id,
-         client_secret: client_secret,
-         host: host()
-       ]}
+      {AuthorizationOauth, [token: token]}
     ])
   end
 
