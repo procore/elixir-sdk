@@ -49,11 +49,14 @@ defmodule Procore do
   @doc """
   Makes a GET request.
   """
-  def send_request(client, %Request{
-        request_type: :get,
-        endpoint: endpoint,
-        query_params: query_params
-      })
+  def send_request(
+        %Request{
+          request_type: :get,
+          endpoint: endpoint,
+          query_params: query_params
+        },
+        client
+      )
       when byte_size(endpoint) > 0 do
     http_client().get(client, endpoint, QueryParams.build(query_params))
   end
@@ -61,12 +64,15 @@ defmodule Procore do
   @doc """
   Makes a POST request.
   """
-  def send_request(client, %Request{
-        request_type: :post,
-        endpoint: endpoint,
-        body: body,
-        query_params: query_params
-      })
+  def send_request(
+        %Request{
+          request_type: :post,
+          endpoint: endpoint,
+          body: body,
+          query_params: query_params
+        },
+        client
+      )
       when byte_size(endpoint) > 0 do
     http_client().post(client, endpoint, body, QueryParams.build(query_params))
   end
@@ -74,7 +80,7 @@ defmodule Procore do
   @doc """
   Makes a PATCH request.
   """
-  def send_request(client, %Request{request_type: :patch, endpoint: endpoint, body: body})
+  def send_request(%Request{request_type: :patch, endpoint: endpoint, body: body}, client)
       when byte_size(endpoint) > 0 do
     http_client().patch(client, endpoint, body)
   end
