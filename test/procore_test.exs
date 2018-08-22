@@ -3,7 +3,7 @@ defmodule ProcoreTest do
   doctest Procore
 
   alias Procore.Request
-  alias Tesla.Middleware.AuthorizationOauth
+  alias Tesla.Middleware.AuthorizationOAuth
   alias Tesla.Middleware.ClientCredentialsOAuth
 
   setup do
@@ -65,13 +65,13 @@ defmodule ProcoreTest do
     end
 
     test "creates a authorization client with token" do
-      token = "token"
+      token = fn -> "token" end
 
-      Application.put_env(:procore, :oauth_client, AuthorizationOauth)
+      Application.put_env(:procore, :oauth_client, AuthorizationOAuth)
 
       %Tesla.Client{pre: middleware} = Procore.client(token: token)
 
-      {_, _, [[token: actual_token]]} = List.keyfind(middleware, AuthorizationOauth, 0)
+      {_, _, [[token: actual_token]]} = List.keyfind(middleware, AuthorizationOAuth, 0)
 
       assert(token == actual_token)
     end

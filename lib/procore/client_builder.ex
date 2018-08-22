@@ -1,7 +1,7 @@
 defmodule Procore.ClientBuilder do
   @moduledoc false
 
-  alias Tesla.Middleware.AuthorizationOauth
+  alias Tesla.Middleware.AuthorizationOAuth
   alias Tesla.Middleware.ClientCredentialsOAuth
 
   def build(ClientCredentialsOAuth, client_id: client_id, client_secret: client_secret) do
