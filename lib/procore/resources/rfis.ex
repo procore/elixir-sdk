@@ -8,6 +8,20 @@ defmodule Procore.Resources.Rfis do
   alias Procore.ResponseResult
 
   @doc """
+  Find a RFI in a project.
+  """
+  @spec find(Tesla.Client.t(), %{
+          (id :: String.t()) => pos_integer,
+          (project_id :: String.t()) => pos_integer
+        }) :: %ResponseResult{} | %ErrorResult{}
+  def find(client, %{"id" => id, "project_id" => project_id}) do
+    %Request{}
+    |> Request.insert_request_type(:get)
+    |> Request.insert_endpoint("/vapid/projects/#{project_id}/rfis/#{id}")
+    |> Procore.send_request(client)
+  end
+
+  @doc """
   Lists all RFIs in a project.
   """
   @spec list(Tesla.Client.t(), %{
