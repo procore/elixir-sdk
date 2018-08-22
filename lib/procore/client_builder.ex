@@ -30,11 +30,11 @@ defmodule Procore.ClientBuilder do
     ])
   end
 
-  def build(AuthorizationOauth, token: token) when is_function(token) do
+  def build(AuthorizationOAuth, token: token) when is_function(token) do
     Tesla.build_client([
       {Tesla.Middleware.Headers, headers()},
       {Tesla.Middleware.BaseUrl, host()},
-      {AuthorizationOauth, [token: token]}
+      {AuthorizationOAuth, [token: token]}
     ])
   end
 
