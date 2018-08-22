@@ -3,6 +3,14 @@ defmodule HttpClient.MockClient do
 
   @spec get(String.t(), any, any) :: %ResponseResult{}
 
+  def get(_, "/vapid/companies/1", _) do
+    %ResponseResult{status_code: 200, parsed_body: %{}, reply: :ok}
+  end
+
+  def get(_, "/vapid/companies", _) do
+    %ResponseResult{status_code: 200, parsed_body: [], reply: :ok}
+  end
+
   def get(_, "/vapid/companies/1/observation_templates", _) do
     %ResponseResult{status_code: 200, parsed_body: [], reply: :ok}
   end
