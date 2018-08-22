@@ -4,16 +4,18 @@ defmodule Procore.Resources.ScheduleResourcesTest do
   alias Procore.Resources.ScheduleResources
 
   test "list/1" do
+    client = Procore.client()
     params = %{"project_id" => 1}
 
     assert %ResponseResult{reply: :ok, status_code: 200, parsed_body: []} =
-             ScheduleResources.list(params)
+             ScheduleResources.list(client, params)
   end
 
   test "create/1" do
+    client = Procore.client()
     params = %{"project_id" => 1, "resource" => %{}}
 
     assert %ResponseResult{reply: :ok, status_code: 201, parsed_body: %{}} =
-             ScheduleResources.create(params)
+             ScheduleResources.create(client, params)
   end
 end

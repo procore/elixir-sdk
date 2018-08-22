@@ -10,38 +10,42 @@ defmodule Procore.Resources.Submittals do
   @doc """
   Lists all submittals in a project.
   """
-  @spec list(%{(project_id :: String.t()) => pos_integer}) :: %ResponseResult{} | %ErrorResult{}
-  def list(%{"project_id" => project_id}) do
+  @spec list(Tesla.Client.t(), %{(project_id :: String.t()) => pos_integer}) ::
+          %ResponseResult{} | %ErrorResult{}
+  def list(client, %{"project_id" => project_id}) do
     %Request{}
     |> Request.insert_request_type(:get)
     |> Request.insert_endpoint("/vapid/projects/#{project_id}/submittals")
-    |> Procore.send_request()
+    |> Procore.send_request(client)
   end
 
   @doc """
   Creates a submittal.
   """
-  @spec create(%{(project_id :: String.t()) => pos_integer, (submittal :: String.t()) => map}) ::
-          %ResponseResult{} | %ErrorResult{}
-  def create(%{"project_id" => project_id, "submittal" => submittal}) do
+  @spec create(Tesla.Client.t(), %{
+          (project_id :: String.t()) => pos_integer,
+          (submittal :: String.t()) => map
+        }) :: %ResponseResult{} | %ErrorResult{}
+  def create(client, %{"project_id" => project_id, "submittal" => submittal}) do
     %Request{}
     |> Request.insert_request_type(:post)
     |> Request.insert_endpoint("/vapid/projects/#{project_id}/submittals")
     |> Request.insert_body(submittal)
-    |> Procore.send_request()
+    |> Procore.send_request(client)
   end
 
   @doc """
   Lists all potential responsible contractors.
   """
-  @spec list_potential_responsible_contractors(%{(project_id :: String.t()) => pos_integer}) ::
-          %ResponseResult{} | %ErrorResult{}
-  def list_potential_responsible_contractors(%{"project_id" => project_id}) do
+  @spec list_potential_responsible_contractors(Tesla.Client.t(), %{
+          (project_id :: String.t()) => pos_integer
+        }) :: %ResponseResult{} | %ErrorResult{}
+  def list_potential_responsible_contractors(client, %{"project_id" => project_id}) do
     %Request{}
     |> Request.insert_request_type(:get)
     |> Request.insert_endpoint(
       "/vapid/projects/#{project_id}/submittals/potential_responsible_contractors"
     )
-    |> Procore.send_request()
+    |> Procore.send_request(client)
   end
 end

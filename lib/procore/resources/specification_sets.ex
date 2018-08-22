@@ -10,40 +10,41 @@ defmodule Procore.Resources.SpecificationSets do
   @doc """
   Gets a specification set.
   """
-  @spec find(%{
+  @spec find(Tesla.Client.t(), %{
           (project_id :: String.t()) => pos_integer,
           (id :: String.t()) => pos_integer
         }) :: %ResponseResult{} | %ErrorResult{}
-  def find(%{"project_id" => project_id, "id" => id}) do
+  def find(client, %{"project_id" => project_id, "id" => id}) do
     %Request{}
     |> Request.insert_request_type(:get)
     |> Request.insert_endpoint("/vapid/projects/#{project_id}/specification_sets/#{id}")
-    |> Procore.send_request()
+    |> Procore.send_request(client)
   end
 
   @doc """
   List all SpecificationSets in a project.
   """
-  @spec list(%{(project_id :: String.t()) => pos_integer}) :: %ResponseResult{} | %ErrorResult{}
-  def list(%{"project_id" => project_id}) do
+  @spec list(Tesla.Client.t(), %{(project_id :: String.t()) => pos_integer}) ::
+          %ResponseResult{} | %ErrorResult{}
+  def list(client, %{"project_id" => project_id}) do
     %Request{}
     |> Request.insert_request_type(:get)
     |> Request.insert_endpoint("/vapid/projects/#{project_id}/specification_sets")
-    |> Procore.send_request()
+    |> Procore.send_request(client)
   end
 
   @doc """
   Creates a meeting.
   """
-  @spec create(%{
+  @spec create(Tesla.Client.t(), %{
           (project_id :: String.t()) => pos_integer,
           (specification_set :: String.t()) => map
         }) :: %ResponseResult{} | %ErrorResult{}
-  def create(%{"project_id" => project_id, "specification_set" => spec_set}) do
+  def create(client, %{"project_id" => project_id, "specification_set" => spec_set}) do
     %Request{}
     |> Request.insert_request_type(:post)
     |> Request.insert_endpoint("/vapid/projects/#{project_id}/specification_sets")
     |> Request.insert_body(spec_set)
-    |> Procore.send_request()
+    |> Procore.send_request(client)
   end
 end

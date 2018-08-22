@@ -4,9 +4,10 @@ defmodule Procore.Resources.CalendarEventsTest do
   alias Procore.Resources.CalendarEvents
 
   test "list/1" do
+    client = Procore.client()
     params = %{"project_id" => 1}
 
     assert %ResponseResult{reply: :ok, status_code: 200, parsed_body: []} =
-             CalendarEvents.list(params)
+             CalendarEvents.list(client, params)
   end
 end

@@ -41,7 +41,9 @@ end
 ```elixir
 alias Procore.Resources.Offices
 
-{:ok, response} = Offices.list(%{"company_id" => 1})
+client = Procore.client()
+
+{:ok, response} = client |> Offices.list(%{"company_id" => 1})
 
 #=> response
 %ResponseResult{

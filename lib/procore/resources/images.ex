@@ -10,28 +10,31 @@ defmodule Procore.Resources.Images do
   @doc """
   Lists all images in a image category (album).
   """
-  @spec list(%{
+  @spec list(Tesla.Client.t(), %{
           (project_id :: String.t()) => pos_integer,
           (image_category_id :: String.t()) => pos_integer
         }) :: %ResponseResult{} | %ErrorResult{}
-  def list(%{"project_id" => _project_id, "image_category_id" => _image_category_id} = params) do
+  def list(
+        client,
+        %{"project_id" => _project_id, "image_category_id" => _image_category_id} = params
+      ) do
     %Request{}
     |> Request.insert_request_type(:get)
     |> Request.insert_endpoint("/vapid/images")
     |> Request.insert_query_params(params)
-    |> Procore.send_request()
+    |> Procore.send_request(client)
   end
 
   @doc """
   Creates an image within an image category (album).
   """
-  @spec create(%{
+  @spec create(Tesla.Client.t(), %{
           (project_id :: String.t()) => pos_integer,
           (image_category_id :: String.t()) => pos_integer,
           (filename :: String.t()) => String.t(),
           (path_to_file :: String.t()) => String.t()
         }) :: %ResponseResult{} | %ErrorResult{}
-  def create(%{
+  def create(client, %{
         "project_id" => project_id,
         "image_category_id" => image_category_id,
         "filename" => filename,
@@ -42,7 +45,7 @@ defmodule Procore.Resources.Images do
     |> Request.insert_endpoint("/vapid/images")
     |> Request.insert_query_params(%{"project_id" => project_id})
     |> Request.insert_body(build_create_body(image_category_id, filename, path_to_file))
-    |> Procore.send_request()
+    |> Procore.send_request(client)
   end
 
   alias Tesla.Multipart

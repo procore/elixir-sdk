@@ -10,36 +10,36 @@ defmodule Procore.Resources.Projects do
   @doc """
   Gets a project.
   """
-  @spec find(map) :: %ResponseResult{} | %ErrorResult{}
-  def find(%{"company_id" => company_id, "project_id" => project_id}) do
+  @spec find(Tesla.Client.t(), map) :: %ResponseResult{} | %ErrorResult{}
+  def find(client, %{"company_id" => company_id, "project_id" => project_id}) do
     %Request{}
     |> Request.insert_request_type(:get)
     |> Request.insert_endpoint("/vapid/projects/#{project_id}")
     |> Request.insert_query_params(%{"company_id" => company_id})
-    |> Procore.send_request()
+    |> Procore.send_request(client)
   end
 
   @doc """
   Lists projects.
   """
-  @spec list(map) :: %ResponseResult{} | %ErrorResult{}
-  def list(%{"company_id" => company_id}) do
+  @spec list(Tesla.Client.t(), map) :: %ResponseResult{} | %ErrorResult{}
+  def list(client, %{"company_id" => company_id}) do
     %Request{}
     |> Request.insert_request_type(:get)
     |> Request.insert_endpoint("/vapid/projects")
     |> Request.insert_query_params(%{"company_id" => company_id})
-    |> Procore.send_request()
+    |> Procore.send_request(client)
   end
 
   @doc """
   Creates a project and all of it's required defaults and associations.
   """
-  @spec create(map) :: %ResponseResult{} | %ErrorResult{}
-  def create(%{"company_id" => company_id, "project" => project}) do
+  @spec create(Tesla.Client.t(), map) :: %ResponseResult{} | %ErrorResult{}
+  def create(client, %{"company_id" => company_id, "project" => project}) do
     %Request{}
     |> Request.insert_request_type(:post)
     |> Request.insert_endpoint("/vapid/projects")
     |> Request.insert_body(%{"company_id" => company_id, "project" => project})
-    |> Procore.send_request()
+    |> Procore.send_request(client)
   end
 end

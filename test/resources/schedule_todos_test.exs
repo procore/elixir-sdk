@@ -4,9 +4,10 @@ defmodule Procore.Resources.ScheduleTodosTest do
   alias Procore.Resources.ScheduleTodos
 
   test "sync/1" do
+    client = Procore.client()
     params = %{"project_id" => 1, "todos" => []}
 
     assert %ResponseResult{reply: :ok, status_code: 200, parsed_body: %{}} =
-             ScheduleTodos.sync(params)
+             ScheduleTodos.sync(client, params)
   end
 end

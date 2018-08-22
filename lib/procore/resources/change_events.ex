@@ -10,24 +10,25 @@ defmodule Procore.Resources.ChangeEvents do
   @doc """
   Lists all Change Events with associated records in a project.
   """
-  @spec list(%{(project_id :: String.t()) => pos_integer}) :: %ResponseResult{} | %ErrorResult{}
-  def list(%{"project_id" => _project_id} = params) do
+  @spec list(Tesla.Client.t(), %{(project_id :: String.t()) => pos_integer}) ::
+          %ResponseResult{} | %ErrorResult{}
+  def list(client, %{"project_id" => _project_id} = params) do
     %Request{}
     |> Request.insert_request_type(:get)
     |> Request.insert_endpoint("/vapid/change_events")
     |> Request.insert_query_params(params)
-    |> Procore.send_request()
+    |> Procore.send_request(client)
   end
 
   @doc """
   Creates a Change Event with its nested, optional, Change Event Line Items.
   """
-  @spec create(%{
+  @spec create(Tesla.Client.t(), %{
           (project_id :: String.t()) => pos_integer,
           (attachments :: String.t()) => list,
           (change_event :: String.t()) => map
         }) :: %ResponseResult{} | %ErrorResult{}
-  def create(%{
+  def create(client, %{
         "project_id" => project_id,
         "attachments" => attachments,
         "change_event" => change_event
@@ -37,6 +38,6 @@ defmodule Procore.Resources.ChangeEvents do
     |> Request.insert_endpoint("/vapid/change_events")
     |> Request.insert_query_params(%{"project_id" => project_id})
     |> Request.insert_body(%{"attachments" => attachments, "change_event" => change_event})
-    |> Procore.send_request()
+    |> Procore.send_request(client)
   end
 end

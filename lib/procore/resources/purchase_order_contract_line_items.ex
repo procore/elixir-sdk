@@ -10,11 +10,11 @@ defmodule Procore.Resources.PurchaseOrderContractLineItems do
   @doc """
   Lists all Line Items for a specific Purchase Order Contract.
   """
-  @spec list(%{
+  @spec list(Tesla.Client.t(), %{
           (project_id :: String.t()) => pos_integer,
           (purchase_order_contract_id :: String.t()) => pos_integer
         }) :: %ResponseResult{} | %ErrorResult{}
-  def list(%{
+  def list(client, %{
         "project_id" => project_id,
         "purchase_order_contract_id" => purchase_order_contract_id
       }) do
@@ -24,18 +24,18 @@ defmodule Procore.Resources.PurchaseOrderContractLineItems do
       "/vapid/purchase_order_contracts/#{purchase_order_contract_id}/line_items"
     )
     |> Request.insert_query_params(%{"project_id" => project_id})
-    |> Procore.send_request()
+    |> Procore.send_request(client)
   end
 
   @doc """
   Creates a Purchase Order Contract Line Item.
   """
-  @spec create(%{
+  @spec create(Tesla.Client.t(), %{
           (project_id :: String.t()) => pos_integer,
           (purchase_order_contract_id :: String.t()) => pos_integer,
           (line_item :: String.t()) => map
         }) :: %ResponseResult{} | %ErrorResult{}
-  def create(%{
+  def create(client, %{
         "project_id" => project_id,
         "purchase_order_contract_id" => purchase_order_contract_id,
         "line_item" => line_item
@@ -46,6 +46,6 @@ defmodule Procore.Resources.PurchaseOrderContractLineItems do
       "/vapid/purchase_order_contracts/#{purchase_order_contract_id}/line_items"
     )
     |> Request.insert_body(%{"project_id" => project_id, "line_item" => line_item})
-    |> Procore.send_request()
+    |> Procore.send_request(client)
   end
 end

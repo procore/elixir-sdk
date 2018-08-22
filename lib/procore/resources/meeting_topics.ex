@@ -10,12 +10,13 @@ defmodule Procore.Resources.MeetingTopics do
   @doc """
   Creates a meeting topic.
   """
-  @spec create(%{
+  @spec create(Tesla.Client.t(), %{
           (project_id :: String.t()) => pos_integer,
           (meeting_id :: String.t()) => pos_integer,
           (meeting_topic :: String.t()) => map
         }) :: %ResponseResult{} | %ErrorResult{}
   def create(
+        client,
         %{
           "project_id" => _project_id,
           "meeting_id" => _meeting_id,
@@ -26,6 +27,6 @@ defmodule Procore.Resources.MeetingTopics do
     |> Request.insert_request_type(:post)
     |> Request.insert_endpoint("/vapid/meeting_topics")
     |> Request.insert_body(params)
-    |> Procore.send_request()
+    |> Procore.send_request(client)
   end
 end

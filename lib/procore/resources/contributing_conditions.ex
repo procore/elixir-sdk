@@ -10,40 +10,45 @@ defmodule Procore.Resources.ContributingConditions do
   @doc """
   Lists all ContributingConditions in a Project.
   """
-  @spec list(%{(company_id :: String.t()) => pos_integer}) :: %ResponseResult{} | %ErrorResult{}
-  def list(%{"company_id" => company_id} = params) do
+  @spec list(Tesla.Client.t(), %{(company_id :: String.t()) => pos_integer}) ::
+          %ResponseResult{} | %ErrorResult{}
+  def list(client, %{"company_id" => company_id} = params) do
     %Request{}
     |> Request.insert_request_type(:get)
     |> Request.insert_endpoint("/vapid/companies/#{company_id}/contributing_conditions")
     |> Request.insert_query_params(params)
-    |> Procore.send_request()
+    |> Procore.send_request(client)
   end
 
   @doc """
   Gets a single ContributingCondition.
   """
-  @spec find(%{
+  @spec find(Tesla.Client.t(), %{
           (company_id :: String.t()) => pos_integer,
           (contributing_condition_id :: String.t()) => pos_integer
         }) :: %ResponseResult{} | %ErrorResult{}
-  def find(%{"company_id" => company_id, "contributing_condition_id" => contributing_condition_id}) do
+  def find(client, %{
+        "company_id" => company_id,
+        "contributing_condition_id" => contributing_condition_id
+      }) do
     %Request{}
     |> Request.insert_request_type(:get)
     |> Request.insert_endpoint(
       "/vapid/companies/#{company_id}/contributing_conditions/#{contributing_condition_id}"
     )
     |> Request.insert_query_params(%{"company_id" => company_id})
-    |> Procore.send_request()
+    |> Procore.send_request(client)
   end
 
   @doc """
   Creates an ContributingCondition.
   """
-  @spec create(%{
+  @spec create(Tesla.Client.t(), %{
           (company_id :: String.t()) => pos_integer,
           (contributing_condition :: String.t()) => map
         }) :: %ResponseResult{} | %ErrorResult{}
   def create(
+        client,
         %{"company_id" => company_id, "contributing_condition" => _contributing_condition} =
           params
       ) do
@@ -51,6 +56,6 @@ defmodule Procore.Resources.ContributingConditions do
     |> Request.insert_request_type(:post)
     |> Request.insert_endpoint("/vapid/companies/#{company_id}/contributing_conditions")
     |> Request.insert_body(params)
-    |> Procore.send_request()
+    |> Procore.send_request(client)
   end
 end

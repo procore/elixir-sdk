@@ -10,16 +10,16 @@ defmodule Procore.Resources.Rfis.Replies do
   @doc """
   Creates a RFI Reply.
   """
-  @spec create(%{
+  @spec create(Tesla.Client.t(), %{
           (project_id :: String.t()) => pos_integer,
           (rfi_id :: String.t()) => pos_integer,
           (reply :: String.t()) => map
         }) :: %ResponseResult{} | %ErrorResult{}
-  def create(%{"project_id" => project_id, "rfi_id" => rfi_id, "reply" => reply}) do
+  def create(client, %{"project_id" => project_id, "rfi_id" => rfi_id, "reply" => reply}) do
     %Request{}
     |> Request.insert_request_type(:post)
     |> Request.insert_endpoint("/vapid/projects/#{project_id}/rfis/#{rfi_id}/replies")
     |> Request.insert_body(%{"reply" => reply})
-    |> Procore.send_request()
+    |> Procore.send_request(client)
   end
 end

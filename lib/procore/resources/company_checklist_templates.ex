@@ -10,39 +10,40 @@ defmodule Procore.Resources.CompanyChecklistTemplates do
   @doc """
   Lists all Checklist Template for a company.
   """
-  @spec list(%{(company_id :: String.t()) => pos_integer}) :: %ResponseResult{} | %ErrorResult{}
-  def list(%{"company_id" => company_id}) do
+  @spec list(Tesla.Client.t(), %{(company_id :: String.t()) => pos_integer}) ::
+          %ResponseResult{} | %ErrorResult{}
+  def list(client, %{"company_id" => company_id}) do
     %Request{}
     |> Request.insert_request_type(:get)
     |> Request.insert_endpoint("/vapid/companies/#{company_id}/checklist/list_templates")
-    |> Procore.send_request()
+    |> Procore.send_request(client)
   end
 
   @doc """
   Returns Checklist Template.
   """
-  @spec find(%{
+  @spec find(Tesla.Client.t(), %{
           (company_id :: String.t()) => pos_integer,
           (list_template_id :: String.t()) => pos_integer
         }) :: %ResponseResult{} | %ErrorResult{}
-  def find(%{"company_id" => company_id, "list_template_id" => list_template_id}) do
+  def find(client, %{"company_id" => company_id, "list_template_id" => list_template_id}) do
     %Request{}
     |> Request.insert_request_type(:get)
     |> Request.insert_endpoint(
       "/vapid/companies/#{company_id}/checklist/list_templates/#{list_template_id}"
     )
-    |> Procore.send_request()
+    |> Procore.send_request(client)
   end
 
   @doc """
   Creates a company level Checklist Template.
   """
-  @spec create(%{
+  @spec create(Tesla.Client.t(), %{
           (company_id :: String.t()) => pos_integer,
           (list_template :: String.t()) => map,
           (attachments :: String.t()) => List.t()
         }) :: %ResponseResult{} | %ErrorResult{}
-  def create(%{
+  def create(client, %{
         "company_id" => company_id,
         "list_template" => list_template,
         "attachments" => attachments
@@ -55,6 +56,6 @@ defmodule Procore.Resources.CompanyChecklistTemplates do
       "attachments" => attachments,
       "company_id" => company_id
     })
-    |> Procore.send_request()
+    |> Procore.send_request(client)
   end
 end

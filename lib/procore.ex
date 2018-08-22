@@ -3,6 +3,7 @@ defmodule Procore do
   Makes requests using the HttpClient.
   """
 
+  alias Procore.ClientBuilder
   alias Procore.ErrorResult
   alias Procore.HttpClient.QueryParams
   alias Procore.Request
@@ -32,32 +33,56 @@ defmodule Procore do
   @spec send_request(Request.t()) :: %ResponseResult{} | %ErrorResult{} | ArgumentError
 
   @doc """
+  Builds a Procore client.
+
+  Handles creating a client credentials client with or without client_id and
+  client_secret passed in as options.
+
+  Handles creating a authorization client with or without client_id and
+  client_secret passed in as options. However a token is always required in options
+  for an authorization client.
+  """
+  def client(opts \\ []) do
+    ClientBuilder.build(oauth_client(), opts)
+  end
+
+  @doc """
   Makes a GET request.
   """
-  def send_request(%Request{request_type: :get, endpoint: endpoint, query_params: query_params})
+  def send_request(
+        %Request{
+          request_type: :get,
+          endpoint: endpoint,
+          query_params: query_params
+        },
+        client
+      )
       when byte_size(endpoint) > 0 do
-    http_client().get(tesla_client(), endpoint, QueryParams.build(query_params))
+    http_client().get(client, endpoint, QueryParams.build(query_params))
   end
 
   @doc """
   Makes a POST request.
   """
-  def send_request(%Request{
-        request_type: :post,
-        endpoint: endpoint,
-        body: body,
-        query_params: query_params
-      })
+  def send_request(
+        %Request{
+          request_type: :post,
+          endpoint: endpoint,
+          body: body,
+          query_params: query_params
+        },
+        client
+      )
       when byte_size(endpoint) > 0 do
-    http_client().post(tesla_client(), endpoint, body, QueryParams.build(query_params))
+    http_client().post(client, endpoint, body, QueryParams.build(query_params))
   end
 
   @doc """
   Makes a PATCH request.
   """
-  def send_request(%Request{request_type: :patch, endpoint: endpoint, body: body})
+  def send_request(%Request{request_type: :patch, endpoint: endpoint, body: body}, client)
       when byte_size(endpoint) > 0 do
-    http_client().patch(tesla_client(), endpoint, body)
+    http_client().patch(client, endpoint, body)
   end
 
   @doc """
@@ -74,19 +99,12 @@ defmodule Procore do
     raise ArgumentError, "you must set an endpoint for the Procore.Request struct"
   end
 
-  defp tesla_client do
-    Tesla.build_client([{Tesla.Middleware.Headers, headers()}, {Tesla.Middleware.BaseUrl, host()}])
-  end
-
-  defp headers do
-    # [{"Content-Type", "application/json"}] # works for everything, besides multipart
-    # [{"Content-Type", "multipart/form-data"}] # works for multipart
-    # seems to work for both
-    []
-  end
-
-  defp host() do
-    Application.get_env(:procore, :host, "https://api.procore.com")
+  defp oauth_client() do
+    Application.get_env(
+      :procore,
+      :oauth_client,
+      Tesla.Middleware.ClientCredentialsOAuth
+    )
   end
 
   def http_client() do
