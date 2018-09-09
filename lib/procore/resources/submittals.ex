@@ -8,6 +8,20 @@ defmodule Procore.Resources.Submittals do
   alias Procore.ResponseResult
 
   @doc """
+  Find a submittal in a project.
+  """
+  @spec find(Tesla.Client.t(), %{
+          (id :: String.t()) => pos_integer,
+          (project_id :: String.t()) => pos_integer
+        }) :: %ResponseResult{} | %ErrorResult{}
+  def find(client, %{"id" => id, "project_id" => project_id}) do
+    %Request{}
+    |> Request.insert_request_type(:get)
+    |> Request.insert_endpoint("/vapid/projects/#{project_id}/submittals/#{id}")
+    |> Procore.send_request(client)
+  end
+
+  @doc """
   Lists all submittals in a project.
   """
   @spec list(Tesla.Client.t(), %{(project_id :: String.t()) => pos_integer}) ::
