@@ -21,6 +21,7 @@ defmodule Procore.Resources.ImagesTest do
       "path_to_file" => "/path/to/file/filename.jpg"
     }
 
-    assert %ResponseResult{reply: :ok, status_code: 201, parsed_body: %{}} = Images.create(client, params)
+    assert %ResponseResult{reply: :ok, status_code: 201, parsed_body: %{}} =
+             Images.create(client, params)
   end
 end
