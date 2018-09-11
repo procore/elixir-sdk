@@ -3,13 +3,24 @@ defmodule Procore.HttpClient.QueryParams do
   Converts maps to formatted query params for the http client.
   """
 
-  @spec build(map) :: Keyword.t()
+  @spec build(map) :: map()
   def build(%{} = params) do
-    [query: build_keyword(params)]
+    query =
+      params
+      |> Enum.map(&build_map/1)
+      |> List.flatten()
+      |> Map.new()
+
+    [query: query]
   end
 
-  defp build_keyword(params) do
-    params
-    |> Enum.into(Keyword.new(), fn {key, val} -> {String.to_atom(key), val} end)
+  # %{"foo" => "bar", "nested" => %{"name" => "mike"}}
+  # %{"foo" => "bar", "nested[name]" => "mike"}}
+  defp build_map({key, value}) when is_map(value) do
+    Enum.map(value, fn {nested_key, nested_value} ->
+      build_map({"#{key}[#{nested_key}]", nested_value})
+    end)
   end
+
+  defp build_map({key, value}), do: {key, value}
 end

@@ -24,24 +24,21 @@ defmodule Procore.Resources.Rfis do
   @doc """
   Lists all RFIs in a project.
   """
-  @spec list(Tesla.Client.t(), %{
-          (project_id :: String.t()) => pos_integer,
-          (serializer_view :: String.t()) => String.t()
-        }) :: %ResponseResult{} | %ErrorResult{}
-  def list(client, %{"project_id" => project_id, "serializer_view" => serializer_view}) do
-    %Request{}
-    |> Request.insert_request_type(:get)
-    |> Request.insert_endpoint("/vapid/projects/#{project_id}/rfis")
-    |> Request.insert_query_params(%{"serializer_view" => serializer_view})
-    |> Procore.send_request(client)
-  end
-
   @spec list(Tesla.Client.t(), %{(project_id :: String.t()) => pos_integer}) ::
           %ResponseResult{} | %ErrorResult{}
-  def list(client, %{"project_id" => project_id}) do
+  def list(
+        client,
+        %{"project_id" => project_id} = params
+      ) do
+    query = %{
+      "filters" => Map.get(params, "filters", %{}),
+      "serializer_view" => Map.get(params, "serializer_view", "normal")
+    }
+
     %Request{}
     |> Request.insert_request_type(:get)
     |> Request.insert_endpoint("/vapid/projects/#{project_id}/rfis")
+    |> Request.insert_query_params(query)
     |> Procore.send_request(client)
   end
 

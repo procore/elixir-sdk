@@ -1,27 +1,46 @@
 version: 2
 jobs:
   build:
-    working_directory: /procore
+    working_directory: ~/app
     docker:
-      - image: jasongittler/elixir:1.6.0
-        env:
-          - MIX_ENV=test
+      - image: circleci/elixir:1.7
+        environment:
+          MIX_ENV: test
     steps:
       - checkout
+
+      - run: mix local.hex --force
+      - run: mix local.rebar --force
+
       - restore_cache:
           keys:
-            - procore-v1-mix-{{ checksum "mix.lock" }}
-      - run:
-          name: Install Dependencies
-          command: |
-            mix local.hex --force && \
-            mix local.rebar --force && \
-            mix deps.get && \
-            mix deps.compile
+            - v1-mix-cache-{{ .Branch }}-{{ checksum "mix.lock" }}
+            - v1-mix-cache-{{ .Branch }}
+            - v1-mix-cache
+      - restore_cache:
+          keys:
+            - v1-build-cache-{{ .Revision }}
+            - v1-build-cache
+      - run: mix do deps.get, compile
       - save_cache:
-          key: procore-v1-mix-{{ checksum "mix.lock" }}
-          paths:
-            - /procore/deps
-      - run:
-          name: Run Tests
-          command: mix test
+          key: v1-mix-cache-{{ .Branch }}-{{ checksum "mix.lock" }}
+          paths: "deps"
+      - save_cache:
+          key: v1-mix-cache-{{ .Branch }}
+          paths: "deps"
+      - save_cache:
+          key: v1-mix-cache
+          paths: "deps"
+      - save_cache:
+          key: v1-build-cache-{{ .Revision }}
+          paths: "_build"
+      - save_cache:
+          key: v1-build-cache
+          paths: "_build"
+
+      - run: mix test
+
+      - run: mix format --check-formatted
+
+      - store_test_results:
+          path: _build/test/lib/docs
