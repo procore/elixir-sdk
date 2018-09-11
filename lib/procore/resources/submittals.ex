@@ -26,10 +26,15 @@ defmodule Procore.Resources.Submittals do
   """
   @spec list(Tesla.Client.t(), %{(project_id :: String.t()) => pos_integer}) ::
           %ResponseResult{} | %ErrorResult{}
-  def list(client, %{"project_id" => project_id}) do
+  def list(client, %{"project_id" => project_id} = params) do
+    query = %{
+      "filters" => Map.get(params, "filters", %{})
+    }
+
     %Request{}
     |> Request.insert_request_type(:get)
     |> Request.insert_endpoint("/vapid/projects/#{project_id}/submittals")
+    |> Request.insert_query_params(query)
     |> Procore.send_request(client)
   end
 
