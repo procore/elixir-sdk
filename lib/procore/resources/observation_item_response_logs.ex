@@ -12,11 +12,11 @@ defmodule Procore.Resources.ObservationItemResponseLogs do
   """
   @spec list(Tesla.Client.t(), %{(company_id :: String.t()) => pos_integer}) ::
           %ResponseResult{} | %ErrorResult{}
-  def list(client, %{"project_id" => project_id, "observation_item_id" => item_id} = params) do
+  def list(client, %{"project_id" => project_id, "observation_item_id" => item_id}) do
     %Request{}
     |> Request.insert_request_type(:get)
     |> Request.insert_endpoint("/vapid/observations/items/#{item_id}/response_logs")
-    |> Request.insert_query_params(params)
+    |> Request.insert_query_params(%{"project_id" => project_id})
     |> Procore.send_request(client)
   end
 
@@ -42,20 +42,22 @@ defmodule Procore.Resources.ObservationItemResponseLogs do
           (company_id :: String.t()) => pos_integer,
           (observationitemresponse_log :: String.t()) => map
         }) :: %ResponseResult{} | %ErrorResult{}
-  def create(
-        client,
-        %{
-          "project_id" => project_id,
-          "reponse_log" => response_log,
-          "status" => status,
-          "attachments" => attachments,
-          "observation_item_id" => item_id
-        } = params
-      ) do
+  def create(client, %{
+        "project_id" => project_id,
+        "reponse_log" => response_log,
+        "status" => status,
+        "attachments" => attachments,
+        "observation_item_id" => item_id
+      }) do
     %Request{}
     |> Request.insert_request_type(:post)
     |> Request.insert_endpoint("/vapid/observations/items/#{item_id}/response_logs")
-    |> Request.insert_body(params)
+    |> Request.insert_body(%{
+      "project_id" => project_id,
+      "response_log" => response_log,
+      "status" => status,
+      "attachments" => attachments
+    })
     |> Procore.send_request(client)
   end
 end
