@@ -6,9 +6,9 @@ defmodule Procore.HttpClient do
     Application.get_env(:procore, :http_client_adapter_options, recv_timeout: 30_000)
   )
 
-  plug(Tesla.Middleware.EncodeJson, engine: Poison)
+  plug(Tesla.Middleware.EncodeJson, engine: Jason)
   plug(Tesla.Middleware.HandleResponse)
-  plug(Tesla.Middleware.DecodeJson, engine: Poison)
+  plug(Tesla.Middleware.DecodeJson, engine: Jason)
   plug(Tesla.Middleware.RetryWithBackoff)
   plug(Tesla.Middleware.Logger)
 

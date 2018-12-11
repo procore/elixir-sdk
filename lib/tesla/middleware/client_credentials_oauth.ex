@@ -26,7 +26,7 @@ defmodule Tesla.Middleware.ClientCredentialsOAuth do
       {:ok, nil} ->
         %{"access_token" => token, "expires_in" => expires_in} =
           post!(tesla_client(), oauth_url(host), oauth_request_body(client_id, client_secret)).body
-          |> Poison.decode!()
+          |> Jason.decode!()
 
         Cachex.put(:token_cache, cache_key, token, ttl: :timer.seconds(expires_in - 1000))
         token
@@ -39,7 +39,7 @@ defmodule Tesla.Middleware.ClientCredentialsOAuth do
   def tesla_client do
     Tesla.build_client([
       {Tesla.Middleware.Headers, headers()},
-      {Tesla.Middleware.EncodeJson, [engine: Poison]}
+      {Tesla.Middleware.EncodeJson, [engine: Jason]}
     ])
   end
 
