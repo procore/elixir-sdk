@@ -6,7 +6,7 @@ defmodule Tesla.Middleware.HandleResponseTest do
     adapter(Tesla.Adapter.Hackney, recv_timeout: 30_000)
 
     plug(Tesla.Middleware.HandleResponse)
-    plug(Tesla.Middleware.DecodeJson, engine: Poison)
+    plug(Tesla.Middleware.DecodeJson, engine: Jason)
 
     @json_headers [{"content-type", "application/json"}]
 
