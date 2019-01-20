@@ -5,7 +5,7 @@ defmodule Procore.Resources.ImagesTest do
 
   test "list/1" do
     client = Procore.client()
-    params = %{"project_id" => 1, "image_category_id" => 1}
+    params = %{"project_id" => 1}
 
     assert %ResponseResult{reply: :ok, status_code: 200, parsed_body: []} =
              Images.list(client, params)

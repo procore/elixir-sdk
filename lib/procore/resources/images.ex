@@ -8,16 +8,11 @@ defmodule Procore.Resources.Images do
   alias Procore.ResponseResult
 
   @doc """
-  Lists all images in a image category (album).
+  Lists all images in a Project.
   """
-  @spec list(Tesla.Client.t(), %{
-          (project_id :: String.t()) => pos_integer,
-          (image_category_id :: String.t()) => pos_integer
-        }) :: %ResponseResult{} | %ErrorResult{}
-  def list(
-        client,
-        %{"project_id" => _project_id, "image_category_id" => _image_category_id} = params
-      ) do
+  @spec list(Tesla.Client.t(), %{(project_id :: String.t()) => pos_integer}) ::
+          %ResponseResult{} | %ErrorResult{}
+  def list(client, %{"project_id" => _project_id} = params) do
     %Request{}
     |> Request.insert_request_type(:get)
     |> Request.insert_endpoint("/vapid/images")
