@@ -12,7 +12,8 @@ defmodule Tesla.Middleware.RetryWithBackoffTest do
             "/404" -> {:ok, Map.put(env, :status, 404)}
             "/retry" when retries < 2 -> {:error, :econnrefused}
             "/retry" -> {:ok, Map.put(env, :status, 200)}
-            "/retry_fail" -> {:ok, Map.put(env, :status, 504)}
+            "/retry_504_fail" -> {:ok, Map.put(env, :status, 504)}
+            "/retry_503_fail" -> {:ok, Map.put(env, :status, 503)}
           end
 
         {response, retries + 1}
@@ -48,8 +49,13 @@ defmodule Tesla.Middleware.RetryWithBackoffTest do
     assert %Procore.ResponseResult{reply: :ok, status_code: 200} = RetryTestClient.get("/retry")
   end
 
-  test "will retry and fail eventually" do
+  test "will retry 504 and fail eventually" do
     assert %Procore.ErrorResult{reply: :error, reason: :gateway_timeout} =
-             RetryTestClient.get("/retry_fail")
+             RetryTestClient.get("/retry_504_fail")
+  end
+
+  test "will retry 503 and fail eventually" do
+    assert %Procore.ErrorResult{reply: :error, reason: :gateway_unavailable} =
+             RetryTestClient.get("/retry_503_fail")
   end
 end
