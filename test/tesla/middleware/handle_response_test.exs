@@ -35,6 +35,15 @@ defmodule Tesla.Middleware.HandleResponseTest do
                body: "{\"response\": \"gateway_timeout\"}"
            }}
 
+        "/gateway_unavailable" ->
+          {:ok,
+           %{
+             env
+             | status: 503,
+               headers: @json_headers,
+               body: "{\"response\": \"gateway_unavailable\"}"
+           }}
+
         "/error" ->
           {:error, :econnrefused}
 
@@ -80,6 +89,11 @@ defmodule Tesla.Middleware.HandleResponseTest do
   test "returns error result for 504" do
     assert %Procore.ErrorResult{reply: :error, reason: :gateway_timeout} =
              ResponseTestClient.get("/gateway_timeout")
+  end
+
+  test "returns error result for 503" do
+    assert %Procore.ErrorResult{reply: :error, reason: :gateway_unavailable} =
+             ResponseTestClient.get("/gateway_unavailable")
   end
 
   test "returns error result for other errors" do

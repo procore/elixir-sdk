@@ -24,6 +24,9 @@ defmodule Tesla.Middleware.HandleResponse do
       {:ok, %Tesla.Env{status: 504}} ->
         %ErrorResult{reply: :error, reason: :gateway_timeout}
 
+      {:ok, %Tesla.Env{status: 503}} ->
+        %ErrorResult{reply: :error, reason: :gateway_unavailable}
+
       {:ok, %Tesla.Env{status: code, body: body}} ->
         %ResponseResult{reply: :unrecognized_code, status_code: code, parsed_body: body}
 

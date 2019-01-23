@@ -32,6 +32,11 @@ defmodule Tesla.Middleware.RetryWithBackoff do
 
         backoff_and_retry(delay, retries, max_retries, env, next)
 
+      {:ok, %Tesla.Env{status: 503}} ->
+        retry_logging(env, "503 gateway_unavailable", retries)
+
+        backoff_and_retry(delay, retries, max_retries, env, next)
+
       {:ok, env} ->
         {:ok, env}
     end
