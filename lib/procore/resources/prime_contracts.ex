@@ -21,6 +21,24 @@ defmodule Procore.Resources.PrimeContracts do
   end
 
   @doc """
+  Gets the Prime Contract for the Project.
+  """
+  @spec find(Tesla.Client.t(), %{
+          (project_id :: String.t()) => pos_integer,
+          (prime_contract_id :: String.t()) => pos_integer
+        }) :: %ResponseResult{} | %ErrorResult{}
+  def find(
+        client,
+        %{"project_id" => project_id, "prime_contract_id" => prime_contract_id} = _params
+      ) do
+    %Request{}
+    |> Request.insert_request_type(:get)
+    |> Request.insert_endpoint("/vapid/prime_contract/#{prime_contract_id}")
+    |> Request.insert_query_params(%{"project_id" => project_id})
+    |> Procore.send_request(client)
+  end
+
+  @doc """
   Creates a the Prime Contract for a Project.
   """
   @spec create(Tesla.Client.t(), %{
