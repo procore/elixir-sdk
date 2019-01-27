@@ -11,6 +11,14 @@ defmodule Procore.Resources.PrimeContractsTest do
              PrimeContracts.list(client, params)
   end
 
+  test "find/2" do
+    client = Procore.client()
+    params = %{"project_id" => 1, "prime_contract_id" => 1}
+
+    assert %ResponseResult{reply: :ok, status_code: 200, parsed_body: %{}} =
+             PrimeContracts.find(client, params)
+  end
+
   test "create/1" do
     client = Procore.client()
     params = %{"project_id" => 1, "attachments" => [], "prime_contract" => %{}}

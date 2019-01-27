@@ -187,6 +187,10 @@ defmodule HttpClient.MockClient do
     %ResponseResult{status_code: 200, parsed_body: %{}, reply: :ok}
   end
 
+  def get(_, "/vapid/prime_contract/1", _) do
+    %ResponseResult{status_code: 200, parsed_body: %{}, reply: :ok}
+  end
+
   def get(_, "/vapid/checklist/list_templates", _) do
     %ResponseResult{status_code: 200, parsed_body: [], reply: :ok}
   end
