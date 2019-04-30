@@ -247,6 +247,10 @@ defmodule HttpClient.MockClient do
     %ResponseResult{status_code: 200, parsed_body: [], reply: :ok}
   end
 
+  def get(_, "/vapid/equipment", _) do
+    %ResponseResult{status_code: 200, parsed_body: [], reply: :ok}
+  end
+
   @spec post(String.t(), any, any, any) :: %ResponseResult{}
 
   def post(_, "/vapid/companies/1/contributing_behaviors", _, _) do
