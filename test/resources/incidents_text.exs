@@ -21,11 +21,12 @@ defmodule Procore.Resources.IncidentsTest do
 
   test "create/1" do
     client = Procore.client()
+
     params = %{
       "project_id" => 1,
       "incident" => %{
-        "title": "Material Spill",
-        "hazard_id": 1
+        title: "Material Spill",
+        hazard_id: 1
       }
     }
 
@@ -35,12 +36,13 @@ defmodule Procore.Resources.IncidentsTest do
 
   test "update/1" do
     client = Procore.client()
+
     params = %{
       "project_id" => 1,
       "incident_id" => 1,
       "incident" => %{
-        "title": "Crane Topple",
-        "hazard_id": 1
+        title: "Crane Topple",
+        hazard_id: 1
       }
     }
 

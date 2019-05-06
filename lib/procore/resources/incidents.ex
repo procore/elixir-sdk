@@ -28,10 +28,13 @@ defmodule Procore.Resources.Incidents do
           (project_id :: String.t()) => pos_integer,
           (incident_id :: String.t()) => pos_integer
         }) :: %ResponseResult{} | %ErrorResult{}
-  def find(client, %{
-        "project_id" => project_id,
-        "incident_id" => incident_id
-      } = params) do
+  def find(
+        client,
+        %{
+          "project_id" => project_id,
+          "incident_id" => incident_id
+        } = params
+      ) do
     %Request{}
     |> Request.insert_request_type(:get)
     |> Request.insert_endpoint("/vapid/projects/#{project_id}/incidents/#{incident_id}")
@@ -46,10 +49,13 @@ defmodule Procore.Resources.Incidents do
           (project_id :: String.t()) => pos_integer,
           (incident :: String.t()) => map
         }) :: %ResponseResult{} | %ErrorResult{}
-  def create(client, %{
-        "project_id" => project_id,
-        "incident" => _incident
-      } = body) do
+  def create(
+        client,
+        %{
+          "project_id" => project_id,
+          "incident" => _incident
+        } = body
+      ) do
     %Request{}
     |> Request.insert_request_type(:post)
     |> Request.insert_endpoint("/vapid/projects/#{project_id}/incidents")
@@ -64,11 +70,14 @@ defmodule Procore.Resources.Incidents do
           (project_id :: String.t()) => pos_integer,
           (incident :: String.t()) => map
         }) :: %ResponseResult{} | %ErrorResult{}
-  def update(client, %{
-        "project_id" => project_id,
-        "incident_id" => incident_id,
-        "incident" => _incident
-      } = body) do
+  def update(
+        client,
+        %{
+          "project_id" => project_id,
+          "incident_id" => incident_id,
+          "incident" => _incident
+        } = body
+      ) do
     %Request{}
     |> Request.insert_request_type(:patch)
     |> Request.insert_endpoint("/vapid/projects/#{project_id}/incidents/#{incident_id}")
