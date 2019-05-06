@@ -58,7 +58,7 @@ defmodule Procore.Resources.Incidents do
   end
 
   @doc """
-  Updates an Incident..
+  Updates an Incident.
   """
   @spec update(Tesla.Client.t(), %{
           (project_id :: String.t()) => pos_integer,
