@@ -68,6 +68,7 @@ defmodule Procore.Resources.Incidents do
   """
   @spec update(Tesla.Client.t(), %{
           (project_id :: String.t()) => pos_integer,
+          (incident_id :: String.t()) => pos_integer,
           (incident :: String.t()) => map
         }) :: %ResponseResult{} | %ErrorResult{}
   def update(
