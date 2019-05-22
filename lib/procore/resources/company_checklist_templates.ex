@@ -46,14 +46,13 @@ defmodule Procore.Resources.CompanyChecklistTemplates do
   def create(client, %{
         "company_id" => company_id,
         "list_template" => list_template,
-        "attachments" => attachments
+        "attachments" => _attachments
       }) do
     %Request{}
     |> Request.insert_request_type(:post)
     |> Request.insert_endpoint("/vapid/companies/#{company_id}/checklist/list_templates")
     |> Request.insert_body(%{
       "list_template" => list_template,
-      "attachments" => attachments,
       "company_id" => company_id
     })
     |> Procore.send_request(client)

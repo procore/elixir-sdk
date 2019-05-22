@@ -49,15 +49,15 @@ defmodule Procore.Resources.PrimeContracts do
   def create(
         client,
         %{
-          "project_id" => _project_id,
+          "project_id" => project_id,
           "attachments" => _attachments,
-          "prime_contract" => _prime_contract
-        } = params
+          "prime_contract" => prime_contract
+        } = _params
       ) do
     %Request{}
     |> Request.insert_request_type(:post)
     |> Request.insert_endpoint("/vapid/prime_contract")
-    |> Request.insert_body(params)
+    |> Request.insert_body(%{"project_id" => project_id, "prime_contract" => prime_contract})
     |> Procore.send_request(client)
   end
 end

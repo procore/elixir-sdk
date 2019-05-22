@@ -30,14 +30,14 @@ defmodule Procore.Resources.ChangeEvents do
         }) :: %ResponseResult{} | %ErrorResult{}
   def create(client, %{
         "project_id" => project_id,
-        "attachments" => attachments,
+        "attachments" => _attachments,
         "change_event" => change_event
       }) do
     %Request{}
     |> Request.insert_request_type(:post)
     |> Request.insert_endpoint("/vapid/change_events")
     |> Request.insert_query_params(%{"project_id" => project_id})
-    |> Request.insert_body(%{"attachments" => attachments, "change_event" => change_event})
+    |> Request.insert_body(%{"change_event" => change_event})
     |> Procore.send_request(client)
   end
 end
