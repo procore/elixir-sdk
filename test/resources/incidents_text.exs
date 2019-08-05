@@ -21,6 +21,7 @@ defmodule Procore.Resources.IncidentsTest do
 
   test "find/1" do
     client = Procore.client()
+
     params = %{
       "incident_id" => 1,
       "project_id" => 1,
