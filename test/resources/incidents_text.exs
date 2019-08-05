@@ -5,7 +5,15 @@ defmodule Procore.Resources.IncidentsTest do
 
   test "list/1" do
     client = Procore.client()
-    params = %{"project_id" => 1}
+
+    params = %{
+      "project_id" => 1,
+      "filters" => %{
+        "hazard_id" => 1
+      },
+      "view" => "compact",
+      "sort" => "-number"
+    }
 
     assert %ResponseResult{reply: :ok, status_code: 200, parsed_body: []} =
              Incidents.list(client, params)
@@ -13,7 +21,11 @@ defmodule Procore.Resources.IncidentsTest do
 
   test "find/1" do
     client = Procore.client()
-    params = %{"incident_id" => 1, "project_id" => 1}
+    params = %{
+      "incident_id" => 1,
+      "project_id" => 1,
+      "view" => "compact"
+    }
 
     assert %ResponseResult{reply: :ok, status_code: 200, parsed_body: %{}} =
              Incidents.find(client, params)

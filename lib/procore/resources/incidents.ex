@@ -10,24 +10,34 @@ defmodule Procore.Resources.Incidents do
   @doc """
   Lists all Incidents in a Project.
   """
-  @spec list(Tesla.Client.t(), %{
-          (project_id :: String.t()) => pos_integer
-        }) :: %ResponseResult{} | %ErrorResult{}
+  @spec list(
+          Tesla.Client.t(),
+          %{(project_id :: String.t()) => pos_integer}
+        ) :: %ResponseResult{} | %ErrorResult{}
   def list(client, %{"project_id" => project_id} = params) do
+    query = %{
+      "filters" => Map.get(params, "filters", %{}),
+      "sort" => Map.get(params, "sort", ""),
+      "view" => Map.get(params, "view", "normal")
+    }
+
     %Request{}
     |> Request.insert_request_type(:get)
     |> Request.insert_endpoint("/vapid/projects/#{project_id}/incidents")
-    |> Request.insert_query_params(params)
+    |> Request.insert_query_params(query)
     |> Procore.send_request(client)
   end
 
   @doc """
   Gets a single Incident.
   """
-  @spec find(Tesla.Client.t(), %{
-          (project_id :: String.t()) => pos_integer,
-          (incident_id :: String.t()) => pos_integer
-        }) :: %ResponseResult{} | %ErrorResult{}
+  @spec find(
+          Tesla.Client.t(),
+          %{
+            (project_id :: String.t()) => pos_integer,
+            (incident_id :: String.t()) => pos_integer
+          }
+        ) :: %ResponseResult{} | %ErrorResult{}
   def find(
         client,
         %{
@@ -35,10 +45,14 @@ defmodule Procore.Resources.Incidents do
           "incident_id" => incident_id
         } = params
       ) do
+    query = %{
+      "view" => Map.get(params, "view", "normal")
+    }
+
     %Request{}
     |> Request.insert_request_type(:get)
     |> Request.insert_endpoint("/vapid/projects/#{project_id}/incidents/#{incident_id}")
-    |> Request.insert_query_params(params)
+    |> Request.insert_query_params(query)
     |> Procore.send_request(client)
   end
 
