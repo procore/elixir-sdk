@@ -17,7 +17,7 @@ defmodule Procore.Resources.SpecificationSets do
   def find(client, %{"project_id" => project_id, "id" => id}) do
     %Request{}
     |> Request.insert_request_type(:get)
-    |> Request.insert_endpoint("/vapid/projects/#{project_id}/specification_sets/#{id}")
+    |> Request.insert_endpoint("/rest/v1.0/projects/#{project_id}/specification_sets/#{id}")
     |> Procore.send_request(client)
   end
 
@@ -29,7 +29,7 @@ defmodule Procore.Resources.SpecificationSets do
   def list(client, %{"project_id" => project_id}) do
     %Request{}
     |> Request.insert_request_type(:get)
-    |> Request.insert_endpoint("/vapid/projects/#{project_id}/specification_sets")
+    |> Request.insert_endpoint("/rest/v1.0/projects/#{project_id}/specification_sets")
     |> Procore.send_request(client)
   end
 
@@ -43,7 +43,7 @@ defmodule Procore.Resources.SpecificationSets do
   def create(client, %{"project_id" => project_id, "specification_set" => spec_set}) do
     %Request{}
     |> Request.insert_request_type(:post)
-    |> Request.insert_endpoint("/vapid/projects/#{project_id}/specification_sets")
+    |> Request.insert_endpoint("/rest/v1.0/projects/#{project_id}/specification_sets")
     |> Request.insert_body(spec_set)
     |> Procore.send_request(client)
   end

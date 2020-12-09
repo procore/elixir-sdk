@@ -22,7 +22,7 @@ defmodule Procore.Resources.Users do
       }) do
     %Request{}
     |> Request.insert_request_type(:post)
-    |> Request.insert_endpoint("/vapid/projects/#{project_id}/users/#{user_id}/actions/add")
+    |> Request.insert_endpoint("/rest/v1.0/projects/#{project_id}/users/#{user_id}/actions/add")
     |> Request.insert_body(build_add_user_to_project_body(permission_template_id))
     |> Procore.send_request(client)
   end
@@ -44,7 +44,7 @@ defmodule Procore.Resources.Users do
   def list(client, %{"company_id" => company_id}) do
     %Request{}
     |> Request.insert_request_type(:get)
-    |> Request.insert_endpoint("/vapid/companies/#{company_id}/users")
+    |> Request.insert_endpoint("/rest/v1.0/companies/#{company_id}/users")
     |> Procore.send_request(client)
   end
 
@@ -56,7 +56,7 @@ defmodule Procore.Resources.Users do
   def list(client, %{"project_id" => project_id}) do
     %Request{}
     |> Request.insert_request_type(:get)
-    |> Request.insert_endpoint("/vapid/projects/#{project_id}/users")
+    |> Request.insert_endpoint("/rest/v1.0/projects/#{project_id}/users")
     |> Procore.send_request(client)
   end
 
@@ -73,7 +73,7 @@ defmodule Procore.Resources.Users do
       }) do
     %Request{}
     |> Request.insert_request_type(:patch)
-    |> Request.insert_endpoint("/vapid/companies/#{company_id}/users/sync")
+    |> Request.insert_endpoint("/rest/v1.0/companies/#{company_id}/users/sync")
     |> Request.insert_body(%{"updates" => users})
     |> Procore.send_request(client)
   end

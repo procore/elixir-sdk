@@ -15,7 +15,7 @@ defmodule Procore.Resources.ChangeEvents do
   def list(client, %{"project_id" => _project_id} = params) do
     %Request{}
     |> Request.insert_request_type(:get)
-    |> Request.insert_endpoint("/vapid/change_events")
+    |> Request.insert_endpoint("/rest/v1.0/change_events")
     |> Request.insert_query_params(params)
     |> Procore.send_request(client)
   end
@@ -35,7 +35,7 @@ defmodule Procore.Resources.ChangeEvents do
       }) do
     %Request{}
     |> Request.insert_request_type(:post)
-    |> Request.insert_endpoint("/vapid/change_events")
+    |> Request.insert_endpoint("/rest/v1.0/change_events")
     |> Request.insert_query_params(%{"project_id" => project_id})
     |> Request.insert_body(%{"change_event" => change_event})
     |> Procore.send_request(client)

@@ -15,7 +15,7 @@ defmodule Procore.Resources.PurchaseOrderContracts do
   def list(client, %{"project_id" => _project_id} = params) do
     %Request{}
     |> Request.insert_request_type(:get)
-    |> Request.insert_endpoint("/vapid/purchase_order_contracts")
+    |> Request.insert_endpoint("/rest/v1.0/purchase_order_contracts")
     |> Request.insert_query_params(params)
     |> Procore.send_request(client)
   end
@@ -33,7 +33,7 @@ defmodule Procore.Resources.PurchaseOrderContracts do
       }) do
     %Request{}
     |> Request.insert_request_type(:get)
-    |> Request.insert_endpoint("/vapid/purchase_order_contracts/#{purchase_order_contract_id}")
+    |> Request.insert_endpoint("/rest/v1.0/purchase_order_contracts/#{purchase_order_contract_id}")
     |> Request.insert_query_params(%{"project_id" => project_id})
     |> Procore.send_request(client)
   end
@@ -51,7 +51,7 @@ defmodule Procore.Resources.PurchaseOrderContracts do
       }) do
     %Request{}
     |> Request.insert_request_type(:patch)
-    |> Request.insert_endpoint("/vapid/purchase_order_contracts/sync")
+    |> Request.insert_endpoint("/rest/v1.0/purchase_order_contracts/sync")
     |> Request.insert_body(%{"project_id" => project_id, "updates" => purchase_order_contracts})
     |> Procore.send_request(client)
   end

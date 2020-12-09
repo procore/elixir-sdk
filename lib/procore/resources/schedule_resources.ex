@@ -15,7 +15,7 @@ defmodule Procore.Resources.ScheduleResources do
   def list(client, %{"project_id" => project_id}) do
     %Request{}
     |> Request.insert_request_type(:get)
-    |> Request.insert_endpoint("/vapid/resources")
+    |> Request.insert_endpoint("/rest/v1.0/resources")
     |> Request.insert_query_params(%{"project_id" => project_id})
     |> Procore.send_request(client)
   end
@@ -28,7 +28,7 @@ defmodule Procore.Resources.ScheduleResources do
   def create(client, %{"project_id" => _project_id, "resource" => _resource} = params) do
     %Request{}
     |> Request.insert_request_type(:post)
-    |> Request.insert_endpoint("/vapid/resources")
+    |> Request.insert_endpoint("/rest/v1.0/resources")
     |> Request.insert_body(params)
     |> Procore.send_request(client)
   end

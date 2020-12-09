@@ -19,7 +19,7 @@ defmodule Procore.Resources.CompanyChecklistTemplateSections do
     %Request{}
     |> Request.insert_request_type(:get)
     |> Request.insert_endpoint(
-      "/vapid/companies/#{company_id}/checklist/list_templates/#{list_template_id}/sections"
+      "/rest/v1.0/companies/#{company_id}/checklist/list_templates/#{list_template_id}/sections"
     )
     |> Procore.send_request(client)
   end
@@ -34,7 +34,7 @@ defmodule Procore.Resources.CompanyChecklistTemplateSections do
   def find(client, %{"company_id" => company_id, "section_id" => section_id}) do
     %Request{}
     |> Request.insert_request_type(:get)
-    |> Request.insert_endpoint("/vapid/companies/#{company_id}/checklist/sections/#{section_id}")
+    |> Request.insert_endpoint("/rest/v1.0/companies/#{company_id}/checklist/sections/#{section_id}")
     |> Procore.send_request(client)
   end
 
@@ -54,7 +54,7 @@ defmodule Procore.Resources.CompanyChecklistTemplateSections do
     %Request{}
     |> Request.insert_request_type(:post)
     |> Request.insert_endpoint(
-      "/vapid/companies/#{company_id}/checklist/list_templates/#{list_template_id}/sections/bulk_create"
+      "/rest/v1.0/companies/#{company_id}/checklist/list_templates/#{list_template_id}/sections/bulk_create"
     )
     |> Request.insert_body(%{
       "sections" => sections

@@ -25,7 +25,7 @@ defmodule Procore.Resources.MeetingTopics do
       ) do
     %Request{}
     |> Request.insert_request_type(:post)
-    |> Request.insert_endpoint("/vapid/meeting_topics")
+    |> Request.insert_endpoint("/rest/v1.0/meeting_topics")
     |> Request.insert_body(params)
     |> Procore.send_request(client)
   end

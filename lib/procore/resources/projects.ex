@@ -14,7 +14,7 @@ defmodule Procore.Resources.Projects do
   def find(client, %{"company_id" => company_id, "project_id" => project_id}) do
     %Request{}
     |> Request.insert_request_type(:get)
-    |> Request.insert_endpoint("/vapid/projects/#{project_id}")
+    |> Request.insert_endpoint("/rest/v1.0/projects/#{project_id}")
     |> Request.insert_query_params(%{"company_id" => company_id})
     |> Procore.send_request(client)
   end
@@ -26,7 +26,7 @@ defmodule Procore.Resources.Projects do
   def list(client, %{"company_id" => company_id}) do
     %Request{}
     |> Request.insert_request_type(:get)
-    |> Request.insert_endpoint("/vapid/projects")
+    |> Request.insert_endpoint("/rest/v1.0/projects")
     |> Request.insert_query_params(%{"company_id" => company_id})
     |> Procore.send_request(client)
   end
@@ -38,7 +38,7 @@ defmodule Procore.Resources.Projects do
   def create(client, %{"company_id" => company_id, "project" => project}) do
     %Request{}
     |> Request.insert_request_type(:post)
-    |> Request.insert_endpoint("/vapid/projects")
+    |> Request.insert_endpoint("/rest/v1.0/projects")
     |> Request.insert_body(%{"company_id" => company_id, "project" => project})
     |> Procore.send_request(client)
   end

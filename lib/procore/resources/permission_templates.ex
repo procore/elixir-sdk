@@ -15,7 +15,7 @@ defmodule Procore.Resources.PermissionTemplates do
   def list(client, %{"project_id" => project_id}) do
     %Request{}
     |> Request.insert_request_type(:get)
-    |> Request.insert_endpoint("/vapid/projects/#{project_id}/permission_templates")
+    |> Request.insert_endpoint("/rest/v1.0/projects/#{project_id}/permission_templates")
     |> Procore.send_request(client)
   end
 end

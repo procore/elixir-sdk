@@ -15,7 +15,7 @@ defmodule Procore.Resources.SubmittalStatus do
   def list(client, %{"company_id" => company_id}) do
     %Request{}
     |> Request.insert_request_type(:get)
-    |> Request.insert_endpoint("/vapid/companies/#{company_id}/submittal_statuses")
+    |> Request.insert_endpoint("/rest/v1.0/companies/#{company_id}/submittal_statuses")
     |> Procore.send_request(client)
   end
 end

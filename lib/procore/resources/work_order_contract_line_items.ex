@@ -20,7 +20,7 @@ defmodule Procore.Resources.WorkOrderContractLineItems do
       }) do
     %Request{}
     |> Request.insert_request_type(:get)
-    |> Request.insert_endpoint("/vapid/work_order_contracts/#{work_order_contract_id}/line_items")
+    |> Request.insert_endpoint("/rest/v1.0/work_order_contracts/#{work_order_contract_id}/line_items")
     |> Request.insert_query_params(%{"project_id" => project_id})
     |> Procore.send_request(client)
   end
@@ -40,7 +40,7 @@ defmodule Procore.Resources.WorkOrderContractLineItems do
       }) do
     %Request{}
     |> Request.insert_request_type(:post)
-    |> Request.insert_endpoint("/vapid/work_order_contracts/#{work_order_contract_id}/line_items")
+    |> Request.insert_endpoint("/rest/v1.0/work_order_contracts/#{work_order_contract_id}/line_items")
     |> Request.insert_body(%{"project_id" => project_id, "line_item" => line_item})
     |> Procore.send_request(client)
   end

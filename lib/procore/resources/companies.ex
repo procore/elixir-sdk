@@ -15,7 +15,7 @@ defmodule Procore.Resources.Companies do
   def find(client, %{"id" => id}) do
     %Request{}
     |> Request.insert_request_type(:get)
-    |> Request.insert_endpoint("/vapid/companies/#{id}")
+    |> Request.insert_endpoint("/rest/v1.0/companies/#{id}")
     |> Procore.send_request(client)
   end
 
@@ -26,7 +26,7 @@ defmodule Procore.Resources.Companies do
   def list(client) do
     %Request{}
     |> Request.insert_request_type(:get)
-    |> Request.insert_endpoint("/vapid/companies")
+    |> Request.insert_endpoint("/rest/v1.0/companies")
     |> Procore.send_request(client)
   end
 end

@@ -21,7 +21,7 @@ defmodule Procore.Resources.Vendors do
   def list(client, %{"company_id" => company_id}) do
     %Request{}
     |> Request.insert_request_type(:get)
-    |> Request.insert_endpoint("/vapid/vendors")
+    |> Request.insert_endpoint("/rest/v1.0/vendors")
     |> Request.insert_query_params(%{"company_id" => company_id})
     |> Procore.send_request(client)
   end
@@ -34,7 +34,7 @@ defmodule Procore.Resources.Vendors do
   def list(client, %{"project_id" => project_id}) do
     %Request{}
     |> Request.insert_request_type(:get)
-    |> Request.insert_endpoint("/vapid/projects/#{project_id}/vendors")
+    |> Request.insert_endpoint("/rest/v1.0/projects/#{project_id}/vendors")
     |> Procore.send_request(client)
   end
 
@@ -51,7 +51,7 @@ defmodule Procore.Resources.Vendors do
       }) do
     %Request{}
     |> Request.insert_request_type(:post)
-    |> Request.insert_endpoint("/vapid/projects/#{project_id}/vendors/#{vendor_id}/actions/add")
+    |> Request.insert_endpoint("/rest/v1.0/projects/#{project_id}/vendors/#{vendor_id}/actions/add")
     |> Procore.send_request(client)
   end
 
@@ -68,7 +68,7 @@ defmodule Procore.Resources.Vendors do
       }) do
     %Request{}
     |> Request.insert_request_type(:patch)
-    |> Request.insert_endpoint("/vapid/vendors/sync")
+    |> Request.insert_endpoint("/rest/v1.0/vendors/sync")
     |> Request.insert_body(%{"company_id" => company_id, "updates" => vendors})
     |> Procore.send_request(client)
   end

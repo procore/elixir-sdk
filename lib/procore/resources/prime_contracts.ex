@@ -15,7 +15,7 @@ defmodule Procore.Resources.PrimeContracts do
   def list(client, %{"project_id" => _project_id} = params) do
     %Request{}
     |> Request.insert_request_type(:get)
-    |> Request.insert_endpoint("/vapid/prime_contract")
+    |> Request.insert_endpoint("/rest/v1.0/prime_contract")
     |> Request.insert_query_params(params)
     |> Procore.send_request(client)
   end
@@ -33,7 +33,7 @@ defmodule Procore.Resources.PrimeContracts do
       ) do
     %Request{}
     |> Request.insert_request_type(:get)
-    |> Request.insert_endpoint("/vapid/prime_contract/#{prime_contract_id}")
+    |> Request.insert_endpoint("/rest/v1.0/prime_contract/#{prime_contract_id}")
     |> Request.insert_query_params(%{"project_id" => project_id})
     |> Procore.send_request(client)
   end
@@ -56,7 +56,7 @@ defmodule Procore.Resources.PrimeContracts do
       ) do
     %Request{}
     |> Request.insert_request_type(:post)
-    |> Request.insert_endpoint("/vapid/prime_contract")
+    |> Request.insert_endpoint("/rest/v1.0/prime_contract")
     |> Request.insert_body(%{"project_id" => project_id, "prime_contract" => prime_contract})
     |> Procore.send_request(client)
   end

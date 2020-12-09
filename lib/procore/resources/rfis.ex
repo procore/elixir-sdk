@@ -17,7 +17,7 @@ defmodule Procore.Resources.Rfis do
   def find(client, %{"id" => id, "project_id" => project_id}) do
     %Request{}
     |> Request.insert_request_type(:get)
-    |> Request.insert_endpoint("/vapid/projects/#{project_id}/rfis/#{id}")
+    |> Request.insert_endpoint("/rest/v1.0/projects/#{project_id}/rfis/#{id}")
     |> Procore.send_request(client)
   end
 
@@ -37,7 +37,7 @@ defmodule Procore.Resources.Rfis do
 
     %Request{}
     |> Request.insert_request_type(:get)
-    |> Request.insert_endpoint("/vapid/projects/#{project_id}/rfis")
+    |> Request.insert_endpoint("/rest/v1.0/projects/#{project_id}/rfis")
     |> Request.insert_query_params(query)
     |> Procore.send_request(client)
   end
@@ -52,7 +52,7 @@ defmodule Procore.Resources.Rfis do
   def create(client, %{"project_id" => project_id, "rfi" => rfi}) do
     %Request{}
     |> Request.insert_request_type(:post)
-    |> Request.insert_endpoint("/vapid/projects/#{project_id}/rfis")
+    |> Request.insert_endpoint("/rest/v1.0/projects/#{project_id}/rfis")
     |> Request.insert_body(build_create_body(rfi))
     |> Procore.send_request(client)
   end

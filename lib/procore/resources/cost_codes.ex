@@ -15,7 +15,7 @@ defmodule Procore.Resources.CostCodes do
   def list(client, %{"project_id" => _project_id} = params) do
     %Request{}
     |> Request.insert_request_type(:get)
-    |> Request.insert_endpoint("/vapid/cost_codes")
+    |> Request.insert_endpoint("/rest/v1.0/cost_codes")
     |> Request.insert_query_params(params)
     |> Procore.send_request(client)
   end

@@ -17,7 +17,7 @@ defmodule Procore.Resources.Meetings do
   def find(client, %{"meeting_id" => meeting_id, "project_id" => _project_id} = params) do
     %Request{}
     |> Request.insert_request_type(:get)
-    |> Request.insert_endpoint("/vapid/meetings/#{meeting_id}")
+    |> Request.insert_endpoint("/rest/v1.0/meetings/#{meeting_id}")
     |> Request.insert_query_params(params)
     |> Procore.send_request(client)
   end
@@ -30,7 +30,7 @@ defmodule Procore.Resources.Meetings do
   def list(client, %{"project_id" => _project_id} = params) do
     %Request{}
     |> Request.insert_request_type(:get)
-    |> Request.insert_endpoint("/vapid/meetings")
+    |> Request.insert_endpoint("/rest/v1.0/meetings")
     |> Request.insert_query_params(params)
     |> Procore.send_request(client)
   end
@@ -45,7 +45,7 @@ defmodule Procore.Resources.Meetings do
   def create(client, %{"project_id" => _project_id, "meeting" => _meeting} = params) do
     %Request{}
     |> Request.insert_request_type(:post)
-    |> Request.insert_endpoint("/vapid/meetings")
+    |> Request.insert_endpoint("/rest/v1.0/meetings")
     |> Request.insert_body(params)
     |> Procore.send_request(client)
   end

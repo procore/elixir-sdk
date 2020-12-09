@@ -18,7 +18,7 @@ defmodule Procore.Resources.Rfis.Replies do
   def create(client, %{"project_id" => project_id, "rfi_id" => rfi_id, "reply" => reply}) do
     %Request{}
     |> Request.insert_request_type(:post)
-    |> Request.insert_endpoint("/vapid/projects/#{project_id}/rfis/#{rfi_id}/replies")
+    |> Request.insert_endpoint("/rest/v1.0/projects/#{project_id}/rfis/#{rfi_id}/replies")
     |> Request.insert_body(%{"reply" => reply})
     |> Procore.send_request(client)
   end

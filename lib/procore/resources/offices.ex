@@ -21,7 +21,7 @@ defmodule Procore.Resources.Offices do
   def list(client, %{"company_id" => company_id}) do
     %Request{}
     |> Request.insert_request_type(:get)
-    |> Request.insert_endpoint("/vapid/offices")
+    |> Request.insert_endpoint("/rest/v1.0/offices")
     |> Request.insert_query_params(%{"company_id" => company_id})
     |> Procore.send_request(client)
   end

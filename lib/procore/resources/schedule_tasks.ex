@@ -17,7 +17,7 @@ defmodule Procore.Resources.ScheduleTasks do
   def create(client, %{"project_id" => _project_id, "task" => _task} = params) do
     %Request{}
     |> Request.insert_request_type(:post)
-    |> Request.insert_endpoint("/vapid/tasks")
+    |> Request.insert_endpoint("/rest/v1.0/tasks")
     |> Request.insert_body(params)
     |> Procore.send_request(client)
   end

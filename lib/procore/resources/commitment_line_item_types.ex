@@ -15,7 +15,7 @@ defmodule Procore.Resources.CommitmentLineItemTypes do
   def list(client, %{"company_id" => _company_id} = params) do
     %Request{}
     |> Request.insert_request_type(:get)
-    |> Request.insert_endpoint("/vapid/line_item_types")
+    |> Request.insert_endpoint("/rest/v1.0/line_item_types")
     |> Request.insert_query_params(params)
     |> Procore.send_request(client)
   end
@@ -30,7 +30,7 @@ defmodule Procore.Resources.CommitmentLineItemTypes do
   def sync(client, %{"company_id" => company_id, "line_item_types" => line_item_types}) do
     %Request{}
     |> Request.insert_request_type(:patch)
-    |> Request.insert_endpoint("/vapid/line_item_types/sync")
+    |> Request.insert_endpoint("/rest/v1.0/line_item_types/sync")
     |> Request.insert_body(%{"company_id" => company_id, "updates" => line_item_types})
     |> Procore.send_request(client)
   end

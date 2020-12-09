@@ -15,7 +15,7 @@ defmodule Procore.Resources.ProjectTools do
   def list(client, %{"project_id" => project_id}) do
     %Request{}
     |> Request.insert_request_type(:get)
-    |> Request.insert_endpoint("/vapid/projects/#{project_id}/tools")
+    |> Request.insert_endpoint("/rest/v1.0/projects/#{project_id}/tools")
     |> Procore.send_request(client)
   end
 
@@ -29,7 +29,7 @@ defmodule Procore.Resources.ProjectTools do
   def update(client, %{"project_id" => project_id, "project_tools" => project_tools}) do
     %Request{}
     |> Request.insert_request_type(:patch)
-    |> Request.insert_endpoint("/vapid/projects/#{project_id}/tools")
+    |> Request.insert_endpoint("/rest/v1.0/projects/#{project_id}/tools")
     |> Request.insert_body(%{tools: project_tools})
     |> Procore.send_request(client)
   end

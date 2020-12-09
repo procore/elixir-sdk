@@ -15,7 +15,7 @@ defmodule Procore.Resources.CompanyChecklistTemplates do
   def list(client, %{"company_id" => company_id}) do
     %Request{}
     |> Request.insert_request_type(:get)
-    |> Request.insert_endpoint("/vapid/companies/#{company_id}/checklist/list_templates")
+    |> Request.insert_endpoint("/rest/v1.0/companies/#{company_id}/checklist/list_templates")
     |> Procore.send_request(client)
   end
 
@@ -30,7 +30,7 @@ defmodule Procore.Resources.CompanyChecklistTemplates do
     %Request{}
     |> Request.insert_request_type(:get)
     |> Request.insert_endpoint(
-      "/vapid/companies/#{company_id}/checklist/list_templates/#{list_template_id}"
+      "/rest/v1.0/companies/#{company_id}/checklist/list_templates/#{list_template_id}"
     )
     |> Procore.send_request(client)
   end
@@ -50,7 +50,7 @@ defmodule Procore.Resources.CompanyChecklistTemplates do
       }) do
     %Request{}
     |> Request.insert_request_type(:post)
-    |> Request.insert_endpoint("/vapid/companies/#{company_id}/checklist/list_templates")
+    |> Request.insert_endpoint("/rest/v1.0/companies/#{company_id}/checklist/list_templates")
     |> Request.insert_body(%{
       "list_template" => list_template,
       "company_id" => company_id

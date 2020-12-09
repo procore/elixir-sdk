@@ -15,7 +15,7 @@ defmodule Procore.Resources.PunchItems do
   def list(client, %{"project_id" => _project_id} = params) do
     %Request{}
     |> Request.insert_request_type(:get)
-    |> Request.insert_endpoint("/vapid/punch_items")
+    |> Request.insert_endpoint("/rest/v1.0/punch_items")
     |> Request.insert_query_params(params)
     |> Procore.send_request(client)
   end
@@ -30,7 +30,7 @@ defmodule Procore.Resources.PunchItems do
   def create(client, %{"project_id" => _project_id, "punch_item" => _punch_item} = params) do
     %Request{}
     |> Request.insert_request_type(:post)
-    |> Request.insert_endpoint("/vapid/punch_items")
+    |> Request.insert_endpoint("/rest/v1.0/punch_items")
     |> Request.insert_body(params)
     |> Procore.send_request(client)
   end

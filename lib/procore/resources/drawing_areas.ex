@@ -15,7 +15,7 @@ defmodule Procore.Resources.DrawingAreas do
   def list(client, %{"project_id" => project_id}) do
     %Request{}
     |> Request.insert_request_type(:get)
-    |> Request.insert_endpoint("/vapid/projects/#{project_id}/drawing_areas")
+    |> Request.insert_endpoint("/rest/v1.0/projects/#{project_id}/drawing_areas")
     |> Procore.send_request(client)
   end
 
@@ -29,7 +29,7 @@ defmodule Procore.Resources.DrawingAreas do
   def create(client, %{"project_id" => project_id, "name" => name}) do
     %Request{}
     |> Request.insert_request_type(:post)
-    |> Request.insert_endpoint("/vapid/projects/#{project_id}/drawing_areas")
+    |> Request.insert_endpoint("/rest/v1.0/projects/#{project_id}/drawing_areas")
     |> Request.insert_body(%{"name" => name})
     |> Procore.send_request(client)
   end

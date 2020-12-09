@@ -17,7 +17,7 @@ defmodule Procore.Resources.Submittals do
   def find(client, %{"id" => id, "project_id" => project_id}) do
     %Request{}
     |> Request.insert_request_type(:get)
-    |> Request.insert_endpoint("/vapid/projects/#{project_id}/submittals/#{id}")
+    |> Request.insert_endpoint("/rest/v1.0/projects/#{project_id}/submittals/#{id}")
     |> Procore.send_request(client)
   end
 
@@ -33,7 +33,7 @@ defmodule Procore.Resources.Submittals do
 
     %Request{}
     |> Request.insert_request_type(:get)
-    |> Request.insert_endpoint("/vapid/projects/#{project_id}/submittals")
+    |> Request.insert_endpoint("/rest/v1.0/projects/#{project_id}/submittals")
     |> Request.insert_query_params(query)
     |> Procore.send_request(client)
   end
@@ -48,7 +48,7 @@ defmodule Procore.Resources.Submittals do
   def create(client, %{"project_id" => project_id, "submittal" => submittal}) do
     %Request{}
     |> Request.insert_request_type(:post)
-    |> Request.insert_endpoint("/vapid/projects/#{project_id}/submittals")
+    |> Request.insert_endpoint("/rest/v1.0/projects/#{project_id}/submittals")
     |> Request.insert_body(submittal)
     |> Procore.send_request(client)
   end
@@ -63,7 +63,7 @@ defmodule Procore.Resources.Submittals do
     %Request{}
     |> Request.insert_request_type(:get)
     |> Request.insert_endpoint(
-      "/vapid/projects/#{project_id}/submittals/potential_responsible_contractors"
+      "/rest/v1.0/projects/#{project_id}/submittals/potential_responsible_contractors"
     )
     |> Procore.send_request(client)
   end

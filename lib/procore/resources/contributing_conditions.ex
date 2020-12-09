@@ -15,7 +15,7 @@ defmodule Procore.Resources.ContributingConditions do
   def list(client, %{"company_id" => company_id} = params) do
     %Request{}
     |> Request.insert_request_type(:get)
-    |> Request.insert_endpoint("/vapid/companies/#{company_id}/contributing_conditions")
+    |> Request.insert_endpoint("/rest/v1.0/companies/#{company_id}/contributing_conditions")
     |> Request.insert_query_params(params)
     |> Procore.send_request(client)
   end
@@ -34,7 +34,7 @@ defmodule Procore.Resources.ContributingConditions do
     %Request{}
     |> Request.insert_request_type(:get)
     |> Request.insert_endpoint(
-      "/vapid/companies/#{company_id}/contributing_conditions/#{contributing_condition_id}"
+      "/rest/v1.0/companies/#{company_id}/contributing_conditions/#{contributing_condition_id}"
     )
     |> Request.insert_query_params(%{"company_id" => company_id})
     |> Procore.send_request(client)
@@ -54,7 +54,7 @@ defmodule Procore.Resources.ContributingConditions do
       ) do
     %Request{}
     |> Request.insert_request_type(:post)
-    |> Request.insert_endpoint("/vapid/companies/#{company_id}/contributing_conditions")
+    |> Request.insert_endpoint("/rest/v1.0/companies/#{company_id}/contributing_conditions")
     |> Request.insert_body(params)
     |> Procore.send_request(client)
   end

@@ -16,7 +16,7 @@ defmodule Procore.Resources.SpecificationUploads do
       }) do
     %Request{}
     |> Request.insert_request_type(:post)
-    |> Request.insert_endpoint("/vapid/projects/#{project_id}/specification_uploads")
+    |> Request.insert_endpoint("/rest/v1.0/projects/#{project_id}/specification_uploads")
     |> Request.insert_body(build_create_body(spec_upload))
     |> Procore.send_request(client)
   end

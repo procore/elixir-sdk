@@ -15,7 +15,7 @@ defmodule Procore.Resources.Hazards do
   def list(client, %{"company_id" => company_id} = params) do
     %Request{}
     |> Request.insert_request_type(:get)
-    |> Request.insert_endpoint("/vapid/companies/#{company_id}/hazards")
+    |> Request.insert_endpoint("/rest/v1.0/companies/#{company_id}/hazards")
     |> Request.insert_query_params(params)
     |> Procore.send_request(client)
   end
@@ -30,7 +30,7 @@ defmodule Procore.Resources.Hazards do
   def find(client, %{"company_id" => company_id, "hazard_id" => hazard_id}) do
     %Request{}
     |> Request.insert_request_type(:get)
-    |> Request.insert_endpoint("/vapid/companies/#{company_id}/hazards/#{hazard_id}")
+    |> Request.insert_endpoint("/rest/v1.0/companies/#{company_id}/hazards/#{hazard_id}")
     |> Request.insert_query_params(%{"company_id" => company_id})
     |> Procore.send_request(client)
   end
@@ -45,7 +45,7 @@ defmodule Procore.Resources.Hazards do
   def create(client, %{"company_id" => company_id, "hazard" => _hazard} = params) do
     %Request{}
     |> Request.insert_request_type(:post)
-    |> Request.insert_endpoint("/vapid/companies/#{company_id}/hazards")
+    |> Request.insert_endpoint("/rest/v1.0/companies/#{company_id}/hazards")
     |> Request.insert_body(params)
     |> Procore.send_request(client)
   end

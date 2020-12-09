@@ -16,7 +16,7 @@ defmodule ProcoreTest do
     assert_raise ArgumentError, fn ->
       Procore.send_request(%Request{
         request_type: :unset,
-        endpoint: "/vapid/endpoint"
+        endpoint: "/rest/v1.0/endpoint"
       })
     end
   end

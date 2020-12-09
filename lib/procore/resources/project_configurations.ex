@@ -23,7 +23,7 @@ defmodule Procore.Resources.ProjectConfigurations do
   def find(client, %{"project_id" => _project_id} = params) do
     %Request{}
     |> Request.insert_request_type(:get)
-    |> Request.insert_endpoint("/vapid/project_configuration")
+    |> Request.insert_endpoint("/rest/v1.0/project_configuration")
     |> Request.insert_query_params(params)
     |> Procore.send_request(client)
   end
@@ -44,7 +44,7 @@ defmodule Procore.Resources.ProjectConfigurations do
       }) do
     %Request{}
     |> Request.insert_request_type(:patch)
-    |> Request.insert_endpoint("/vapid/projects/#{project_id}/configuration")
+    |> Request.insert_endpoint("/rest/v1.0/projects/#{project_id}/configuration")
     |> Request.insert_body(%{configuration: project_configuration})
     |> Procore.send_request(client)
   end

@@ -15,7 +15,7 @@ defmodule Procore.Resources.ChangeOrderStatuses do
   def list(client, %{"company_id" => _company_id} = params) do
     %Request{}
     |> Request.insert_request_type(:get)
-    |> Request.insert_endpoint("/vapid/change_order/statuses")
+    |> Request.insert_endpoint("/rest/v1.0/change_order/statuses")
     |> Request.insert_query_params(params)
     |> Procore.send_request(client)
   end

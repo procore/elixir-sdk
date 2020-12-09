@@ -15,7 +15,7 @@ defmodule Procore.Resources.Locations do
   def list(client, %{"project_id" => project_id}) do
     %Request{}
     |> Request.insert_request_type(:get)
-    |> Request.insert_endpoint("/vapid/locations")
+    |> Request.insert_endpoint("/rest/v1.0/locations")
     |> Request.insert_query_params(%{"project_id" => project_id})
     |> Procore.send_request(client)
   end
@@ -30,7 +30,7 @@ defmodule Procore.Resources.Locations do
   def create(client, %{"project_id" => _project_id, "location" => _location} = params) do
     %Request{}
     |> Request.insert_request_type(:post)
-    |> Request.insert_endpoint("/vapid/locations")
+    |> Request.insert_endpoint("/rest/v1.0/locations")
     |> Request.insert_body(params)
     |> Procore.send_request(client)
   end

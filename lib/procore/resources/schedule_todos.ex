@@ -17,7 +17,7 @@ defmodule Procore.Resources.ScheduleTodos do
   def sync(client, %{"project_id" => project_id, "todos" => todos}) do
     %Request{}
     |> Request.insert_request_type(:patch)
-    |> Request.insert_endpoint("/vapid/todos/sync")
+    |> Request.insert_endpoint("/rest/v1.0/todos/sync")
     |> Request.insert_query_params(%{"project_id" => project_id})
     |> Request.insert_body(%{"udpates" => todos})
     |> Procore.send_request(client)
