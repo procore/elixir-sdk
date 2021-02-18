@@ -11,14 +11,16 @@ defmodule Procore.Resources.ScheduleTasks do
   Create a schedule task.
   """
   @spec create(Tesla.Client.t(), %{
-          (project_id :: String.t()) => pos_integer,
-          (task :: String.t()) => map
+          required(project_id :: String.t()) => pos_integer,
+          required(task :: String.t()) => map,
+          optional(api_version :: String.t()) => String.t()
         }) :: %ResponseResult{} | %ErrorResult{}
-  def create(client, %{"project_id" => _project_id, "task" => _task} = params) do
+  def create(client, %{"project_id" => _project_id, "task" => _task} = options) do
     %Request{}
     |> Request.insert_request_type(:post)
-    |> Request.insert_endpoint("/vapid/tasks")
-    |> Request.insert_body(params)
+    |> Request.insert_api_version(options["api_version"])
+    |> Request.insert_endpoint("/tasks")
+    |> Request.insert_body(Map.drop(options, ["api_version"]))
     |> Procore.send_request(client)
   end
 end

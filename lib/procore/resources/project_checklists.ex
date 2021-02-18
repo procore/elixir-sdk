@@ -9,12 +9,15 @@ defmodule Procore.Resources.ProjectChecklists do
   @doc """
   Lists Inspection Checklists in a specified Project.
   """
-  @spec list(Tesla.Client.t(), %{(project_id :: String.t()) => pos_integer}) ::
-          %ResponseResult{} | %ErrorResult{}
-  def list(client, %{"project_id" => project_id}) do
+  @spec list(Tesla.Client.t(), %{
+          required(project_id :: String.t()) => pos_integer,
+          optional(api_version :: String.t()) => String.t()
+        }) :: %ResponseResult{} | %ErrorResult{}
+  def list(client, %{"project_id" => project_id} = options) do
     %Request{}
     |> Request.insert_request_type(:get)
-    |> Request.insert_endpoint("/vapid/checklist/lists")
+    |> Request.insert_api_version(options["api_version"])
+    |> Request.insert_endpoint("/checklist/lists")
     |> Request.insert_query_params(%{"project_id" => project_id})
     |> Procore.send_request(client)
   end
@@ -23,13 +26,15 @@ defmodule Procore.Resources.ProjectChecklists do
   Returns Project Checklist.
   """
   @spec find(Tesla.Client.t(), %{
-          (project_id :: String.t()) => pos_integer,
-          (checklist_id :: String.t()) => pos_integer
+          required(project_id :: String.t()) => pos_integer,
+          required(checklist_id :: String.t()) => pos_integer,
+          optional(api_version :: String.t()) => String.t()
         }) :: %ResponseResult{} | %ErrorResult{}
-  def find(client, %{"project_id" => project_id, "checklist_id" => checklist_id}) do
+  def find(client, %{"project_id" => project_id, "checklist_id" => checklist_id} = options) do
     %Request{}
     |> Request.insert_request_type(:get)
-    |> Request.insert_endpoint("/vapid/checklist/lists/#{checklist_id}")
+    |> Request.insert_api_version(options["api_version"])
+    |> Request.insert_endpoint("/checklist/lists/#{checklist_id}")
     |> Request.insert_query_params(%{"project_id" => project_id})
     |> Procore.send_request(client)
   end
@@ -38,14 +43,19 @@ defmodule Procore.Resources.ProjectChecklists do
   Creates Project Checklist.
   """
   @spec create(Tesla.Client.t(), %{
-          (project_id :: String.t()) => pos_integer,
-          (template_id :: String.t()) => pos_integer,
-          (list :: String.t()) => map()
+          required(project_id :: String.t()) => pos_integer,
+          required(template_id :: String.t()) => pos_integer,
+          required(list :: String.t()) => map(),
+          optional(api_version :: String.t()) => String.t()
         }) :: %ResponseResult{} | %ErrorResult{}
-  def create(client, %{"project_id" => project_id, "template_id" => template_id, "list" => list}) do
+  def create(
+        client,
+        %{"project_id" => project_id, "template_id" => template_id, "list" => list} = options
+      ) do
     %Request{}
     |> Request.insert_request_type(:post)
-    |> Request.insert_endpoint("/vapid/checklist/lists")
+    |> Request.insert_api_version(options["api_version"])
+    |> Request.insert_endpoint("/checklist/lists")
     |> Request.insert_body(%{
       "project_id" => project_id,
       "template_id" => template_id,

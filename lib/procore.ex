@@ -52,13 +52,14 @@ defmodule Procore do
   def send_request(
         %Request{
           request_type: :get,
+          api_version: api_version,
           endpoint: endpoint,
           query_params: query_params
         },
         client
       )
       when byte_size(endpoint) > 0 do
-    http_client().get(client, endpoint, QueryParams.build(query_params))
+    http_client().get(client, "#{api_version}#{endpoint}", QueryParams.build(query_params))
   end
 
   @doc """
@@ -67,6 +68,7 @@ defmodule Procore do
   def send_request(
         %Request{
           request_type: :post,
+          api_version: api_version,
           endpoint: endpoint,
           body: body,
           query_params: query_params
@@ -74,15 +76,18 @@ defmodule Procore do
         client
       )
       when byte_size(endpoint) > 0 do
-    http_client().post(client, endpoint, body, QueryParams.build(query_params))
+    http_client().post(client, "#{api_version}#{endpoint}", body, QueryParams.build(query_params))
   end
 
   @doc """
   Makes a PATCH request.
   """
-  def send_request(%Request{request_type: :patch, endpoint: endpoint, body: body}, client)
+  def send_request(
+        %Request{request_type: :patch, api_version: api_version, endpoint: endpoint, body: body},
+        client
+      )
       when byte_size(endpoint) > 0 do
-    http_client().patch(client, endpoint, body)
+    http_client().patch(client, "#{api_version}#{endpoint}", body)
   end
 
   @doc """

@@ -10,12 +10,15 @@ defmodule Procore.Resources.Locations do
   @doc """
   Lists all locations in a project.
   """
-  @spec list(Tesla.Client.t(), %{(project_id :: String.t()) => pos_integer}) ::
-          %ResponseResult{} | %ErrorResult{}
-  def list(client, %{"project_id" => project_id}) do
+  @spec list(Tesla.Client.t(), %{
+          required(project_id :: String.t()) => pos_integer,
+          optional(api_version :: String.t()) => String.t()
+        }) :: %ResponseResult{} | %ErrorResult{}
+  def list(client, %{"project_id" => project_id} = options) do
     %Request{}
     |> Request.insert_request_type(:get)
-    |> Request.insert_endpoint("/vapid/locations")
+    |> Request.insert_api_version(options["api_version"])
+    |> Request.insert_endpoint("/locations")
     |> Request.insert_query_params(%{"project_id" => project_id})
     |> Procore.send_request(client)
   end
@@ -24,14 +27,16 @@ defmodule Procore.Resources.Locations do
   Creates a location.
   """
   @spec create(Tesla.Client.t(), %{
-          (project_id :: String.t()) => pos_integer,
-          (location :: String.t()) => map
+          required(project_id :: String.t()) => pos_integer,
+          required(location :: String.t()) => map,
+          optional(api_version :: String.t()) => String.t()
         }) :: %ResponseResult{} | %ErrorResult{}
-  def create(client, %{"project_id" => _project_id, "location" => _location} = params) do
+  def create(client, %{"project_id" => _project_id, "location" => _location} = options) do
     %Request{}
     |> Request.insert_request_type(:post)
-    |> Request.insert_endpoint("/vapid/locations")
-    |> Request.insert_body(params)
+    |> Request.insert_api_version(options["api_version"])
+    |> Request.insert_endpoint("/locations")
+    |> Request.insert_body(Map.drop(options, ["api_version"]))
     |> Procore.send_request(client)
   end
 end

@@ -11,25 +11,30 @@ defmodule Procore.Resources.SpecificationSets do
   Gets a specification set.
   """
   @spec find(Tesla.Client.t(), %{
-          (project_id :: String.t()) => pos_integer,
-          (id :: String.t()) => pos_integer
+          required(project_id :: String.t()) => pos_integer,
+          required(id :: String.t()) => pos_integer,
+          optional(api_version :: String.t()) => String.t()
         }) :: %ResponseResult{} | %ErrorResult{}
-  def find(client, %{"project_id" => project_id, "id" => id}) do
+  def find(client, %{"project_id" => project_id, "id" => id} = options) do
     %Request{}
     |> Request.insert_request_type(:get)
-    |> Request.insert_endpoint("/vapid/projects/#{project_id}/specification_sets/#{id}")
+    |> Request.insert_api_version(options["api_version"])
+    |> Request.insert_endpoint("/projects/#{project_id}/specification_sets/#{id}")
     |> Procore.send_request(client)
   end
 
   @doc """
   List all SpecificationSets in a project.
   """
-  @spec list(Tesla.Client.t(), %{(project_id :: String.t()) => pos_integer}) ::
-          %ResponseResult{} | %ErrorResult{}
-  def list(client, %{"project_id" => project_id}) do
+  @spec list(Tesla.Client.t(), %{
+          required(project_id :: String.t()) => pos_integer,
+          optional(api_version :: String.t()) => String.t()
+        }) :: %ResponseResult{} | %ErrorResult{}
+  def list(client, %{"project_id" => project_id} = options) do
     %Request{}
     |> Request.insert_request_type(:get)
-    |> Request.insert_endpoint("/vapid/projects/#{project_id}/specification_sets")
+    |> Request.insert_api_version(options["api_version"])
+    |> Request.insert_endpoint("/projects/#{project_id}/specification_sets")
     |> Procore.send_request(client)
   end
 
@@ -37,13 +42,15 @@ defmodule Procore.Resources.SpecificationSets do
   Creates a meeting.
   """
   @spec create(Tesla.Client.t(), %{
-          (project_id :: String.t()) => pos_integer,
-          (specification_set :: String.t()) => map
+          required(project_id :: String.t()) => pos_integer,
+          required(specification_set :: String.t()) => map,
+          optional(api_version :: String.t()) => String.t()
         }) :: %ResponseResult{} | %ErrorResult{}
-  def create(client, %{"project_id" => project_id, "specification_set" => spec_set}) do
+  def create(client, %{"project_id" => project_id, "specification_set" => spec_set} = options) do
     %Request{}
     |> Request.insert_request_type(:post)
-    |> Request.insert_endpoint("/vapid/projects/#{project_id}/specification_sets")
+    |> Request.insert_api_version(options["api_version"])
+    |> Request.insert_endpoint("/projects/#{project_id}/specification_sets")
     |> Request.insert_body(spec_set)
     |> Procore.send_request(client)
   end

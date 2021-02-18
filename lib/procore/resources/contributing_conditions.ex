@@ -10,13 +10,16 @@ defmodule Procore.Resources.ContributingConditions do
   @doc """
   Lists all ContributingConditions in a Project.
   """
-  @spec list(Tesla.Client.t(), %{(company_id :: String.t()) => pos_integer}) ::
-          %ResponseResult{} | %ErrorResult{}
-  def list(client, %{"company_id" => company_id} = params) do
+  @spec list(Tesla.Client.t(), %{
+          required(company_id :: String.t()) => pos_integer,
+          optional(api_version :: String.t()) => String.t()
+        }) :: %ResponseResult{} | %ErrorResult{}
+  def list(client, %{"company_id" => company_id} = options) do
     %Request{}
     |> Request.insert_request_type(:get)
-    |> Request.insert_endpoint("/vapid/companies/#{company_id}/contributing_conditions")
-    |> Request.insert_query_params(params)
+    |> Request.insert_api_version(options["api_version"])
+    |> Request.insert_endpoint("/companies/#{company_id}/contributing_conditions")
+    |> Request.insert_query_params(Map.drop(options, ["api_version"]))
     |> Procore.send_request(client)
   end
 
@@ -24,17 +27,22 @@ defmodule Procore.Resources.ContributingConditions do
   Gets a single ContributingCondition.
   """
   @spec find(Tesla.Client.t(), %{
-          (company_id :: String.t()) => pos_integer,
-          (contributing_condition_id :: String.t()) => pos_integer
+          required(company_id :: String.t()) => pos_integer,
+          required(contributing_condition_id :: String.t()) => pos_integer,
+          optional(api_version :: String.t()) => String.t()
         }) :: %ResponseResult{} | %ErrorResult{}
-  def find(client, %{
-        "company_id" => company_id,
-        "contributing_condition_id" => contributing_condition_id
-      }) do
+  def find(
+        client,
+        %{
+          "company_id" => company_id,
+          "contributing_condition_id" => contributing_condition_id
+        } = options
+      ) do
     %Request{}
     |> Request.insert_request_type(:get)
+    |> Request.insert_api_version(options["api_version"])
     |> Request.insert_endpoint(
-      "/vapid/companies/#{company_id}/contributing_conditions/#{contributing_condition_id}"
+      "/companies/#{company_id}/contributing_conditions/#{contributing_condition_id}"
     )
     |> Request.insert_query_params(%{"company_id" => company_id})
     |> Procore.send_request(client)
@@ -44,18 +52,20 @@ defmodule Procore.Resources.ContributingConditions do
   Creates an ContributingCondition.
   """
   @spec create(Tesla.Client.t(), %{
-          (company_id :: String.t()) => pos_integer,
-          (contributing_condition :: String.t()) => map
+          required(company_id :: String.t()) => pos_integer,
+          required(contributing_condition :: String.t()) => map,
+          optional(api_version :: String.t()) => String.t()
         }) :: %ResponseResult{} | %ErrorResult{}
   def create(
         client,
         %{"company_id" => company_id, "contributing_condition" => _contributing_condition} =
-          params
+          options
       ) do
     %Request{}
     |> Request.insert_request_type(:post)
-    |> Request.insert_endpoint("/vapid/companies/#{company_id}/contributing_conditions")
-    |> Request.insert_body(params)
+    |> Request.insert_api_version(options["api_version"])
+    |> Request.insert_endpoint("/companies/#{company_id}/contributing_conditions")
+    |> Request.insert_body(Map.drop(options, ["api_version"]))
     |> Procore.send_request(client)
   end
 end

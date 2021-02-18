@@ -11,9 +11,10 @@ defmodule Procore.Resources.MeetingTopics do
   Creates a meeting topic.
   """
   @spec create(Tesla.Client.t(), %{
-          (project_id :: String.t()) => pos_integer,
-          (meeting_id :: String.t()) => pos_integer,
-          (meeting_topic :: String.t()) => map
+          required(project_id :: String.t()) => pos_integer,
+          required(meeting_id :: String.t()) => pos_integer,
+          required(meeting_topic :: String.t()) => map,
+          optional(api_version :: String.t()) => String.t()
         }) :: %ResponseResult{} | %ErrorResult{}
   def create(
         client,
@@ -21,12 +22,13 @@ defmodule Procore.Resources.MeetingTopics do
           "project_id" => _project_id,
           "meeting_id" => _meeting_id,
           "meeting_topic" => _meeting_topic
-        } = params
+        } = options
       ) do
     %Request{}
     |> Request.insert_request_type(:post)
-    |> Request.insert_endpoint("/vapid/meeting_topics")
-    |> Request.insert_body(params)
+    |> Request.insert_api_version(options["api_version"])
+    |> Request.insert_endpoint("/meeting_topics")
+    |> Request.insert_body(Map.drop(options, ["api_version"]))
     |> Procore.send_request(client)
   end
 end

@@ -10,13 +10,16 @@ defmodule Procore.Resources.PrimeContracts do
   @doc """
   Lists the Prime Contract for a Project.
   """
-  @spec list(Tesla.Client.t(), %{(project_id :: String.t()) => pos_integer}) ::
-          %ResponseResult{} | %ErrorResult{}
-  def list(client, %{"project_id" => _project_id} = params) do
+  @spec list(Tesla.Client.t(), %{
+          required(project_id :: String.t()) => pos_integer,
+          optional(api_version :: String.t()) => String.t()
+        }) :: %ResponseResult{} | %ErrorResult{}
+  def list(client, %{"project_id" => _project_id} = options) do
     %Request{}
     |> Request.insert_request_type(:get)
-    |> Request.insert_endpoint("/vapid/prime_contract")
-    |> Request.insert_query_params(params)
+    |> Request.insert_api_version(options["api_version"])
+    |> Request.insert_endpoint("/prime_contract")
+    |> Request.insert_query_params(Map.drop(options, ["api_version"]))
     |> Procore.send_request(client)
   end
 
@@ -24,16 +27,18 @@ defmodule Procore.Resources.PrimeContracts do
   Gets the Prime Contract for the Project.
   """
   @spec find(Tesla.Client.t(), %{
-          (project_id :: String.t()) => pos_integer,
-          (prime_contract_id :: String.t()) => pos_integer
+          required(project_id :: String.t()) => pos_integer,
+          required(prime_contract_id :: String.t()) => pos_integer,
+          optional(api_version :: String.t()) => String.t()
         }) :: %ResponseResult{} | %ErrorResult{}
   def find(
         client,
-        %{"project_id" => project_id, "prime_contract_id" => prime_contract_id} = _params
+        %{"project_id" => project_id, "prime_contract_id" => prime_contract_id} = options
       ) do
     %Request{}
     |> Request.insert_request_type(:get)
-    |> Request.insert_endpoint("/vapid/prime_contract/#{prime_contract_id}")
+    |> Request.insert_api_version(options["api_version"])
+    |> Request.insert_endpoint("/prime_contract/#{prime_contract_id}")
     |> Request.insert_query_params(%{"project_id" => project_id})
     |> Procore.send_request(client)
   end
@@ -42,9 +47,10 @@ defmodule Procore.Resources.PrimeContracts do
   Creates a the Prime Contract for a Project.
   """
   @spec create(Tesla.Client.t(), %{
-          (project_id :: String.t()) => pos_integer,
-          (attachments :: String.t()) => list,
-          (prime_contract :: String.t()) => map
+          required(project_id :: String.t()) => pos_integer,
+          required(attachments :: String.t()) => list,
+          required(prime_contract :: String.t()) => map,
+          optional(api_version :: String.t()) => String.t()
         }) :: %ResponseResult{} | %ErrorResult{}
   def create(
         client,
@@ -52,11 +58,12 @@ defmodule Procore.Resources.PrimeContracts do
           "project_id" => project_id,
           "attachments" => _attachments,
           "prime_contract" => prime_contract
-        } = _params
+        } = options
       ) do
     %Request{}
     |> Request.insert_request_type(:post)
-    |> Request.insert_endpoint("/vapid/prime_contract")
+    |> Request.insert_api_version(options["api_version"])
+    |> Request.insert_endpoint("/prime_contract")
     |> Request.insert_body(%{"project_id" => project_id, "prime_contract" => prime_contract})
     |> Procore.send_request(client)
   end

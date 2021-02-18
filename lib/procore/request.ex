@@ -7,12 +7,14 @@ defmodule Procore.Request do
 
   @type t :: %__MODULE__{
           body: %{},
+          api_version: String.t(),
           endpoint: String.t(),
           query_params: %{},
           request_type: valid_request_type | :unset
         }
 
   defstruct body: %{},
+            api_version: "",
             endpoint: "",
             query_params: %{},
             request_type: :unset
@@ -23,6 +25,26 @@ defmodule Procore.Request do
   @spec insert_request_type(Request.t(), valid_request_type) :: Request.t()
   def insert_request_type(%__MODULE__{} = request, request_type) do
     %{request | request_type: request_type}
+  end
+
+  # @doc """
+  # Stores API version root.
+  # """
+  @spec insert_api_version(Request.t(), String.t() | nil) :: Request.t()
+  def insert_api_version(%__MODULE__{} = request, version) do
+    api_version =
+      cond do
+        version && version == "vapid" ->
+          "/vapid"
+
+        version != nil ->
+          "/rest/#{version}"
+
+        true ->
+          "/rest/#{Application.get_env(:procore, :default_version)}"
+      end
+
+    %{request | api_version: api_version}
   end
 
   @doc """

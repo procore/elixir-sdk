@@ -10,12 +10,15 @@ defmodule Procore.Resources.ProjectChecklistTemplates do
   @doc """
   Lists all Checklist Template for a Project.
   """
-  @spec list(Tesla.Client.t(), %{(project_id :: String.t()) => pos_integer}) ::
-          %ResponseResult{} | %ErrorResult{}
-  def list(client, %{"project_id" => project_id}) do
+  @spec list(Tesla.Client.t(), %{
+          required(project_id :: String.t()) => pos_integer,
+          optional(api_version :: String.t()) => String.t()
+        }) :: %ResponseResult{} | %ErrorResult{}
+  def list(client, %{"project_id" => project_id} = options) do
     %Request{}
     |> Request.insert_request_type(:get)
-    |> Request.insert_endpoint("/vapid/checklist/list_templates")
+    |> Request.insert_api_version(options["api_version"])
+    |> Request.insert_endpoint("/checklist/list_templates")
     |> Request.insert_query_params(%{"project_id" => project_id})
     |> Procore.send_request(client)
   end
@@ -24,13 +27,18 @@ defmodule Procore.Resources.ProjectChecklistTemplates do
   Returns a Project Checklist Template.
   """
   @spec find(Tesla.Client.t(), %{
-          (project_id :: String.t()) => pos_integer,
-          (list_template_id :: String.t()) => pos_integer
+          required(project_id :: String.t()) => pos_integer,
+          required(list_template_id :: String.t()) => pos_integer,
+          optional(api_version :: String.t()) => String.t()
         }) :: %ResponseResult{} | %ErrorResult{}
-  def find(client, %{"project_id" => project_id, "list_template_id" => list_template_id}) do
+  def find(
+        client,
+        %{"project_id" => project_id, "list_template_id" => list_template_id} = options
+      ) do
     %Request{}
     |> Request.insert_request_type(:get)
-    |> Request.insert_endpoint("/vapid/checklist/list_templates/#{list_template_id}")
+    |> Request.insert_api_version(options["api_version"])
+    |> Request.insert_endpoint("/checklist/list_templates/#{list_template_id}")
     |> Request.insert_query_params(%{"project_id" => project_id})
     |> Procore.send_request(client)
   end
@@ -39,17 +47,19 @@ defmodule Procore.Resources.ProjectChecklistTemplates do
   Creates a Project Checklist Template from a Company Checklist Template.
   """
   @spec create_from_company_template(Tesla.Client.t(), %{
-          (project_id :: String.t()) => pos_integer,
-          (source_template_id :: String.t()) => pos_integer
+          required(project_id :: String.t()) => pos_integer,
+          required(source_template_id :: String.t()) => pos_integer,
+          optional(api_version :: String.t()) => String.t()
         }) :: %ResponseResult{} | %ErrorResult{}
   def create_from_company_template(
         client,
-        %{"project_id" => _project_id, "source_template_id" => _source_template_id} = params
+        %{"project_id" => _project_id, "source_template_id" => _source_template_id} = options
       ) do
     %Request{}
     |> Request.insert_request_type(:post)
-    |> Request.insert_endpoint("/vapid/checklist/list_templates/create_from_company_template")
-    |> Request.insert_body(params)
+    |> Request.insert_api_version(options["api_version"])
+    |> Request.insert_endpoint("/checklist/list_templates/create_from_company_template")
+    |> Request.insert_body(Map.drop(options, ["api_version"]))
     |> Procore.send_request(client)
   end
 end

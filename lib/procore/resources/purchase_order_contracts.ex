@@ -10,13 +10,16 @@ defmodule Procore.Resources.PurchaseOrderContracts do
   @doc """
   Lists all Purchase Order Contracts in a project.
   """
-  @spec list(Tesla.Client.t(), %{(project_id :: String.t()) => pos_integer}) ::
-          %ResponseResult{} | %ErrorResult{}
-  def list(client, %{"project_id" => _project_id} = params) do
+  @spec list(Tesla.Client.t(), %{
+          required(project_id :: String.t()) => pos_integer,
+          optional(api_version :: String.t()) => String.t()
+        }) :: %ResponseResult{} | %ErrorResult{}
+  def list(client, %{"project_id" => _project_id} = options) do
     %Request{}
     |> Request.insert_request_type(:get)
-    |> Request.insert_endpoint("/vapid/purchase_order_contracts")
-    |> Request.insert_query_params(params)
+    |> Request.insert_api_version(options["api_version"])
+    |> Request.insert_endpoint("/purchase_order_contracts")
+    |> Request.insert_query_params(Map.drop(options, ["api_version"]))
     |> Procore.send_request(client)
   end
 
@@ -24,16 +27,21 @@ defmodule Procore.Resources.PurchaseOrderContracts do
   Returns a Purchase Order Contract and associated records.
   """
   @spec find(Tesla.Client.t(), %{
-          (project_id :: String.t()) => pos_integer,
-          (purchase_order_contract_id :: String.t()) => pos_integer
+          required(project_id :: String.t()) => pos_integer,
+          required(purchase_order_contract_id :: String.t()) => pos_integer,
+          optional(api_version :: String.t()) => String.t()
         }) :: %ResponseResult{} | %ErrorResult{}
-  def find(client, %{
-        "project_id" => project_id,
-        "purchase_order_contract_id" => purchase_order_contract_id
-      }) do
+  def find(
+        client,
+        %{
+          "project_id" => project_id,
+          "purchase_order_contract_id" => purchase_order_contract_id
+        } = options
+      ) do
     %Request{}
     |> Request.insert_request_type(:get)
-    |> Request.insert_endpoint("/vapid/purchase_order_contracts/#{purchase_order_contract_id}")
+    |> Request.insert_api_version(options["api_version"])
+    |> Request.insert_endpoint("/purchase_order_contracts/#{purchase_order_contract_id}")
     |> Request.insert_query_params(%{"project_id" => project_id})
     |> Procore.send_request(client)
   end
@@ -42,16 +50,21 @@ defmodule Procore.Resources.PurchaseOrderContracts do
   Creates or updates a batch of Purchase Order Contracts.
   """
   @spec sync(Tesla.Client.t(), %{
-          (project_id :: String.t()) => pos_integer,
-          (rfi :: String.t()) => list
+          required(project_id :: String.t()) => pos_integer,
+          required(rfi :: String.t()) => list,
+          optional(api_version :: String.t()) => String.t()
         }) :: %ResponseResult{} | %ErrorResult{}
-  def sync(client, %{
-        "project_id" => project_id,
-        "purchase_order_contracts" => purchase_order_contracts
-      }) do
+  def sync(
+        client,
+        %{
+          "project_id" => project_id,
+          "purchase_order_contracts" => purchase_order_contracts
+        } = options
+      ) do
     %Request{}
     |> Request.insert_request_type(:patch)
-    |> Request.insert_endpoint("/vapid/purchase_order_contracts/sync")
+    |> Request.insert_api_version(options["api_version"])
+    |> Request.insert_endpoint("/purchase_order_contracts/sync")
     |> Request.insert_body(%{"project_id" => project_id, "updates" => purchase_order_contracts})
     |> Procore.send_request(client)
   end
