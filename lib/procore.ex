@@ -59,7 +59,11 @@ defmodule Procore do
         client
       )
       when byte_size(endpoint) > 0 do
-    http_client().get(client, "#{api_version}#{endpoint}", QueryParams.build(query_params))
+    http_client().get(
+      client,
+      endpoint_url(api_version, endpoint),
+      QueryParams.build(query_params)
+    )
   end
 
   @doc """
@@ -76,7 +80,12 @@ defmodule Procore do
         client
       )
       when byte_size(endpoint) > 0 do
-    http_client().post(client, "#{api_version}#{endpoint}", body, QueryParams.build(query_params))
+    http_client().post(
+      client,
+      endpoint_url(api_version, endpoint),
+      body,
+      QueryParams.build(query_params)
+    )
   end
 
   @doc """
@@ -87,7 +96,7 @@ defmodule Procore do
         client
       )
       when byte_size(endpoint) > 0 do
-    http_client().patch(client, "#{api_version}#{endpoint}", body)
+    http_client().patch(client, endpoint_url(api_version, endpoint), body)
   end
 
   @doc """
@@ -110,6 +119,10 @@ defmodule Procore do
       :oauth_client,
       Tesla.Middleware.ClientCredentialsOAuth
     )
+  end
+
+  defp endpoint_url(api_version, endpoint) do
+    "#{api_version}#{endpoint}"
   end
 
   def http_client() do
