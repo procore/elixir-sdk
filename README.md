@@ -28,7 +28,7 @@ config :procore,
   default_version: "v1.0"
 ```
 
-`default_version` sets the rest or vapid API version you would like to be used when not specified in your request.
+`default_version` sets the default API version to use if none is specified in the client request. Should be either "v1.0" (recommended) or "vapid" (legacy).
 
 Add `:procore` to your list of applications if using Elixir 1.3 or lower.
 
