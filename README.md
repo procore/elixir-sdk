@@ -10,7 +10,7 @@ added everyday!
 Add the following code to your dependencies in your **`mix.exs`** file:
 
 ```elixir
-{:procore, "~> 0.0.1"}
+{:procore, "~> 1.0.0"}
 ```
 
 ## Configuration
@@ -24,8 +24,11 @@ config :procore,
   client_secret: "PROCORE_CLIENT_SECRET"
   host: "PROCORE_HOST_URL"
   oauth_url: "#{PROCORE_HOST_URL}/oauth/token",
-  http_client: Procore.HttpClient
+  http_client: Procore.HttpClient,
+  default_version: "v1.0"
 ```
+
+`default_version` sets the rest or vapid API version you would like to be used when not specified in your request.
 
 Add `:procore` to your list of applications if using Elixir 1.3 or lower.
 
@@ -43,7 +46,7 @@ alias Procore.Resources.Offices
 
 client = Procore.client()
 
-{:ok, response} = client |> Offices.list(%{"company_id" => 1})
+{:ok, response} = client |> Offices.list(%{"company_id" => 1, "api_version" => "v1.1"})
 
 #=> response
 %ResponseResult{
