@@ -7,16 +7,21 @@ defmodule Procore.Resources.SpecificationUploads do
   alias Procore.ResponseResult
 
   @spec create(Tesla.Client.t(), %{
-          (project_id :: String.t()) => pos_integer,
-          (specification_upload :: String.t()) => map
+          required(project_id :: String.t()) => pos_integer,
+          required(specification_upload :: String.t()) => map,
+          optional(api_version :: String.t()) => String.t()
         }) :: %ResponseResult{} | %ErrorResult{}
-  def create(client, %{
-        "project_id" => project_id,
-        "specification_upload" => spec_upload
-      }) do
+  def create(
+        client,
+        %{
+          "project_id" => project_id,
+          "specification_upload" => spec_upload
+        } = options
+      ) do
     %Request{}
     |> Request.insert_request_type(:post)
-    |> Request.insert_endpoint("/vapid/projects/#{project_id}/specification_uploads")
+    |> Request.insert_api_version(options["api_version"])
+    |> Request.insert_endpoint("/projects/#{project_id}/specification_uploads")
     |> Request.insert_body(build_create_body(spec_upload))
     |> Procore.send_request(client)
   end

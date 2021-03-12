@@ -10,13 +10,16 @@ defmodule Procore.Resources.ObservationItems do
   @doc """
   Lists all Observation Items in a Project.
   """
-  @spec list(Tesla.Client.t(), %{(project_id :: String.t()) => pos_integer}) ::
-          %ResponseResult{} | %ErrorResult{}
-  def list(client, %{"project_id" => _project_id} = params) do
+  @spec list(Tesla.Client.t(), %{
+          required(project_id :: String.t()) => pos_integer,
+          optional(api_version :: String.t()) => String.t()
+        }) :: %ResponseResult{} | %ErrorResult{}
+  def list(client, %{"project_id" => _project_id} = options) do
     %Request{}
     |> Request.insert_request_type(:get)
-    |> Request.insert_endpoint("/vapid/observations/items")
-    |> Request.insert_query_params(params)
+    |> Request.insert_api_version(options["api_version"])
+    |> Request.insert_endpoint("/observations/items")
+    |> Request.insert_query_params(Map.drop(options, ["api_version"]))
     |> Procore.send_request(client)
   end
 
@@ -24,13 +27,18 @@ defmodule Procore.Resources.ObservationItems do
   Gets a single Observation Item.
   """
   @spec find(Tesla.Client.t(), %{
-          (project_id :: String.t()) => pos_integer,
-          (observation_item_id :: String.t()) => pos_integer
+          required(project_id :: String.t()) => pos_integer,
+          required(observation_item_id :: String.t()) => pos_integer,
+          optional(api_version :: String.t()) => String.t()
         }) :: %ResponseResult{} | %ErrorResult{}
-  def find(client, %{"project_id" => project_id, "observation_item_id" => observation_item_id}) do
+  def find(
+        client,
+        %{"project_id" => project_id, "observation_item_id" => observation_item_id} = options
+      ) do
     %Request{}
     |> Request.insert_request_type(:get)
-    |> Request.insert_endpoint("/vapid/observations/items/#{observation_item_id}")
+    |> Request.insert_api_version(options["api_version"])
+    |> Request.insert_endpoint("/observations/items/#{observation_item_id}")
     |> Request.insert_query_params(%{"project_id" => project_id})
     |> Procore.send_request(client)
   end
@@ -39,14 +47,16 @@ defmodule Procore.Resources.ObservationItems do
   Creates an Observation Item.
   """
   @spec create(Tesla.Client.t(), %{
-          (project_id :: String.t()) => pos_integer,
-          (observation_item :: String.t()) => map
+          required(project_id :: String.t()) => pos_integer,
+          required(observation_item :: String.t()) => map,
+          optional(api_version :: String.t()) => String.t()
         }) :: %ResponseResult{} | %ErrorResult{}
-  def create(client, %{"project_id" => _project_id, "observation" => _observation_item} = params) do
+  def create(client, %{"project_id" => _project_id, "observation" => _observation_item} = options) do
     %Request{}
     |> Request.insert_request_type(:post)
-    |> Request.insert_endpoint("/vapid/observations/items")
-    |> Request.insert_body(params)
+    |> Request.insert_api_version(options["api_version"])
+    |> Request.insert_endpoint("/observations/items")
+    |> Request.insert_body(Map.drop(options, ["api_version"]))
     |> Procore.send_request(client)
   end
 end

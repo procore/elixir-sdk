@@ -11,10 +11,11 @@ defmodule Procore.Resources.Projects do
   Gets a project.
   """
   @spec find(Tesla.Client.t(), map) :: %ResponseResult{} | %ErrorResult{}
-  def find(client, %{"company_id" => company_id, "project_id" => project_id}) do
+  def find(client, %{"company_id" => company_id, "project_id" => project_id} = options) do
     %Request{}
     |> Request.insert_request_type(:get)
-    |> Request.insert_endpoint("/vapid/projects/#{project_id}")
+    |> Request.insert_api_version(options["api_version"])
+    |> Request.insert_endpoint("/projects/#{project_id}")
     |> Request.insert_query_params(%{"company_id" => company_id})
     |> Procore.send_request(client)
   end
@@ -23,10 +24,11 @@ defmodule Procore.Resources.Projects do
   Lists projects.
   """
   @spec list(Tesla.Client.t(), map) :: %ResponseResult{} | %ErrorResult{}
-  def list(client, %{"company_id" => company_id}) do
+  def list(client, %{"company_id" => company_id} = options) do
     %Request{}
     |> Request.insert_request_type(:get)
-    |> Request.insert_endpoint("/vapid/projects")
+    |> Request.insert_api_version(options["api_version"])
+    |> Request.insert_endpoint("/projects")
     |> Request.insert_query_params(%{"company_id" => company_id})
     |> Procore.send_request(client)
   end
@@ -35,10 +37,11 @@ defmodule Procore.Resources.Projects do
   Creates a project and all of it's required defaults and associations.
   """
   @spec create(Tesla.Client.t(), map) :: %ResponseResult{} | %ErrorResult{}
-  def create(client, %{"company_id" => company_id, "project" => project}) do
+  def create(client, %{"company_id" => company_id, "project" => project} = options) do
     %Request{}
     |> Request.insert_request_type(:post)
-    |> Request.insert_endpoint("/vapid/projects")
+    |> Request.insert_api_version(options["api_version"])
+    |> Request.insert_endpoint("/projects")
     |> Request.insert_body(%{"company_id" => company_id, "project" => project})
     |> Procore.send_request(client)
   end

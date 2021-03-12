@@ -10,23 +10,29 @@ defmodule Procore.Resources.Companies do
   @doc """
   Gets a company.
   """
-  @spec find(Tesla.Client.t(), %{(id :: String.t()) => pos_integer}) ::
-          %ResponseResult{} | %ErrorResult{}
-  def find(client, %{"id" => id}) do
+  @spec find(Tesla.Client.t(), %{
+          required(id :: String.t()) => pos_integer,
+          optional(api_version :: String.t()) => String.t()
+        }) :: %ResponseResult{} | %ErrorResult{}
+  def find(client, %{"id" => id} = options) do
     %Request{}
     |> Request.insert_request_type(:get)
-    |> Request.insert_endpoint("/vapid/companies/#{id}")
+    |> Request.insert_api_version(options["api_version"])
+    |> Request.insert_endpoint("/companies/#{id}")
     |> Procore.send_request(client)
   end
 
   @doc """
   List companies.
   """
-  @spec list(Tesla.Client.t()) :: %ResponseResult{} | %ErrorResult{}
-  def list(client) do
+  @spec list(Tesla.Client.t(), %{
+          optional(api_version :: String.t()) => String.t()
+        }) :: %ResponseResult{} | %ErrorResult{}
+  def list(client, options) do
     %Request{}
     |> Request.insert_request_type(:get)
-    |> Request.insert_endpoint("/vapid/companies")
+    |> Request.insert_api_version(options["api_version"])
+    |> Request.insert_endpoint("/companies")
     |> Procore.send_request(client)
   end
 end

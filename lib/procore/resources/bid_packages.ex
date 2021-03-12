@@ -9,12 +9,15 @@ defmodule Procore.Resources.BidPackages do
   @doc """
   List all bid projects in a project.
   """
-  @spec list(Tesla.Client.t(), %{(project_id :: String.t()) => integer}) ::
-          %ResponseResult{} | %ErrorResult{}
-  def list(client, %{"project_id" => project_id}) do
+  @spec list(Tesla.Client.t(), %{
+          required(project_id :: String.t()) => integer,
+          optional(api_version :: String.t()) => String.t()
+        }) :: %ResponseResult{} | %ErrorResult{}
+  def list(client, %{"project_id" => project_id} = options) do
     %Request{}
     |> Request.insert_request_type(:get)
-    |> Request.insert_endpoint("/vapid/projects/#{project_id}/bid_packages")
+    |> Request.insert_api_version(options["api_version"])
+    |> Request.insert_endpoint("/projects/#{project_id}/bid_packages")
     |> Procore.send_request(client)
   end
 
@@ -22,13 +25,15 @@ defmodule Procore.Resources.BidPackages do
   Creates a bid package.
   """
   @spec create(Tesla.Client.t(), %{
-          (project_id :: String.t()) => integer,
-          (bid_package :: String.t()) => map
+          required(project_id :: String.t()) => integer,
+          required(bid_package :: String.t()) => map,
+          optional(api_version :: String.t()) => String.t()
         }) :: %ResponseResult{} | %ErrorResult{}
-  def create(client, %{"project_id" => project_id, "bid_package" => bid_package}) do
+  def create(client, %{"project_id" => project_id, "bid_package" => bid_package} = options) do
     %Request{}
     |> Request.insert_request_type(:post)
-    |> Request.insert_endpoint("/vapid/projects/#{project_id}/bid_packages")
+    |> Request.insert_api_version(options["api_version"])
+    |> Request.insert_endpoint("/projects/#{project_id}/bid_packages")
     |> Request.insert_body(%{"bid_package" => bid_package})
     |> Procore.send_request(client)
   end

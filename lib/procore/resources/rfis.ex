@@ -11,33 +11,38 @@ defmodule Procore.Resources.Rfis do
   Find a RFI in a project.
   """
   @spec find(Tesla.Client.t(), %{
-          (id :: String.t()) => pos_integer,
-          (project_id :: String.t()) => pos_integer
+          required(id :: String.t()) => pos_integer,
+          required(project_id :: String.t()) => pos_integer,
+          optional(api_version :: String.t()) => String.t()
         }) :: %ResponseResult{} | %ErrorResult{}
-  def find(client, %{"id" => id, "project_id" => project_id}) do
+  def find(client, %{"id" => id, "project_id" => project_id} = options) do
     %Request{}
     |> Request.insert_request_type(:get)
-    |> Request.insert_endpoint("/vapid/projects/#{project_id}/rfis/#{id}")
+    |> Request.insert_api_version(options["api_version"])
+    |> Request.insert_endpoint("/projects/#{project_id}/rfis/#{id}")
     |> Procore.send_request(client)
   end
 
   @doc """
   Lists all RFIs in a project.
   """
-  @spec list(Tesla.Client.t(), %{(project_id :: String.t()) => pos_integer}) ::
-          %ResponseResult{} | %ErrorResult{}
+  @spec list(Tesla.Client.t(), %{
+          required(project_id :: String.t()) => pos_integer,
+          optional(api_version :: String.t()) => String.t()
+        }) :: %ResponseResult{} | %ErrorResult{}
   def list(
         client,
-        %{"project_id" => project_id} = params
+        %{"project_id" => project_id} = options
       ) do
     query = %{
-      "filters" => Map.get(params, "filters", %{}),
-      "serializer_view" => Map.get(params, "serializer_view", "normal")
+      "filters" => Map.get(options, "filters", %{}),
+      "serializer_view" => Map.get(options, "serializer_view", "normal")
     }
 
     %Request{}
     |> Request.insert_request_type(:get)
-    |> Request.insert_endpoint("/vapid/projects/#{project_id}/rfis")
+    |> Request.insert_api_version(options["api_version"])
+    |> Request.insert_endpoint("/projects/#{project_id}/rfis")
     |> Request.insert_query_params(query)
     |> Procore.send_request(client)
   end
@@ -46,13 +51,15 @@ defmodule Procore.Resources.Rfis do
   Creates a RFI.
   """
   @spec create(Tesla.Client.t(), %{
-          (project_id :: String.t()) => pos_integer,
-          (rfi :: String.t()) => map
+          required(project_id :: String.t()) => pos_integer,
+          required(rfi :: String.t()) => map,
+          optional(api_version :: String.t()) => String.t()
         }) :: %ResponseResult{} | %ErrorResult{}
-  def create(client, %{"project_id" => project_id, "rfi" => rfi}) do
+  def create(client, %{"project_id" => project_id, "rfi" => rfi} = options) do
     %Request{}
     |> Request.insert_request_type(:post)
-    |> Request.insert_endpoint("/vapid/projects/#{project_id}/rfis")
+    |> Request.insert_api_version(options["api_version"])
+    |> Request.insert_endpoint("/projects/#{project_id}/rfis")
     |> Request.insert_body(build_create_body(rfi))
     |> Procore.send_request(client)
   end

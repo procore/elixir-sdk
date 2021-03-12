@@ -3,7 +3,7 @@ defmodule Procore.Resources.CompaniesTest do
   alias Procore.ResponseResult
   alias Procore.Resources.Companies
 
-  test "find/1" do
+  test "find/1 with default API version" do
     client = Procore.client()
     params = %{"id" => 1}
 
@@ -11,9 +11,43 @@ defmodule Procore.Resources.CompaniesTest do
              Companies.find(client, params)
   end
 
-  test "list/1" do
+  test "find/1 with specified rest API version" do
     client = Procore.client()
+    params = %{"id" => 1, "api_version" => "v1.1"}
 
-    assert %ResponseResult{reply: :ok, status_code: 200, parsed_body: []} = Companies.list(client)
+    assert %ResponseResult{reply: :ok, status_code: 200, parsed_body: %{}} =
+             Companies.find(client, params)
+  end
+
+  test "find/1 with specified vapid API version" do
+    client = Procore.client()
+    params = %{"id" => 1, "api_version" => "vapid"}
+
+    assert %ResponseResult{reply: :ok, status_code: 200, parsed_body: %{}} =
+             Companies.find(client, params)
+  end
+
+  test "list/1 with default API version" do
+    client = Procore.client()
+    params = %{}
+
+    assert %ResponseResult{reply: :ok, status_code: 200, parsed_body: []} =
+             Companies.list(client, params)
+  end
+
+  test "list/1 with specified rest API version" do
+    client = Procore.client()
+    params = %{"api_version" => "v1.1"}
+
+    assert %ResponseResult{reply: :ok, status_code: 200, parsed_body: []} =
+             Companies.list(client, params)
+  end
+
+  test "list/1 with specified vapid API version" do
+    client = Procore.client()
+    params = %{"api_version" => "vapid"}
+
+    assert %ResponseResult{reply: :ok, status_code: 200, parsed_body: []} =
+             Companies.list(client, params)
   end
 end
