@@ -14,7 +14,7 @@ defmodule Tesla.Middleware.AuthorizationOAuth do
   def headers do
     [
       {"Content-type", "application/json"},
-      {"Accept", "application/json"},
+      {"Accept", "application/json"}
     ]
   end
 end

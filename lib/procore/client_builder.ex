@@ -44,6 +44,7 @@ defmodule Procore.ClientBuilder do
     # [{"Content-Type", "multipart/form-data"}] # works for multipart
     # seems to work for both
     vsn = Application.spec(:procore, :vsn) |> to_string()
+
     [
       # Ex: "Procore-Sdk-Version: elixir-v1.0.1"
       {"Procore-Sdk-Version", "elixir-#{vsn}"}
