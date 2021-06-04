@@ -12,12 +12,9 @@ defmodule Tesla.Middleware.AuthorizationOAuth do
   end
 
   def headers do
-    {:ok, vsn} = :application.get_key(:my_app, :vsn)
-
     [
       {"Content-type", "application/json"},
       {"Accept", "application/json"},
-      {"Procore-Sdk-Version", List.to_string(vsn)}
     ]
   end
 end
