@@ -46,8 +46,9 @@ defmodule Procore.ClientBuilder do
     vsn = Application.spec(:procore, :vsn) |> to_string()
 
     [
-      # Ex: "Procore-Sdk-Version: elixir-v1.0.1"
-      {"Procore-Sdk-Version", "elixir-#{vsn}"}
+      # Ex: "Procore-Sdk-Version: v1.0.1", "Procore-Sdk-Language: elixir"
+      {"Procore-Sdk-Version", "#{vsn}"},
+      {"Procore-Sdk-Language", "elixir"}
     ]
   end
 
