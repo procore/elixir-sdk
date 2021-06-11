@@ -14,7 +14,7 @@ defmodule Procore.MixProject do
       elixirc_paths: elixirc_paths(Mix.env()),
       package: package(),
       start_permanent: Mix.env() == :prod,
-      version: "1.0.0"
+      version: "1.0.1"
     ]
   end
 

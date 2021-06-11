@@ -3,6 +3,7 @@ defmodule Procore.ClientBuilder do
 
   alias Tesla.Middleware.AuthorizationOAuth
   alias Tesla.Middleware.ClientCredentialsOAuth
+  alias Application
 
   def build(ClientCredentialsOAuth, client_id: client_id, client_secret: client_secret) do
     Tesla.build_client([
@@ -42,7 +43,13 @@ defmodule Procore.ClientBuilder do
     # [{"Content-Type", "application/json"}] # works for everything, besides multipart
     # [{"Content-Type", "multipart/form-data"}] # works for multipart
     # seems to work for both
-    []
+    vsn = Application.spec(:procore, :vsn) |> to_string()
+
+    [
+      # Ex: "Procore-Sdk-Version: v1.0.1", "Procore-Sdk-Language: elixir"
+      {"Procore-Sdk-Version", "#{vsn}"},
+      {"Procore-Sdk-Language", "elixir"}
+    ]
   end
 
   defp credentials_from_config(key) do
