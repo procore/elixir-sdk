@@ -1,3 +1,5 @@
+# THIS REPOSITORY HAS BEEN ARCHIVED
+
 # Procore
 
 [![CircleCI](https://circleci.com/gh/procore/elixir-sdk.svg?style=svg&circle-token=c727e644564c7d196c3c369ae9dcc747adb3ef19)](https://circleci.com/gh/procore/elixir-sdk)
